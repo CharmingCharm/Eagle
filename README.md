@@ -1,5 +1,5 @@
-# COMP3053 - [Your Group Name Here]
-This is the code and documentations of **[your group name here]**, COMP3053, Software Development Workshop III, BNU-HKBU United International College.
+# COMP3053 - Eagle
+This is the code and documentations of **Eagle**, COMP3053, Software Development Workshop III, BNU-HKBU United International College.
 
 ## Message from the Course Team
 **Please absolute keep your work SECRET before the course ends!**
@@ -26,7 +26,7 @@ Please read the manual file under the help directory to learn how to use the Git
 **Clone this repository**
 
 ```shell
-git clone https://github.com/workshopIII/[your-group-name]
+git clone https://github.com/workshopIII/Eagle
 ```
 
 **Fetch new changes**
