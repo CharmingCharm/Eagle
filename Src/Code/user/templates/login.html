@@ -1,0 +1,84 @@
+<html>
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "css.html" %}
+    <style>
+        body {
+            background-color: #303641;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div id="container-login">
+        <div id="title">
+			 Teamwork System
+        </div>
+
+
+        <form role="form" method="post" action="/login/">
+            {% csrf_token %}
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                {{ login_form.username }}
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                {{ login_form.password }}
+            </div>
+
+            <!-- <div class="remember-me">
+                <input type="checkbox">
+                <span style="color: #DDD">Remember Me</span>
+            </div> -->
+
+			<div style="margin-top: 20px;">
+				<input type="submit" value="Log In" style="font-size:18px; font-family: 'Raleway', sans-serif;"/>
+			</div>
+        </form>
+
+		<!-- 这里记得加回来 -->
+         <div class="forgot-password" style="font-size:12px; opacity: 0.7;">
+            <a href="#">Forgot your password?</a>
+        </div>
+
+        <div class="register">
+            Don't have an account yet?
+            <a href="/register/"><button id="register-link" style="font-family: 'Raleway', sans-serif;">Register here</button></a>
+        </div>
+    </div>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div id="container-green-message">
+                <p>{{ message }}</p>
+            </div>
+        {% else %}
+            <div id="container-red-message">
+                <p>{{ message }}</p>
+            </div>
+         {% endif %}
+    {% endfor %}
+
+{% endif %}
+
+</body>
+
+</html>
