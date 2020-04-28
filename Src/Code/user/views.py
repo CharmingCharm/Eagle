@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -7,7 +7,6 @@ from .forms import LoginForm, RegisterForm
 
 def index(request):
     return render(request, 'index.html')
-
 
 def login_self(request):
     if request.user.is_authenticated:
@@ -20,7 +19,12 @@ def login_self(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/')
+                if User.objects.get(id=request.user.id).field == 'student':
+                    return redirect('/student_home/')
+                elif User.objects.get(id=request.user.id).field == 'teacher':
+                    return redirect('/teacher_home/')
+                else:
+                    return redirect('/')
             messages.add_message(request, messages.ERROR, 'Username does not exist or password is wrong!')
         return render(request, 'login.html', locals())
     login_form = LoginForm()
@@ -55,3 +59,11 @@ def logout_self(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'Logout successfully.')
     return redirect("/")
+
+def student_home(request):
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'mainpage_student.html', locals())
+
+def teacher_home(request):
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'mainpage_teacher.html', locals())
