@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import LoginForm, RegisterForm
-
+from course.models import Course
 
 def index(request):
     return render(request, 'index.html')
@@ -58,10 +58,11 @@ def register(request):
 def logout_self(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'Logout successfully.')
-    return redirect("/")
+    return redirect("/login/")
 
 def student_home(request):
     user = User.objects.get(id=request.user.id)
+    course = Course.objects.filter(member=request.user.id)
     return render(request, 'mainpage_student.html', locals())
 
 def teacher_home(request):
@@ -69,4 +70,5 @@ def teacher_home(request):
     return render(request, 'mainpage_teacher.html', locals())
 
 def change_password(request):
+    user = User.objects.get(id=request.user.id)
     return render(request, 'change_password.html', locals())

@@ -12,7 +12,7 @@
                 <div class="row">
                     <div class="card cardpadding z-depth-1">
                         <div class="card-content">
-                            <p class="center-align" style="font-size: 28px; font-weight: 300;">Hi, Judy!</p>
+                            <p class="center-align" style="font-size: 28px; font-weight: 300;">Hi, {{ request.user }}!</p>
                             <div align="center"> <img class="responsive-img circle circle_img head_img center-align" src="{% static 'media/head1.jpg' %}"> </div>
                             <p class="center-align" style="font-size: 20px; font-weight: 300;">UIC professor</p>
                             <hr>
@@ -34,7 +34,7 @@
                 <div class="row">
                     <div class="card cardpadding">
                         <div class="card-content"> <span class="card-title">Teaching Courses:</span>
-                            <p style="opacity: 0.7">Click into the courses for futher operations!</p>
+                            <p style="opacity: 0.7">Click into the courses for further operations!</p>
                             <div class="row">
                                 <div class="col m6">
                                     <hr>

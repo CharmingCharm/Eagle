@@ -27,4 +27,5 @@ urlpatterns = [
     path('logout/', views.logout_self),
     path('student_home/', views.student_home),
     path('teacher_home/', views.teacher_home),
+    path('change_password/', views.change_password),
 ]

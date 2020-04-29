@@ -4,7 +4,7 @@ from user.models import User
 
 class Team(models.Model):
     name = models.CharField(max_length=64, unique=False)
-    leader = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    # leader = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     member = models.ManyToManyField(User)
 
     def __str__(self):
