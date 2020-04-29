@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}student main page{% endblock %}
+{% block content %}
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+        <div class="container"> <br>
+            <br>
+            <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">·&nbsp;Course duration: {{ course.begin_time }} - {{ course.end_time }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
+            </div>
+            <br>
+            <br>
+        </div>
+    </div>
+    <div class="parallax"><img src="{% static 'img/background1.jpg' %}" alt="Unsplashed background img 1"></div>
+</div>
+<div class="container">
+    <div class="section"> 
+        
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col l4 s12">
+                <div class="card cardpadding z-depth-1" style="padding:15px">
+                    <div class="card-content">
+                        <div class="row">
+                            <h5>Course Information:</h5>
+                            <p class="course_txt">Participants: 48</p>
+                            <p class="course_txt">Group forming method: None</p>
+                            <p class="course_txt">Groups: 0</p>
+                            <br>
+                            <hr>
+                            <p class="course_txt">operations:</p>
+                            <br>
+                            <div class="row">
+                                <div class="col l12 s12"> <a class="waves-effect waves-light btn changefont orange darken-2" style="width:100%;"><i class="material-icons left">mode_edit</i> Modify submission</a> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col l12 s12"> <a class="waves-effect waves-light btn changefont light-blue darken-2" style="width:100%;"><i class="material-icons left">cloud</i> Generate students</a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col l8 s12">
+                <div class="card cardpadding z-depth-1">
+                    <div class="card-content">
+                       
+                        <h5 style="font-weight: 400">Current submission list:</h5>
+                        <table class="highlight">
+                            <tr class="home_table">
+                                <th>Submission task</th>
+                                <th>Due date</th>
+                                <th>percentage</th>
+                            </tr>
+                            <tr class="home_table">
+                                <td>presentation</td>
+                                <td>2020/3/15 23:55</td>
+                                <td>20%</td>
+                            </tr>
+                            <tr class="home_table">
+                                <td>document SRS</td>
+                                <td>2020/3/15 12:55</td>
+                                <td>30%</td>
+                            </tr>
+                            <tr class="home_table">
+                                <td>document SDS</td>
+                                <td>2020/3/15 7:55</td>
+                                <td>40%</td>
+                            </tr>
+                            <tr class="home_table">
+                                <td>group minutes</td>
+                                <td>2020/3/15 3:55</td>
+                                <td>10%</td>
+                            </tr>
+                        </table>
+                        <br>
+                        <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="section"> </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+	 $(document).ready(function(){
+      $('.parallax').parallax();
+    });
+	
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+			title: {
+                    text: '',
+                    subtext: '',
+                    x: 'center'
+                },
+
+                // Add legend
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['presentation', 'document SRS', 'document SDS', 'minutes']
+                },
+
+                // Add custom colors
+                color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
+
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        center: ['50%', '57.5%'],
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true
+                                },
+                                labelLine: {
+                                    show: true
+                                }
+                            },
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    formatter: '{b}' +' ({d}%)',
+                                    position: 'center',
+                                    textStyle: {
+                                        fontSize: '17',
+                                        fontWeight: '500'
+                                    }
+                                }
+                            }
+                        },
+
+                        data: [
+                {value: 20, name: 'presentation'},
+                {value: 30, name: 'document SRS'},
+                {value: 40, name: 'document SDS'},
+                {value: 10, name: 'minutes'},
+            ]
+                    }
+                ]
+//    tooltip: {
+//        trigger: 'item',
+//        formatter: '{b}:({d}%)'
+//    },
+//    legend: {
+//        orient: 'vertical',
+//        left: 10,
+//        data: ['presentation', 'document SRS', 'document SDS', 'group minutes']
+//    },
+//    series: [
+//        {
+//            type: 'pie',
+//            radius: ['50%', '70%'],
+//            avoidLabelOverlap: false,
+//            label: {
+//                normal: {
+//                    show: false,
+//                    position: 'center'
+//                },
+//                emphasis: {
+//                    show: true,
+//                    textStyle: {
+//                        fontSize: '15'
+//                    }
+//                }
+//            },
+//            labelLine: {
+//                normal: {
+//                    show: false
+//                }
+//            },
+//            data: [
+//                {value: 20, name: 'presentation'},
+//                {value: 30, name: 'document SRS'},
+//                {value: 40, name: 'document SDS'},
+//                {value: 10, name: 'group minutes'},
+//            ]
+//        }
+//    ]
+};
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% endblock %}

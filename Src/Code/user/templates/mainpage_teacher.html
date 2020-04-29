@@ -3,91 +3,134 @@
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Teacher main page{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="section"> 
-        
-        <!--   Icon Section   -->
-        <div class="row">
-            <div class="col l4 s12">
-                <div class="row">
-                    <div class="card cardpadding z-depth-1">
-                        <div class="card-content">
-                            <p class="center-align" style="font-size: 28px; font-weight: 300;">Hi, {{ request.user }}!</p>
-                            <div align="center"> <img class="responsive-img circle circle_img head_img center-align" src="{% static 'media/head1.jpg' %}"> </div>
-                            <p class="center-align" style="font-size: 20px; font-weight: 300;">UIC professor</p>
-                            <hr>
-                            <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">Available Operations:</p>
-                            <div class="row">
-                                <div class="col l12 s12"> <a class="waves-effect waves-light btn button_font purple darken-3" style="width:100%;"><i class="material-icons left">input</i> TBD</a> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col l12 s12"> <a class="waves-effect waves-light btn button_font blue darken-3" style="width:100%;"><i class="material-icons left">call_made</i> TBD</a> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col l12 s12"> <a class="waves-effect waves-light btn button_font grey darken-3" style="width:100%;"><i class="material-icons left">mode_edit</i> TBD</a> </div>
+    <div class="container">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col l4 s12">
+                    <div class="row">
+                        <div class="card cardpadding z-depth-1">
+                            <div class="card-content">
+                                <p class="center-align" style="font-size: 28px; font-weight: 300;">
+                                    Hi, {{ request.user }}!</p>
+                                <div align="center"><img class="responsive-img circle circle_img head_img center-align"
+                                                         src="{% static 'media/head1.jpg' %}"></div>
+                                <p class="center-align" style="font-size: 20px; font-weight: 300;">UIC professor</p>
+                                <hr>
+                                <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">Available
+                                    Operations:</p>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn button_font purple darken-3"
+                                            style="width:100%;"><i class="material-icons left">input</i> TBD</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn button_font blue darken-3"
+                                            style="width:100%;"><i class="material-icons left">call_made</i> TBD</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn button_font grey darken-3"
+                                            style="width:100%;"><i class="material-icons left">mode_edit</i> TBD</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col l8 s12">
-                <div class="row">
-                    <div class="card cardpadding">
-                        <div class="card-content"> <span class="card-title">Teaching Courses:</span>
-                            <p style="opacity: 0.7">Click into the courses for further operations!</p>
-                            <div class="row">
-                                <div class="col m6">
-                                    <hr>
+                <div class="col l8 s12">
+                    <div class="row">
+                        <div class="card cardpadding">
+                            <div class="card-content"><span class="card-title">Learning Courses:</span>
+                                <p style="opacity: 0.7">Click into the courses for further operations!</p>
+                                <div class="row">
+                                    <div class="col m6">
+                                        <hr>
+                                    </div>
+                                </div>
+
+
+                                {% if course %}
+                                    <table>
+                                        <tr class="home_table">
+                                            <th>Course name</th>
+                                            <th>Duration</th>
+                                            <th>Participants</th>
+                                        </tr>
+
+                                        {% for item in course_list %}
+                                            <tr class="home_table">
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.begin_time | date:'Y/m/d' }}
+                                                    - {{ item.end_time | date:'Y/m/d' }}</td>
+                                                <td>{{ item.count }}</td>
+                                            </tr>
+                                        {% endfor %}
+
+                                    </table>
+                                {% else %}
+                                    <h2>Currently you have no course.</h2>
+                                {% endif %}
+
+                                {#                                <div class="center-align">#}
+                                {#                                    <ul class="pagination">#}
+                                {#                                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>#}
+                                {#                                        </li>#}
+                                {#                                        <li class="active grey darken-3"><a href="#!">1</a></li>#}
+                                {#                                        <li class="waves-effect"><a href="#!">2</a></li>#}
+                                {#                                        <li class="waves-effect"><a href="#!">3</a></li>#}
+                                {#                                        <li class="waves-effect"><a href="#!">4</a></li>#}
+                                {#                                        <li class="waves-effect"><a href="#!">5</a></li>#}
+                                {#                                        <li class="waves-effect"><a href="#!"><i#}
+                                {#                                                class="material-icons">chevron_right</i></a></li>#}
+                                {#                                    </ul>#}
+                                {#                                </div>#}
+
+                                <div class="center-align">
+                                    {% if data %}
+                                        <ul id="pages" class="pagination">
+
+                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
+                                            </li>
+
+                                            {% if data.first %}
+                                                <li class="waves-effect"><a href="?page=1">1</a></li>
+                                            {% endif %}
+                                            {% if data.left %}
+                                                {% if data.left_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                                {% for i in data.left %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <li class="active grey darken-3 waves-effect"><a
+                                                    href="?page={{ data.page }}">{{ data.page }}</a></li>
+
+                                            {% if data.right %}
+                                                {% for i in data.right %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                                {% if data.right_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if data.last %}
+                                                <li class="waves-effect"><a
+                                                        href="?page={{ data.total_pages }}">{{ data.total_pages }}</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <li class="waves-effect"><a href="#!"><i
+                                                    class="material-icons">chevron_right</i></a></li>
+                                        </ul>
+                                    {% endif %}
                                 </div>
                             </div>
-                            <table class="highlight">
-                                <tr class="home_table">
-                                    <th>Course name</th>
-                                    <th>Duration</th>
-                                    <th>Participants</th>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software Engineering</a></td>
-                                    <td>2020/3/15-2020/5/21</td>
-                                    <td>55</td>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software development workshop III</a></td>
-                                    <td>2020/4/15-2020/5/21</td>
-                                    <td>35</td>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software Engineering</a></td>
-                                    <td>2020/3/15-2020/5/21</td>
-                                    <td>55</td>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software development workshop III</a></td>
-                                    <td>2020/4/15-2020/5/21</td>
-                                    <td>35</td>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software Engineering</a></td>
-                                    <td>2020/3/15-2020/5/21</td>
-                                    <td>55</td>
-                                </tr>
-                                <tr class="home_table">
-                                    <td><a>Software development workshop III</a></td>
-                                    <td>2020/4/15-2020/5/21</td>
-                                    <td>35</td>
-                                </tr>
-                            </table>
-                            <div class="center-align button_font">
-                                <ul class="pagination">
-                                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                                    <li class="active grey darken-3"><a href="#!">1</a></li>
-                                    <li class="waves-effect"><a href="#!">2</a></li>
-                                    <li class="waves-effect"><a href="#!">3</a></li>
-                                    <li class="waves-effect"><a href="#!">4</a></li>
-                                    <li class="waves-effect"><a href="#!">5</a></li>
-                                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -96,7 +139,7 @@
     </div>
     <br>
     <br>
-    <div class="section"> </div>
-</div>
+    <div class="section"></div>
+    </div>
 
 {% endblock %}
