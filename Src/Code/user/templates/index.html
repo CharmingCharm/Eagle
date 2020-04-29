@@ -1,0 +1,28 @@
+<html>
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+    <div>
+
+     <ul id="nav-mobile" class="side-nav">
+        {% if request.user.is_authenticated %}
+                <li><a href="/login/">{{ request.user }}</a></li>
+                <li><a href="/logout/">Logout</a></li>
+            {% else %}
+                <li><a href="/login/">Login</a></li>
+            {% endif %}
+     </ul>
+    <h1>这是你麻痹的主页</h1>
+    <h1>这是你麻痹的主页</h1>
+    <h1>这是你麻痹的主页</h1>
+    </div>
+</body>
+
+</html>
