@@ -67,3 +67,6 @@ def student_home(request):
 def teacher_home(request):
     user = User.objects.get(id=request.user.id)
     return render(request, 'mainpage_teacher.html', locals())
+
+def change_password(request):
+    return render(request, 'change_password.html', locals())
