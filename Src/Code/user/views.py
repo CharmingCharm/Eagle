@@ -70,7 +70,7 @@ def student_home(request):
     course = Course.objects.filter(member=request.user.id).order_by('id')
     for item in course:
         item.participation = Course.objects.get(id=item.id).member.count()
-    course.save()
+        item.save()
 
     p = Paginator(course, 5)
     if p.num_pages <= 1:

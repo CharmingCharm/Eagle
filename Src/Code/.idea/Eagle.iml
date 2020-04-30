@@ -25,6 +25,7 @@
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/course/templates" />
         <option value="$MODULE_DIR$/submission/templates" />
+        <option value="$MODULE_DIR$/team/templates" />
       </list>
     </option>
   </component>

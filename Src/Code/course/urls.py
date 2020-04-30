@@ -20,4 +20,7 @@ from course import views
 app_name = 'course'
 urlpatterns = [
     path('course/<int:course_id>', views.course_page),
+    path('course/<int:course_id>/generate_student', views.generate_student),
+    path('course/<int:course_id>/import_student_excel', views.import_student_excel),
+    path('course/<int:course_id>/import_student_individual', views.import_student_individual),
 ]

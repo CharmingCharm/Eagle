@@ -63,3 +63,17 @@ def course_page(request, course_id):
 
     return render(request, 'course.html', locals())
 
+
+def generate_student(request, course_id):
+    course = Course.objects.get(id=course_id)
+    return render(request, 'generate_student.html', locals())
+
+
+def import_student_excel(request, course_id):
+    course = Course.objects.get(id=course_id)
+    return render(request, 'import_student_excel.html', locals())
+
+
+def import_student_individual(request, course_id):
+    course = Course.objects.get(id=course_id)
+    return render(request, 'import_student_individual.html', locals())
