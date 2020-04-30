@@ -18,6 +18,6 @@ from submission import views
 
 app_name = 'submission'
 urlpatterns = [
-    path('course/<course_id>/modify_submission', views.modify_submission),
-    path('course/<course_id>/add_submission', views.add_submission),
+    path('course/<int:course_id>/modify_submission', views.modify_submission),
+    path('course/<int:course_id>/add_submission', views.add_submission),
 ]

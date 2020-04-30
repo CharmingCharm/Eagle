@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="grey darken-4 changefont" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Teamwork System</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="/student_home/" class="brand-logo">Teamwork System</a>
         <ul class="right hide-on-med-and-down">
         {% if request.user.is_authenticated %}
                 <li><a href="/student_home/">{{ request.user.username }}</a></li>

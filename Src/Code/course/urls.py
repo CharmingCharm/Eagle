@@ -19,5 +19,5 @@ from course import views
 
 app_name = 'course'
 urlpatterns = [
-    path('course/<course_id>', views.course_page),
+    path('course/<int:course_id>', views.course_page),
 ]

@@ -57,21 +57,20 @@ def register(request):
     register_form = RegisterForm()
     return render(request, 'register.html', locals())
 
+
 def logout_self(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'Logout successfully.')
     return redirect("/login/")
-
-def student_home(request):
-    user = User.objects.get(id=request.user.id)
-    course = Course.objects.filter(member=request.user.id)
-    return render(request, 'mainpage_student.html', locals())
 
 
 @csrf_exempt
 def student_home(request):
     user = User.objects.get(id=request.user.id)
     course = Course.objects.filter(member=request.user.id).order_by('id')
+    for item in course:
+        item.participation = Course.objects.get(id=item.id).member.count()
+    course.save()
 
     p = Paginator(course, 5)
     if p.num_pages <= 1:

@@ -3,48 +3,22 @@
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Modify submission items{% endblock %}
 {% block content %}
-<body>
-    <nav class="grey darken-4 changefont" role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Teamwork System</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Judy</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-            <ul id="nav-mobile" class="side-nav">
-                <li><a href="#">Navbar Link</a></li>
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
-    </nav>
-    <!-- <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text">Starter Template</h1>
-      <div class="row center">
-        <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
-      </div>
-      <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
-      </div>
-      <br><br>
-
-    </div>
-  </div> -->
     <div id="index-banner" class="parallax-container">
         <div class="section no-pad-bot">
-            <div class="container"> <br>
+            <div class="container"><br>
                 <br>
-                <h1 class="header center white-text text-lighten-2 text-shadow changefont">Software Development Workshop
+                <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}
                     III</h1>
                 <div class="row center">
-                    <h5 class="header col s12 light">·&nbsp;Course duration: 2020/3/15 - 2020/6/3
+                    <h5 class="header col s12 light">·&nbsp;Course duration: {{ course.begin_time | date:'Y/m/d' }}
+                                                        - {{ course.end_time | date:'Y/m/d' }}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
                 </div>
                 <br>
                 <br>
             </div>
         </div>
-        <div class="parallax"><img src="background1.jpg" alt="Unsplashed background img 1"></div>
+        <div class="parallax"><img src="{% static 'img/background1.jpg' %}" alt="Unsplashed background img 1"></div>
     </div>
     <div class="container">
         <div class="section">
@@ -57,21 +31,23 @@
                             <div class="row">
                                 <h5>Course Information:</h5>
                                 <p class="course_txt">Participants: 48</p>
-                                <p class="course_txt">Group forming method: None</p>
+                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
                                 <p class="course_txt">Groups: 0</p>
                                 <br>
                                 <hr>
                                 <p class="course_txt">operations:</p>
                                 <br>
                                 <div class="row">
-                                    <div class="col l12 s12"> <a
+                                    <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont blue darken-4"
-                                            style="width:100%;" href="/course/{{ course.id }}/add_submission/"><i class="material-icons left">open_in_new</i> Add submission</a> </div>
+                                            style="width:100%;" href="/course/{{ course.id }}/add_submission"><i
+                                            class="material-icons left">open_in_new</i> Add submission</a></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col l12 s12"> <a
+                                    <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont teal lighten-2"
-                                            style="width:100%;"><i class="material-icons left">thumb_up</i> Confirm</a> </div>
+                                            style="width:100%;"><i class="material-icons left">thumb_up</i> Confirm</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,56 +59,78 @@
                             <h5 class="card-title" style="font-weight: 400">Submission modifying...</h5>
                             <h6 class="card-subtitle ">If finish, please press "confirm" to check percentage</h6>
 
-                            <!-- <div id="SubTable"></div> -->
-                            <table>
-                                <tr class="home_table">
-                                    <th>Submission task</th>
-<!--                                    <th>Due date</th>-->
-                                    <th>Percentage</th>
-                                    <th>Modify</th>
-                                </tr>
-                                <tr class="home_table">
-                                    <div>
-                                        <td><input value="presentation" id="w" type="text" class="validate"></td>
-<!--                                        <td>2020/3/15 23:55</td>-->
-                                        <td><input value="20%" id="1" type="text" class="validate"></td>
-                                        <td><a class="btn-floating btn-small waves-effect waves-light purple"><i
-                                                    class="material-icons">close</i></a></td>
-                                    </div>
-                                </tr>
-                                <tr class="home_table">
-                                    <div>
-                                        <td><input value="document SRS" id="q" type="text" class="validate"></td>
-<!--                                        <td>2020/3/15 12:55</td>-->
-                                        <td><input value="30%" id="2" type="text" class="validate"></td>
-                                        <td><a class="btn-floating btn-small waves-effect waves-light purple"><i
-                                                    class="material-icons">close</i></a></td>
-                                    </div>
-                                </tr>
-                                <tr class="home_table">
-                                    <div>
-                                        <td><input value="document SDS" id="e" type="text" class="validate"></td>
-<!--                                        <td>2020/3/15 7:55</td>-->
-                                        <td><input value="40%" id="3" type="text" class="validate"></td>
-                                        <td><a class="btn-floating btn-small waves-effect waves-light purple"><i
-                                                    class="material-icons">close</i></a></td>
-                                    </div>
-                                </tr>
-                                <tr class="home_table">
-                                    <div>
-                                        <td><input value="minutes" id="r" type="text" class="validate"></td>
-<!--                                        <td>2020/3/15 3:55</td>-->
-                                        <td><input value="10%" id="4" type="text" class="validate"></td>
-                                        <td><a class="btn-floating btn-small waves-effect waves-light purple"><i
-                                                    class="material-icons">close</i></a></td>
-                                    </div>
-                                </tr>
-                                
-                            </table>
+                            {% if submissionItem %}
+                                <table class="highlight">
+                                    <tr class="home_table">
+                                        <th>Title</th>
+                                        <th>Percentage</th>
+                                        <th>Delete?</th>
+                                    </tr>
 
+                                    {% for item in submissionItem_list %}
+
+                                        <tr class="home_table">
+                                            <div>
+                                                <td><input value="{{ item.title }}" id="w" type="text" class="validate">
+                                                </td>
+                                                <!--                                        <td>2020/3/15 23:55</td>-->
+                                                <td><input value="{{ item.percentage }}" id="1" type="text" class="validate"></td>
+                                                <td><a class="btn-floating btn-small waves-effect waves-light purple"><i
+                                                        class="material-icons">close</i></a></td>
+                                            </div>
+                                        </tr>
+
+                                    {% endfor %}
+
+                                </table>
+
+                                <div class="center-align">
+                                    {% if data %}
+                                        <ul id="pages" class="pagination">
+
+                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
+                                            </li>
+
+                                            {% if data.first %}
+                                                <li class="waves-effect"><a href="?page=1">1</a></li>
+                                            {% endif %}
+                                            {% if data.left %}
+                                                {% if data.left_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                                {% for i in data.left %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <li class="active grey darken-3 waves-effect"><a
+                                                    href="?page={{ data.page }}">{{ data.page }}</a></li>
+
+                                            {% if data.right %}
+                                                {% for i in data.right %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                                {% if data.right_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if data.last %}
+                                                <li class="waves-effect"><a
+                                                        href="?page={{ data.total_pages }}">{{ data.total_pages }}</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <li class="waves-effect"><a href="#!"><i
+                                                    class="material-icons">chevron_right</i></a></li>
+                                        </ul>
+                                    {% endif %}
+                                </div>
+
+                            {% else %}
+                                <h2>Currently there is no submission item.</h2>
+                            {% endif %}
 
                             <br>
-                            <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"> </div>
+                            <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"></div>
                         </div>
                     </div>
                 </div>
@@ -140,118 +138,129 @@
         </div>
         <br>
         <br>
-        <div class="section"> </div>
+        <div class="section"></div>
     </div>
 {% endblock %}
 {% block extra_js %}
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.parallax').parallax();
-        });
 
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart'));
+        {% if submissionItem %}
 
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: '',
-                subtext: '',
-                x: 'center'
-            },
+            $(document).ready(function () {
+                $('.parallax').parallax();
+            });
 
-            // Add legend
-            legend: {
-                orient: 'vertical',
-                x: 'left',
-                data: ['presentation', 'document SRS', 'document SDS', 'minutes']
-            },
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart'));
 
-            // Add custom colors
-            color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '',
+                    subtext: '',
+                    x: 'center'
+                },
 
-            // Enable drag recalculate
-            calculable: true,
+                // Add legend
+                /*
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: [
+{% for item in submissionItem %}
+                            '{{ item.title }}',
+                        {% endfor %}
+                    ]
+                },
+            */
+                // Add custom colors
+                color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
 
-            // Add series
-            series: [
-                {
-                    name: '',
-                    type: 'pie',
-                    radius: ['50%', '70%'],
-                    center: ['50%', '57.5%'],
-                    itemStyle: {
-                        normal: {
-                            label: {
-                                show: true
+                // Enable drag recalculate
+                calculable: true,
+
+                // Add series
+                series: [
+                    {
+                        name: '',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        center: ['50%', '57.5%'],
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true
+                                },
+                                labelLine: {
+                                    show: true
+                                }
                             },
-                            labelLine: {
-                                show: true
-                            }
-                        },
-                        emphasis: {
-                            label: {
-                                show: true,
-                                formatter: '{b}' + ' ({d}%)',
-                                position: 'center',
-                                textStyle: {
-                                    fontSize: '17',
-                                    fontWeight: '500'
+                            emphasis: {
+                                label: {
+                                    show: true,
+                                    formatter: '{b}' + ' ({d}%)',
+                                    position: 'center',
+                                    textStyle: {
+                                        fontSize: '17',
+                                        fontWeight: '500'
+                                    }
                                 }
                             }
-                        }
-                    },
+                        },
 
-                    data: [
-                        { value: 20, name: 'presentation' },
-                        { value: 30, name: 'document SRS' },
-                        { value: 40, name: 'document SDS' },
-                        { value: 10, name: 'minutes' },
-                    ]
-                }
-            ]
-            //    tooltip: {
-            //        trigger: 'item',
-            //        formatter: '{b}:({d}%)'
-            //    },
-            //    legend: {
-            //        orient: 'vertical',
-            //        left: 10,
-            //        data: ['presentation', 'document SRS', 'document SDS', 'group minutes']
-            //    },
-            //    series: [
-            //        {
-            //            type: 'pie',
-            //            radius: ['50%', '70%'],
-            //            avoidLabelOverlap: false,
-            //            label: {
-            //                normal: {
-            //                    show: false,
-            //                    position: 'center'
-            //                },
-            //                emphasis: {
-            //                    show: true,
-            //                    textStyle: {
-            //                        fontSize: '15'
-            //                    }
-            //                }
-            //            },
-            //            labelLine: {
-            //                normal: {
-            //                    show: false
-            //                }
-            //            },
-            //            data: [
-            //                {value: 20, name: 'presentation'},
-            //                {value: 30, name: 'document SRS'},
-            //                {value: 40, name: 'document SDS'},
-            //                {value: 10, name: 'group minutes'},
-            //            ]
-            //        }
-            //    ]
-        };
+                        data: [
+                            {% for item in submissionItem %}
+                                {value: {{item.percentage}}, name: '{{ item.title }}'},
+                            {% endfor %}
+                        ]
+                    }
+                ]
+//    tooltip: {
+//        trigger: 'item',
+//        formatter: '{b}:({d}%)'
+//    },
+//    legend: {
+//        orient: 'vertical',
+//        left: 10,
+//        data: ['presentation', 'document SRS', 'document SDS', 'group minutes']
+//    },
+//    series: [
+//        {
+//            type: 'pie',
+//            radius: ['50%', '70%'],
+//            avoidLabelOverlap: false,
+//            label: {
+//                normal: {
+//                    show: false,
+//                    position: 'center'
+//                },
+//                emphasis: {
+//                    show: true,
+//                    textStyle: {
+//                        fontSize: '15'
+//                    }
+//                }
+//            },
+//            labelLine: {
+//                normal: {
+//                    show: false
+//                }
+//            },
+//            data: [
+//                {value: 20, name: 'presentation'},
+//                {value: 30, name: 'document SRS'},
+//                {value: 40, name: 'document SDS'},
+//                {value: 10, name: 'group minutes'},
+//            ]
+//        }
+//    ]
+            };
 
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+        {% endif %}
+
+
     </script>
 {% endblock %}

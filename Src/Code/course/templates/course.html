@@ -9,8 +9,8 @@
                 <br>
                 <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}</h1>
                 <div class="row center">
-                    <h5 class="header col s12 light text-shadow-1">·&nbsp;Course duration: {{ course.begin_time }}
-                        - {{ course.end_time }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
+                    <h5 class="header col s12 light text-shadow-1">·&nbsp;Course duration: {{ course.begin_time | date:'Y/m/d' }}
+                                                        - {{ course.end_time | date:'Y/m/d' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
                 </div>
                 <br>
                 <br>
@@ -20,6 +20,21 @@
 
     </div>
     <div class="container">
+
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div id="container-green-message">
+                        <p>{{ message }}</p>
+                    </div>
+                {% else %}
+                    <div id="container-red-message">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
         <div class="section">
 
             <!--   Icon Section   -->
@@ -39,28 +54,33 @@
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont orange darken-2"
-                                            style="width:100%;"><i class="material-icons left">mode_edit</i> Export contribution </a></div>
+                                            style="width:100%;"><i class="material-icons left">mode_edit</i> Export
+                                        contribution </a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont green darken-2"
-                                            style="width:100%;" href="/course/{{ course_id }}/generate_student"><i class="material-icons left">cloud</i> Generate
+                                            style="width:100%;" href="/course/{{ course_id }}/generate_student"><i
+                                            class="material-icons left">cloud</i> Generate
                                         students</a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont light-blue darken-2"
-                                            style="width:100%;" href="/course/{{ course_id }}/modify_submission"><i class="material-icons left">cloud</i> Modify submission </a></div>
+                                            style="width:100%;" href="/course/{{ course_id }}/modify_submission"><i
+                                            class="material-icons left">cloud</i> Modify submission </a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont purple darken-2"
-                                            style="width:100%;"><i class="material-icons left">cloud</i> Set team forming </a></div>
+                                            style="width:100%;"><i class="material-icons left">cloud</i> Set team
+                                        forming </a></div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont black darken-2"
-                                            style="width:100%;"><i class="material-icons left">cloud</i> Check forming </a></div>
+                                            style="width:100%;"><i class="material-icons left">cloud</i> Check forming
+                                    </a></div>
                                 </div>
                             </div>
                         </div>
@@ -75,9 +95,9 @@
                             {% if submissionItem %}
                                 <table class="highlight">
                                     <tr class="home_table">
-                                        <th>Course name</th>
-                                        <th>Duration</th>
-                                        <th>Participants</th>
+                                        <th>Title</th>
+                                        <th>Due date</th>
+                                        <th>Percentage</th>
                                     </tr>
 
                                     {% for item in submissionItem_list %}
@@ -86,19 +106,61 @@
                                             onclick="location.href='/course/{{ course.id }}/submission/{{ item.id }}';">
                                             <td>{{ item.title }}</td>
                                             <td>bulalalala</td>
-                                            <td>{{ item.percentage }}</td>
+                                            <td>{{ item.percentage }} %</td>
                                         </tr>
 
                                     {% endfor %}
 
                                 </table>
 
+                                <div class="center-align">
+                                    {% if data %}
+                                        <ul id="pages" class="pagination">
+
+                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
+                                            </li>
+
+                                            {% if data.first %}
+                                                <li class="waves-effect"><a href="?page=1">1</a></li>
+                                            {% endif %}
+                                            {% if data.left %}
+                                                {% if data.left_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                                {% for i in data.left %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                            {% endif %}
+                                            <li class="active grey darken-3 waves-effect"><a
+                                                    href="?page={{ data.page }}">{{ data.page }}</a></li>
+
+                                            {% if data.right %}
+                                                {% for i in data.right %}
+                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
+                                                {% endfor %}
+                                                {% if data.right_has_more %}
+                                                    <li><span>...</span></li>
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if data.last %}
+                                                <li class="waves-effect"><a
+                                                        href="?page={{ data.total_pages }}">{{ data.total_pages }}</a>
+                                                </li>
+                                            {% endif %}
+
+                                            <li class="waves-effect"><a href="#!"><i
+                                                    class="material-icons">chevron_right</i></a></li>
+                                        </ul>
+                                    {% endif %}
+                                </div>
+
                             {% else %}
                                 <h2>Currently there is no submission item.</h2>
                             {% endif %}
 
                             <br>
-                            <div id="chart" class="valign-wrapper" style="width:100%; height: 400px; margin-top: -50px;"></div>
+                            <div id="chart" class="valign-wrapper"
+                                 style="width:100%; height: 400px; margin-top: -50px;"></div>
                         </div>
                     </div>
                 </div>
@@ -131,12 +193,12 @@
                 },
 
                 // Add legend
-            /*
-                legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data: [
-                        {% for item in submissionItem_list %}
+                /*
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                        data: [
+                        {% for item in submissionItem %}
                             '{{ item.title }}',
                         {% endfor %}
                     ]
@@ -178,7 +240,7 @@
                         },
 
                         data: [
-                            {% for item in submissionItem_list %}
+                            {% for item in submissionItem %}
                                 {value: {{item.percentage}}, name: '{{ item.title }}'},
                             {% endfor %}
                         ]

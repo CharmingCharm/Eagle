@@ -10,6 +10,7 @@ class Course(models.Model):
     pic = models.CharField(max_length=64, unique=False, default='default.jpg')
     visit = models.IntegerField(default=0, unique=False)
     description = models.CharField(max_length=256, unique=False)
+    participation = models.IntegerField(default=0)
 
     member = models.ManyToManyField(User)
 
