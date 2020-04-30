@@ -76,3 +76,9 @@ body {
     color:#D1D1D1;
     text-shadow:1px 1px white,-1px -1px #000;
 }
+
+
+.text-shadow-1{
+	font-weight:200;
+            /* background: pink; */
+}

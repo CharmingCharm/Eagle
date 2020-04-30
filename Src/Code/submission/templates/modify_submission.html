@@ -1,23 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>Starter Template - Materialize</title>
-
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="css/data-table.css" rel="stylesheet">
-
-    <!-- <link type="text/css" rel="stylesheet" href="css/jsgrid.min.css" />
-    <link type="text/css" rel="stylesheet" href="css/jsgrid-theme.min.css" /> -->
-
-</head>
-
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}Modify submission items{% endblock %}
+{% block content %}
 <body>
     <nav class="grey darken-4 changefont" role="navigation">
         <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Teamwork System</a>
@@ -81,7 +66,7 @@
                                 <div class="row">
                                     <div class="col l12 s12"> <a
                                             class="waves-effect waves-light btn changefont blue darken-4"
-                                            style="width:100%;"><i class="material-icons left">open_in_new</i> Add submission</a> </div>
+                                            style="width:100%;" href="/course/{{ course.id }}/add_submission/"><i class="material-icons left">open_in_new</i> Add submission</a> </div>
                                 </div>
                                 <div class="row">
                                     <div class="col l12 s12"> <a
@@ -157,51 +142,8 @@
         <br>
         <div class="section"> </div>
     </div>
-    <footer class="page-footer grey darken-3">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Company Bio</h5>
-                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like
-                        it's our full time job. Any amount would help support and continue development on this project
-                        and is greatly appreciated.</p>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Settings</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">Connect</h5>
-                    <ul>
-                        <li><a class="white-text" href="#!">Link 1</a></li>
-                        <li><a class="white-text" href="#!">Link 2</a></li>
-                        <li><a class="white-text" href="#!">Link 3</a></li>
-                        <li><a class="white-text" href="#!">Link 4</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container"> Made by <a class="orange-text text-lighten-3"
-                    href="http://materializecss.com">Materialize</a> </div>
-        </div>
-    </footer>
-
-    <!--  Scripts-->
-    <script src="js/echarts.js"></script>
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
-
-    <!-- <script src="js/db.js"></script>
-    <script type="text/javascript" src="js/jsgrid.min.js"></script>
-    <script src="js/jsgrid-init.js"></script> -->
-
+{% endblock %}
+{% block extra_js %}
     <script type="text/javascript">
         $(document).ready(function () {
             $('.parallax').parallax();
@@ -312,6 +254,4 @@
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
     </script>
-</body>
-
-</html>
+{% endblock %}
