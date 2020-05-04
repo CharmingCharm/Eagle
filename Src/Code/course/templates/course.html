@@ -10,7 +10,7 @@
                 <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}</h1>
                 <div class="row center">
                     <h5 class="header col s12 light text-shadow-1">·&nbsp;Course duration: {{ course.begin_time | date:'Y/m/d' }}
-                                                        - {{ course.end_time | date:'Y/m/d' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
+                                                        - {{ course.end_time | date:'Y/m/d' }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: {% for teacher in teachers %}{{ teacher.username }} {% endfor %}</h5>
                 </div>
                 <br>
                 <br>
@@ -44,13 +44,14 @@
                         <div class="card-content">
                             <div class="row">
                                 <h5>Course Information:</h5>
-                                <p class="course_txt">Participants: 48</p>
+                                <p class="course_txt">Participants: {{ memNum }}</p>
                                 <p class="course_txt">Group forming method: {{ course.form_method }}</p>
                                 <p class="course_txt">Teams: 0</p>
                                 <br>
                                 <hr>
                                 <p class="course_txt">operations:</p>
                                 <br>
+                                {% if request.user.field == "teacher" %}
                                 <div class="row">
                                     <div class="col l12 s12"><a
                                             class="waves-effect waves-light btn changefont orange darken-2"
@@ -82,6 +83,25 @@
                                             style="width:100%;"><i class="material-icons left">cloud</i> Check forming
                                     </a></div>
                                 </div>
+                                {% else %}
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn changefont orange darken-2"
+                                            style="width:100%;"><i class="material-icons left">mode_edit</i> Team assessment </a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn changefont green darken-2"
+                                            style="width:100%;" href="/course/{{ course_id }}/generate_student"><i
+                                            class="material-icons left">cloud</i> Team forming </a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn changefont light-blue darken-2"
+                                            style="width:100%;" href="/course/{{ course_id }}/generate_student"><i
+                                            class="material-icons left">cloud</i> Vote for leader </a></div>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

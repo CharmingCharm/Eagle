@@ -23,8 +23,8 @@
                         <div class="row">
                             <div class="col l4 s12" style="padding:20px">
                                 <h5>Student Information:</h5>
-                                <p class="course_txt">Participants: 48</p>
-                                <p class="course_txt">Group forming method: None</p>
+                                <p class="course_txt">Participants: {{ memNum }}</p>
+                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
                                 <p class="course_txt">Groups: 0</p>
                                 <hr>
                                 <br>
@@ -44,21 +44,23 @@
                                 <hr>
                                 <br>
                                 <p class="course_txt">generate account:</p>
-                                <div class="row input-field col s12"> <i class="material-icons prefix">vpn_key</i>
-                                    <input id="icon_telephone" type="tel" class="validate">
-                                    <label for="icon_telephone">Initial password</label>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col l12 s12"> 
-                                        <a class="waves-effect waves-light btn changefont teel lighten-1 truncate" style="width:100%;"><i class="material-icons left">thumb_up</i>Generate</a> 
+                                <form class="col s12" method="POST" action='/course/{{ course.id }}/generate_student'>
+                                    {% csrf_token %}
+                                    <div class="row input-field col s12"> <i class="material-icons prefix">vpn_key</i>
+                                        {{ initial_pwd_form.initial_pwd }}
+                                        <label for="icon_telephone">Initial password</label>
                                     </div>
-                                </div>
-                               <div class="row">
-                                    <div class="col l12 s12"> 
-                                        <a class="waves-effect waves-light btn changefont red darken-2 truncate" style="width:100%;"><i class="material-icons left">close</i>Cancel</a> 
+                                    <div class="row">
+                                        <div class="col l12 s12"> 
+                                            <button class="waves-effect waves-light btn changefont teel lighten-1 truncate" type="submit" style="width:100%;"><i class="material-icons left">thumb_up</i>Generate </button> 
+                                        </div>
                                     </div>
-                            	</div>
+                                    <div class="row">
+                                        <div class="col l12 s12"> 
+                                            <a class="waves-effect waves-light btn changefont red darken-2 truncate" style="width:100%;"><i class="material-icons left">close</i>Cancel</a> 
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             
                             <div class="col l8 s12" style="padding: 20px;">
@@ -71,60 +73,20 @@
                                         <th>Email</th>
                                         <th>GPA</th>
                                     </tr>
-                                    <tr class="home_table">
+                                    <!-- <tr class="home_table">
                                         <td>Charm</td>
                                         <td>1730026111</td>
                                         <td>1730026111@uic.edu.hk</td>
                                         <td>4.0</td>
-                                    </tr>
+                                    </tr> -->
+                                    {% for temp_stu in user_list %}
                                     <tr class="home_table">
-                                        <td>Elliot</td>
-                                        <td>1730026222</td>
-                                        <td>1730026222@uic.edu.hk</td>
-                                        <td>4.0</td>
+                                        <td>{{ temp_stu.user_name }}</td>
+                                        <td>{{ temp_stu.stu_id }}</td>
+                                        <td>{{ temp_stu.email }}</td>
+                                        <td>{{ temp_stu.GPA }}</td>
                                     </tr>
-                                    <tr class="home_table">
-                                        <td>Helen</td>
-                                        <td>1730026555</td>
-                                        <td>1730026555@uic.edu.hk</td>
-                                        <td>3.9</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>Felep</td>
-                                        <td>1730026666</td>
-                                        <td>1730026666@uic.edu.hk</td>
-                                        <td>3.6</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>lala</td>
-                                        <td>1730026777</td>
-                                        <td>1730026777@uic.edu.hk</td>
-                                        <td>/</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>ooo</td>
-                                        <td>1730026888</td>
-                                        <td>1730026888@uic.edu.hk</td>
-                                        <td>/</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>xixixii</td>
-                                        <td>1730026999</td>
-                                        <td>1730026999@uic.edu.hk</td>
-                                        <td>3.7</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>babala</td>
-                                        <td>1730026121</td>
-                                        <td>1730026121@uic.edu.hk</td>
-                                        <td>3.4</td>
-                                    </tr>
-                                    <tr class="home_table">
-                                        <td>liurongkai</td>
-                                        <td>1730026002</td>
-                                        <td>1730026002@uic.edu.hk</td>
-                                        <td>1.6</td>
-                                    </tr>
+                                    {% endfor %}
                                 </table>
                                 <div class="center-align button_font">
                                 <ul class="pagination">
@@ -150,4 +112,14 @@
     <div class="section"> </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    toast_msg = "{{ msg }}";
+    if(!(toast_msg == 'no_msg')){
+        var $toastContent = $('<span>' + toast_msg +'</span>');
+        Materialize.toast($toastContent, 4000);
+    }
+</script>
 {% endblock %}

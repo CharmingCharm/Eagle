@@ -22,3 +22,14 @@ class RegisterForm(forms.Form):
                                    attrs={'class': 'form-control', 'placeholder': 'Password', 'required': "true"}))
     # confirm_password = forms.CharField(label='confirm password', max_length=64,
     # widget = forms.PasswordInput( attrs={'class': 'form-control', 'placeholder': 'confirm your password'}))
+
+
+class ChangePasswordForm(forms.Form):
+    origin_pwd = forms.CharField(label='Origin password', max_length=64, widget=forms.PasswordInput(
+        attrs={'class': 'validate', 'required': "true"}))
+
+    new_pwd = forms.CharField(label='New password', max_length=64, widget=forms.PasswordInput(
+        attrs={'class': 'validate', 'required': "true"}))
+    
+    confirm_pwd = forms.CharField(label='Confirm new password', max_length=64, widget=forms.PasswordInput(
+        attrs={'class': 'validate', 'required': "true"}))

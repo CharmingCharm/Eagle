@@ -7,5 +7,5 @@ class AddSubmissionItemForm(forms.Form):
                                 attrs={'id': 'icon_prefix', 'required': "true"}))
 
     percentage = forms.FloatField(label='percentage',
-                                  widget=forms.TextInput(
+                                  widget=forms.NumberInput(
                                       attrs={'id': 'icon_per', 'required': "true"}))

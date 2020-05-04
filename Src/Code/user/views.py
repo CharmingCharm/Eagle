@@ -2,13 +2,13 @@ from .models import User
 from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm
 from course.models import Course
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
 def index(request):
-    return render(request, 'index.html')
+    return redirect('/student_home/')
 
 def login_self(request):
     if request.user.is_authenticated:
@@ -66,6 +66,9 @@ def logout_self(request):
 
 @csrf_exempt
 def student_home(request):
+    if request.user.id == None:
+        return redirect('/login/')
+
     user = User.objects.get(id=request.user.id)
     course = Course.objects.filter(member=request.user.id).order_by('id')
     for item in course:
@@ -124,9 +127,82 @@ def student_home(request):
     return render(request, 'mainpage_student.html', locals())
 
 def teacher_home(request):
+    if request.user.id == None:
+        return redirect('/login/')
+
     user = User.objects.get(id=request.user.id)
+    course = Course.objects.filter(member=request.user.id).order_by('id')
+    for item in course:
+        item.participation = Course.objects.get(id=item.id).member.count()
+        item.save()
+
+    p = Paginator(course, 5)
+    if p.num_pages <= 1:
+        course_list = course
+        data = ''
+    else:
+        page = int(request.GET.get('page', 1))
+        course_list = p.page(page)
+        left = []
+        right = []
+        left_has_more = False
+        right_has_more = False
+        first = False
+        last = False
+        total_pages = p.num_pages
+        page_range = p.page_range
+        if page == 1:
+            right = page_range[page:page + 2]
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        elif page == total_pages:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+        else:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            right = page_range[page:page + 2]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        data = {
+            'left': left,
+            'right': right,
+            'left_has_more': left_has_more,
+            'right_has_more': right_has_more,
+            'first': first,
+            'last': last,
+            'total_pages': total_pages,
+            'page': page
+        }
     return render(request, 'mainpage_teacher.html', locals())
 
 def change_password(request):
     user = User.objects.get(id=request.user.id)
+    msg = 'no_msg'
+    if request.method == 'POST':
+        pwd_form = ChangePasswordForm(request.POST)
+        if pwd_form.is_valid():
+            org_pwd = pwd_form.cleaned_data['origin_pwd'] #new_pwd confirm_pwd
+            if user.check_password(org_pwd):
+                new_pwd = pwd_form.cleaned_data['new_pwd']
+                confirm_pwd = pwd_form.cleaned_data['confirm_pwd']
+                if new_pwd == confirm_pwd:
+                    user.set_password(new_pwd)
+                    user.save()
+                    msg = 'success!'
+                else:
+                    msg = 'Two different new password!'
+            else:
+                msg = 'Wrong original password!'
+    pwd_form = ChangePasswordForm()
     return render(request, 'change_password.html', locals())

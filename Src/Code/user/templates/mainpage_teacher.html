@@ -54,7 +54,7 @@
 
 
                                 {% if course %}
-                                    <table>
+                                    <table class="highlight">
                                         <tr class="home_table">
                                             <th>Course name</th>
                                             <th>Duration</th>
@@ -62,12 +62,14 @@
                                         </tr>
 
                                         {% for item in course_list %}
-                                            <tr class="home_table">
-                                                <td>{{ item.name }}</td>
-                                                <td>{{ item.begin_time | date:'Y/m/d' }}
-                                                    - {{ item.end_time | date:'Y/m/d' }}</td>
-                                                <td>{{ item.participation }}</td>
+
+                                            <tr class="home_table" onclick="location.href='/course/{{ item.id }}';">
+                                                    <td>{{ item.name }}</td>
+                                                    <td>{{ item.begin_time | date:'Y/m/d' }}
+                                                        - {{ item.end_time | date:'Y/m/d' }}</td>
+                                                    <td>{{ item.participation }}</td>
                                             </tr>
+
                                         {% endfor %}
 
                                     </table>
