@@ -11,14 +11,14 @@
                 <div class="col l12 s12">
                     <div class="card cardpadding z-depth-1">
                         <div class="card-content">
-                            <h3 class="truncate changefont">Vote for a leader</h3>
+                            <h3 class="truncate changefont">Vote for a leader for {{ team.name }}</h3>
                             <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
                                     class="head_text"> <a href="/student_home" style="color: grey"> Main page </a><b>&gt;</b> <a
                                     href="/course/{{ course.id }}"
                                     style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
                                     style="color: dodgerblue">Vote for a leader</span> </span></p>
                             <hr>
-                            <br>
+
                             <br>
                             <div class="row">
                                 <div class="col l2 s12"></div>
@@ -39,32 +39,32 @@
                                         {% endfor %}
                                     {% endif %}
 
-                                    <div class="row">
-                                        <form role="form" method="post" action="/course/{{ course.id }}/vote_leader"
-                                              class="col s12">
-                                            {% csrf_token %}
-                                            <div class="row">
-                                                <div class="input-field col s12"><i class="material-icons prefix">account_circle</i>
-                                                    {{ add_submission_form.title }}
 
+                                    <form role="form" method="post" action="/course/{{ course.id }}/vote_leader"
+                                          class="col s12" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% for item in members %}
 
-                                                    <label for="icon_prefix">Submission title</label>
-                                                </div>
+                                            <div style="margin: 15px 30px; padding: 0px 30px;">
+                                                <input name="group" type="radio" value="{{ item.id }}" id="{{ item.id }}"/>
+                                                <label for="{{ item.id }}">{{ item.truename }}</label>
                                             </div>
 
-                                            <a class="btn waves-effect waves-light red darken-3" type="btn"
-                                               name="action" style="float: left;" href="/course/{{ course.id }}">cancel
-                                                <i
-                                                        class="material-icons left">close</i></a>
-                                            <button class="btn waves-effect waves-light" type="submit" name="action"
-                                                    style="float: right;">submit <i
-                                                    class="material-icons right">send</i></button>
-                                        </form>
-                                    </div>
+                                        {% endfor %}
+                                        <br>
+
+                                        <a class="btn waves-effect waves-light red darken-3" type="btn"
+                                           name="action" style="float: left;" href="/course/{{ course.id }}">cancel
+                                            <i
+                                                    class="material-icons left">close</i></a>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action"
+                                                style="float: right;">submit <i
+                                                class="material-icons right">send</i></button>
+                                    </form>
+
                                 </div>
                             </div>
-                            <br>
-                            <br>
+
                         </div>
                     </div>
                 </div>
