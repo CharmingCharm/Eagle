@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 {% block username %}{{ request.user }}{% endblock %}
-{% block title %}Add submission items{% endblock %}
+{% block title %}Vote for leader{% endblock %}
 {% block content %}
 
     <div class="container">
@@ -11,19 +11,19 @@
                 <div class="col l12 s12">
                     <div class="card cardpadding z-depth-1">
                         <div class="card-content">
-                            <h3 class="truncate changefont">add submission item</h3>
+                            <h3 class="truncate changefont">Vote for a leader</h3>
                             <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
                                     class="head_text"> <a href="/student_home" style="color: grey"> Main page </a><b>&gt;</b> <a
                                     href="/course/{{ course.id }}"
                                     style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
-                                    style="color: dodgerblue">Add submission</span> </span></p>
+                                    style="color: dodgerblue">Vote for a leader</span> </span></p>
                             <hr>
                             <br>
                             <br>
                             <div class="row">
                                 <div class="col l2 s12"></div>
                                 <div class="col l8 s12">
-                                    <h5>Please input the submission information:</h5>
+                                    <h5>Please vote for the leader:</h5>
 
                                     {% if messages %}
                                         {% for message in messages %}
@@ -40,7 +40,7 @@
                                     {% endif %}
 
                                     <div class="row">
-                                        <form role="form" method="post" action="/course/{{ course.id }}/add_submission"
+                                        <form role="form" method="post" action="/course/{{ course.id }}/vote_leader"
                                               class="col s12">
                                             {% csrf_token %}
                                             <div class="row">
@@ -51,34 +51,6 @@
                                                     <label for="icon_prefix">Submission title</label>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="input-field col s12"><i class="material-icons prefix">track_changes</i>
-                                                    {{ add_submission_form.percentage }}
-
-
-                                                    <label for="icon_per">Percentage</label>
-                                                </div>
-                                            </div>
-
-                                            <!--
-                                                                                    <div class="row">
-                                                                                        <div class="input-field col s12"> <i class="material-icons prefix">comment</i>
-                                                                                            <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                                                                              <label for="textarea1">Description</label>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="row">
-                                                                                        <div class="input-field col s6" style="position:relative;"> <i class="material-icons prefix">today</i>
-                                                                                            <input id="date" type="date" class="datepicker">
-                                                                                            <label for="date">Due date</label>
-                                                                                        </div>
-                                                                                        <div class="input-field col s6" style="position:relative;">
-                                                                                            <input id="time1" type="time" class="timepicker">
-                                                                                        </div>
-                                                                                    </div>
-                                            -->
 
                                             <a class="btn waves-effect waves-light red darken-3" type="btn"
                                                name="action" style="float: left;" href="/course/{{ course.id }}">cancel

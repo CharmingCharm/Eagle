@@ -18,67 +18,69 @@
 </head>
 
 <body>
-    <div id="container-register">
-        <div id="title">
-            <i class="material-icons lock">lock</i> Register
-        </div>
-
-        <form class="m-t" role="form" method="post" action="/register/">
-            {% csrf_token %}
-            <div class="input">
-                <div class="input-addon">
-                    <i class="material-icons">email</i>
-                </div>
-                {{ register_form.email }}
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="input">
-                <div class="input-addon">
-                    <i class="material-icons">face</i>
-                </div>
-                {{ register_form.username }}
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="input">
-                <div class="input-addon">
-                    <i class="material-icons">vpn_key</i>
-                </div>
-                {{ register_form.password }}
-            </div>
-
-            <div class="remember-me">
-                <input type="checkbox">
-                <span style="color: #DDD; font-size:12px;">I accept Terms of Service</span>
-            </div>
-
-            <input type="submit" value="Register" style="font-size:18px; font-family: 'Raleway', sans-serif;"/>
-        </form>
-
-        <div class="register">
-            Already have an account yet?
-            <a href="/login/"><button id="register-link" style="font-family: 'Raleway', sans-serif;">Login here</button></a>
-        </div>
-
-
+<div id="container-register">
+    <div id="title">
+        <i class="material-icons lock">lock</i> Register
     </div>
 
+    <form class="m-t" role="form" method="post" action="/register/">
+        {% csrf_token %}
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">email</i>
+            </div>
+            {{ register_form.email }}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">face</i>
+            </div>
+            {{ register_form.username }}
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">vpn_key</i>
+            </div>
+            {{ register_form.password }}
+        </div>
+
+        <div class="remember-me">
+            <input type="checkbox">
+            <span style="color: #DDD; font-size:12px;">I accept Terms of Service</span>
+        </div>
+
+        <input type="submit" value="Register" style="font-size:18px; font-family: 'Raleway', sans-serif;"/>
+    </form>
+
+    <div class="register">
+        Already have an account yet?
+        <a href="/login/">
+            <button id="register-link" style="font-family: 'Raleway', sans-serif;">Login here</button>
+        </a>
+    </div>
+
+
+</div>
+
 {% if messages %}
-            {% for message in messages %}
-                {% if message.tags == 'success' %}
-                    <div id="container-green-message">
-                        <p>{{ message }}</p>
-                    </div>
-                {% else %}
-                    <div id="container-red-message">
-                        <p>{{ message }}</p>
-                    </div>
-                 {% endif %}
-            {% endfor %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div id="container-green-message">
+                <p>{{ message }}</p>
+            </div>
+        {% else %}
+            <div id="container-red-message">
+                <p>{{ message }}</p>
+            </div>
         {% endif %}
+    {% endfor %}
+{% endif %}
 
 </body>
 

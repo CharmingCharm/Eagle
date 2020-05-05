@@ -61,10 +61,10 @@
                                         {% for item in course_list %}
 
                                             <tr class="home_table" onclick="location.href='/course/{{ item.id }}';">
-                                                    <td>{{ item.name }}</td>
-                                                    <td>{{ item.begin_time | date:'Y/m/d' }}
-                                                        - {{ item.end_time | date:'Y/m/d' }}</td>
-                                                    <td>{{ item.participation }}</td>
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.begin_time | date:'Y/m/d' }}
+                                                    - {{ item.end_time | date:'Y/m/d' }}</td>
+                                                <td>{{ item.participation }}</td>
                                             </tr>
 
                                         {% endfor %}
@@ -92,11 +92,13 @@
                                     {% if data %}
                                         <ul id="pages" class="pagination">
                                             {% if data.page <= 1 %}
-                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
-                                            </li>
+                                                <li class="disabled"><a href="#!"><i
+                                                        class="material-icons">chevron_left</i></a>
+                                                </li>
                                             {% else %}
-                                             <li class="waves-effect"><a href="?page={{ data.page|add:'-1' }}"><i class="material-icons">chevron_left</i></a>
-                                            </li>
+                                                <li class="waves-effect"><a href="?page={{ data.page|add:'-1' }}"><i
+                                                        class="material-icons">chevron_left</i></a>
+                                                </li>
                                             {% endif %}
 
                                             {% if data.first %}
@@ -128,11 +130,11 @@
                                             {% endif %}
 
                                             {% if data.page >= total_pages %}
-                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a>
-                                            </li>
+                                                <li class="disabled"><a href="#!"><i class="material-icons">chevron_right</i></a>
+                                                </li>
                                             {% else %}
-                                             <li class="waves-effect"><a href="?page={{ data.page|add:'1' }}"><i
-                                                    class="material-icons">chevron_right</i></a></li>
+                                                <li class="waves-effect"><a href="?page={{ data.page|add:'1' }}"><i
+                                                        class="material-icons">chevron_right</i></a></li>
                                             {% endif %}
 
                                         </ul>

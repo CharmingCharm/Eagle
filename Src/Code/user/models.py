@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     field = models.CharField(max_length=20, blank=True, default="student")
-
+    truename = models.CharField(max_length=20, unique=False)
     # isTeacher = models.BooleanField()
 
 
@@ -16,7 +16,6 @@ class Meta:
 
 class Teacher(models.Model):
     staffID = models.CharField(max_length=20, unique=False) # yaogai
-    truename = models.CharField(max_length=20, unique=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -26,7 +25,6 @@ class Teacher(models.Model):
 
 class Student(models.Model):
     studentID = models.CharField(max_length=20, unique=False)  # yaogai
-    truename = models.CharField(max_length=20, unique=False)
     GPA = models.FloatField(default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 

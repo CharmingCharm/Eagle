@@ -9,20 +9,20 @@
 </head>
 
 <body>
-    <div>
+<div>
 
-     <ul id="nav-mobile" class="side-nav">
+    <ul id="nav-mobile" class="side-nav">
         {% if request.user.is_authenticated %}
-                <li><a href="/login/">{{ request.user }}</a></li>
-                <li><a href="/logout/">Logout</a></li>
-            {% else %}
-                <li><a href="/login/">Login</a></li>
-            {% endif %}
-     </ul>
+            <li><a href="/login/">{{ request.user }}</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        {% else %}
+            <li><a href="/login/">Login</a></li>
+        {% endif %}
+    </ul>
     <h1>这是你麻痹的主页</h1>
     <h1>这是你麻痹的主页</h1>
     <h1>这是你麻痹的主页</h1>
-    </div>
+</div>
 </body>
 
 </html>
