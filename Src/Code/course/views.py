@@ -6,6 +6,7 @@ from .forms import ImportIndividualForm, GenerateStudentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.core import serializers
+from django.contrib import messages
 
 @csrf_exempt
 def course_page(request, course_id):
@@ -15,7 +16,9 @@ def course_page(request, course_id):
     memNum = course.member.count()
     # stuNum = course.member.filter(field='student').count()
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
-
+    msg = ['no_msg']
+    for message in messages.get_messages(request):
+        msg.append(message)
     p = Paginator(submissionItem, 5)
     if p.num_pages <= 1:
         submissionItem_list = submissionItem
@@ -64,7 +67,6 @@ def course_page(request, course_id):
             'total_pages': total_pages,
             'page': page
         }
-
     return render(request, 'course.html', locals())
 
 

@@ -29,6 +29,7 @@ def vote_leader(request, course_id):
                     vote = Vote.objects.create(team=team.id, member=request.user.id, vote_id=vote_result)
                     vote.save()
                     messages.add_message(request, messages.SUCCESS, 'Your vote was submitted success!')
+                    msg = 'Your vote was submitted success!'
 
                     vote_final = Vote.objects.filter(team=team.id)
 
