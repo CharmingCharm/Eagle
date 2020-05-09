@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}Teammate management{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="section">
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col l12 s12">
+                    <div class="row">
+                        <div class="card cardpadding z-depth-1">
+                            <div class="card-content">
+                                <h3 class="truncate changefont">Team forming</h3>
+                                <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
+                                        class="head_text"> Main page <b>&gt;</b> Software Development Workshop III <b>&gt;</b> <span
+                                        style="color: darkmagenta">team forming</span> </span></p>
+                                <div class="row">
+                                    <div class="col l4 s12">
+                                        <div class="row">
+                                            <div class="card cardpadding z-depth-1">
+                                                <div class="card-content">
+                                                    <p class="center-align" style="font-size: 28px; font-weight: 300;">
+                                                        Hi, Elliot!</p>
+                                                    <hr>
+                                                    <br>
+                                                    <p style="font-size: 20px; font-weight: 300;">Current teammates:</p>
+                                                    <div class="row" style="margin-bottom: 0px;">
+                                                        <div class="col s6 l12">
+                                                            <div class="lighten-5" style="padding: 12px;">
+                                                                <div class="valign-wrapper">
+                                                                    <div class="col s4"><img src="img/icon.jpg" alt=""
+                                                                                             class="circle responsive-img"
+                                                                                             style="height: 80%; width:80%">
+                                                                        <!-- notice the "circle" class -->
+                                                                    </div>
+                                                                    <div class="col s8"><span
+                                                                            style="font-size: 18px; font-weight: 300;"> Charm </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s6 l12">
+                                                            <div class="lighten-5" style="padding: 12px;">
+                                                                <div class="valign-wrapper">
+                                                                    <div class="col s4"><img src="img/icon.jpg" alt=""
+                                                                                             class="circle responsive-img"
+                                                                                             style="height: 80%; width:80%">
+                                                                        <!-- notice the "circle" class -->
+                                                                    </div>
+                                                                    <div class="col s8"><span
+                                                                            style="font-size: 18px; font-weight: 300;"> Elliot </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--
+                                                            <div class="card horizontal">
+                                                                <div class="card-stacked">
+                                                                    <div class="card-content">
+                                                                        <p class="center-align" style="font-size: 16px; font-weight: 400;">Charm</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+    -->
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">
+                                                        Available Operations:</p>
+                                                    <div class="row">
+                                                        <div class="col l12 s12"><a
+                                                                class="waves-effect waves-light btn changefont blue darken-3"
+                                                                style="width:100%;"><i
+                                                                class="material-icons left">cloud</i> Invite</a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col l8 s12">
+                                        <div class="row">
+                                            <div class="card cardpadding z-depth-1">
+                                                <div class="card-content"><span
+                                                        class="card-title">Initation messages:</span>
+                                                    <hr>
+                                                    <div class="row">
+                                                        <div class="col s12 m6">
+                                                            <div class="card">
+                                                                <div class="card-content">
+                                                                    <div class="row" style="margin-bottom: -5px;">
+                                                                        <div class="col s4"><img src="img/icon.jpg"
+                                                                                                 alt=""
+                                                                                                 class="circle responsive-img">
+                                                                            <!-- notice the "circle" class -->
+                                                                        </div>
+                                                                        <div class="col s8" style="margin-top: 5px;">
+                                                                            <span class="card-title">Dragon King</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-action">
+                                                                    <div class="row" style="margin-bottom: -5px;">
+                                                                        <div style="margin: 0px 15px; font-size: 15px;">
+                                                                            <p>I would like to add to your team!</p>
+                                                                        </div>
+                                                                        <div style="margin-right: 10px; margin-top:15px;">
+                                                                            <a class="waves-effect waves-light btn-floating red right"
+                                                                               style="margin-left: 10px;"><i
+                                                                                    class="material-icons">close</i></a>
+                                                                            <a class="waves-effect waves-light btn-floating green right"><i
+                                                                                    class="material-icons">done</i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col s12 m6">
+                                                            <div class="card">
+                                                                <div class="card-content">
+                                                                    <div class="row" style="margin-bottom: -5px;">
+                                                                        <div class="col s4"><img src="img/icon.jpg"
+                                                                                                 alt=""
+                                                                                                 class="circle responsive-img">
+                                                                            <!-- notice the "circle" class -->
+                                                                        </div>
+                                                                        <div class="col s8" style="margin-top: 5px;">
+                                                                            <span class="card-title">Dragon King</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-action">
+                                                                    <div class="row" style="margin-bottom: -5px;">
+                                                                        <div style="margin: 0px 15px; font-size: 15px;">
+                                                                            <p>I would like to add to your team!</p>
+                                                                        </div>
+                                                                        <div style="margin-right: 10px; margin-top:15px;">
+                                                                            <a class="waves-effect waves-light btn-floating red right"
+                                                                               style="margin-left: 10px;"><i
+                                                                                    class="material-icons">close</i></a>
+                                                                            <a class="waves-effect waves-light btn-floating green right"><i
+                                                                                    class="material-icons">done</i></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="section"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}Leader assessment{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="section"> 
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col l12 s12">
+                <div class="row">
+                    <div class="card cardpadding z-depth-1">
+                        <div class="card-content">
+                            <h3 class="truncate changefont">Evaluate your team member</h3>
+                            <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"> <span class="head_text"> Main page <b>&gt;</b> Software Development Workshop III <b>&gt;</b> <span style="color: darkmagenta">team forming</span> </span> </p>
+                            <div class="row">
+                                <div class="col l4 s12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="row" style="margin-bottom: 0px;">
+                                                <div class="col s2 m2"></div>
+                                                <div class="col s8 m8"> <img src="img/head1.jpg" alt="" class="circle responsive-img">
+                                                    <div class="center-align"> <span class="card-title">Dragon King</span> </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin-left: 10px; margin-top: 10px;"> <span style="font-size: 15">Team members:</span>
+                                                <div class="row" style="margin-bottom: 0px;">
+                                                    <div class="col s6 l12">
+                                                        <div class="lighten-5" style="padding: 12px;">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s4"> <img src="img/icon.jpg" alt="" class="circle responsive-img"  style="height: 80%; width:80%"> 
+                                                                    <!-- notice the "circle" class --> 
+                                                                </div>
+                                                                <div class="col s8"> <span style="font-size: 18px; font-weight: 300;" > Charm </span> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col s6 l12">
+                                                        <div class="lighten-5" style="padding: 12px;">
+                                                            <div class="valign-wrapper">
+                                                                <div class="col s4"> <img src="img/icon.jpg" alt="" class="circle responsive-img" style="height: 80%; width:80%"> 
+                                                                    <!-- notice the "circle" class --> 
+                                                                </div>
+                                                                <div class="col s8"> <span style="font-size: 18px; font-weight: 300;"> Elliot </span> </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--
+                                                        <div class="card horizontal">
+                                                            <div class="card-stacked">
+                                                                <div class="card-content">
+                                                                    <p class="center-align" style="font-size: 16px; font-weight: 400;">Charm</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+--> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--                                                        <a class="waves-effect waves-light btn green modal-trigger" style="margin-left: 15px; margin-top: 5px;" href="#modal1"><i class="material-icons left">send</i>Invite</a>--> 
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col l8 s12">
+                                    <div class="row">
+                                        
+                                            <div class="card-content"> <span class="card-title">Submission List:</span>
+                                                <hr>
+                                                <table class="highlight">
+                                                    <tr class="home_table">
+                                                        <th>Submission task</th>
+                                                        <th>percentage</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    <tr class="home_table">
+                                                        <td>presentation</td>
+                                                        
+                                                        <td>20%</td>
+                                                        <td><a href="#" class="btn green waves-effect waves-light" style="margin-left: 20px;"><i class="material-icons left">fast_forward</i>assess</a></td>
+                                                        
+                                                    </tr>
+                                                    <tr class="home_table">
+                                                        <td>presentation</td>
+                                                        
+                                                        <td>20%</td>
+                                                        <td><a href="#" class="btn green waves-effect waves-light disabled" style="margin-left: 20px;"><i class="material-icons left">done</i>Finished</a></td>
+                                                        
+                                                    </tr><tr class="home_table">
+                                                        <td>presentation</td>
+                                                        
+                                                        <td>20%</td>
+                                                        <td><a href="#" class="btn green waves-effect waves-light" style="margin-left: 20px;"><i class="material-icons left">fast_forward</i>assess</a></td>
+                                                        
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<div class="section"> </div>
+</div>
+{% endblock %}

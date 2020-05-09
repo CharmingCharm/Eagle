@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}Invite others{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col l12 s12">
+                    <div class="col l12 s12">
+                        <div class="row">
+                            <div class="card cardpadding z-depth-1">
+                                <div class="card-content">
+                                    <h3 class="truncate changefont">invite others to your team</h3>
+                                    <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
+                                            class="head_text"> Main page <b>&gt;</b> Software Development Workshop III <b>&gt;</b> <span
+                                            style="color: darkmagenta">team forming</span> </span></p>
+                                    <div class="row" style="margin-bottom: 0px;">
+                                        <div class="card-content">
+                                            <hr>
+                                            <br>
+                                            <p style="font-size: 20px; font-weight: 300;">Students who are not in a
+                                                team:</p>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col s4 m4">
+                                                    <div class="card">
+                                                        <div class="card-content">
+                                                            <div class="row" style="margin-bottom: 0px;">
+                                                                <div class="col s4"><img src="img/head1.jpg" alt=""
+                                                                                         class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s8"><span
+                                                                        class="card-title">Dragon King</span></div>
+                                                                <a class="waves-effect waves-light btn green modal-trigger"
+                                                                   style="margin-left: 15px; margin-top: 5px;"
+                                                                   href="#modal1"><i
+                                                                        class="material-icons left">send</i>Invite</a>
+                                                                <div id="modal1" class="modal">
+                                                                    <div class="modal-content">
+                                                                        <h4>模态标题</h4>
+                                                                        <p>一堆文本</p>
+                                                                    </div>
+                                                                    <div class="modal-footer"><a href="#!"
+                                                                                                 class="modal-action modal-close waves-effect waves-green btn-flat ">同意</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col s4 m4">
+                                                    <div class="card">
+                                                        <div class="card-content">
+                                                            <div class="row" style="margin-bottom: 0px;">
+                                                                <div class="col s4"><img src="img/head1.jpg" alt=""
+                                                                                         class="circle responsive-img">
+                                                                    <!-- notice the "circle" class -->
+                                                                </div>
+                                                                <div class="col s8"><span
+                                                                        class="card-title">Dragon King</span></div>
+                                                                <a class="waves-effect waves-light btn green"
+                                                                   style="margin-left: 15px; margin-top: 5px;"><i
+                                                                        class="material-icons left">send</i>Invite</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <a href="#" class="btn red waves-effect waves-light"><i
+                                                    class="material-icons left">fast_rewind</i>back</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="section"></div>
+    </div>
+    <footer class="page-footer grey darken-3">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Company Bio</h5>
+                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's
+                    our full time job. Any amount would help support and continue development on this project and is
+                    greatly appreciated.</p>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Settings</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">Link 1</a></li>
+                    <li><a class="white-text" href="#!">Link 2</a></li>
+                    <li><a class="white-text" href="#!">Link 3</a></li>
+                    <li><a class="white-text" href="#!">Link 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container"> Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+        </div>
+    </div>
+{% endblock %}
