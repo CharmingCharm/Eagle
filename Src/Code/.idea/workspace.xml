@@ -2,19 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/team/templates/forming_method_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/team/templates/group_size.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/team/templates/invite.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/team/templates/teammate_management.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/user/templates/export contribution.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Documents/Specifications/Eagle_SRS_20200409_v1.4.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Documents/Specifications/Eagle_SRS_20200409_v1.4.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Documents/Specifications/~$gle_SRS_20200409_v1.4.docx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/export contribution.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/forming_method_1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/forming_method_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/forming_method_1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/group_size.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/group_size.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/invite.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/invite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/group_size.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/invite.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/leader assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/leader assessment.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/member_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/member_assessment.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/submission assessment page.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/submission assessment page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/teammate_management.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/teammate_management.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../teamwork system front end/teamwork system front end/teammate_management.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,15 +30,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/team/templates/vote_leader.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="78" selection-start-line="78" selection-end-line="78" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/templates/export contribution.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -93,13 +87,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/templates/leader assessment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
+            <state relative-caret-position="2220">
               <caret line="111" column="11" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/submission/templates/add_submission_item.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="420">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/templates/member_assessment.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
@@ -212,17 +215,6 @@
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
               <item name="Code" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Code" type="462c0819:PsiDirectoryNode" />
-              <item name="submission" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Code" type="462c0819:PsiDirectoryNode" />
-              <item name="submission" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -308,12 +300,12 @@
       <workItem from="1588233592092" duration="151000" />
       <workItem from="1588649005718" duration="13058000" />
       <workItem from="1588874600522" duration="845000" />
-      <workItem from="1589030033753" duration="1817000" />
+      <workItem from="1589030033753" duration="2084000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58354000" />
+    <option name="totallyTimeSpent" value="58621000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -596,19 +588,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/add_submission_item.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="18" column="95" selection-start-line="18" selection-start-column="95" selection-end-line="18" selection-end-column="95" />
-          <folding>
-            <element signature="e#584#638#0#HTML" expanded="true" />
-            <element signature="e#723#742#0#HTML" expanded="true" />
-            <element signature="e#876#895#0#HTML" expanded="true" />
-            <element signature="e#974#999#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/templates/change_password.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -740,13 +719,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/leader assessment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="111" column="11" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/submission/templates/submission assessment page.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -765,6 +737,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/submission/templates/leader assessment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2220">
+          <caret line="111" column="11" selection-start-line="111" selection-start-column="11" selection-end-line="111" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/submission/templates/add_submission_item.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
         </state>
       </provider>
     </entry>
