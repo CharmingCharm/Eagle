@@ -76,8 +76,15 @@
                                                 <!--                                        <td>2020/3/15 23:55</td>-->
                                                 <td><input value="{{ item.percentage }}" id="1" type="text"
                                                            class="validate"></td>
-                                                <td><button value="{{ item.id }}" class="delete btn-floating btn-small waves-effect waves-light purple"><i
-                                                        class="material-icons">close</i></button></td>
+                                                <td>
+                                                    <form method="POST" action="/course/{{ course.id }}/modify_submission">
+                                                        {% csrf_token %}
+                                                        <input name="deleteItemId" value="{{ item.id }}" style="display: none;">
+                                                        <button type="submit" class="btn-floating btn-small waves-effect waves-light purple"><i
+                                                            class="material-icons">close</i>
+                                                        </button>
+                                                    </form>
+                                                </td>
                                             </div>
                                         </tr>
 
@@ -261,24 +268,6 @@
             myChart.setOption(option);
 
         {% endif %}
-        $(".delete").click(function(){
-            alert($(this).val());
-            deleteItemId = $(this).val();
-            page = {{ page }};
-            $.ajax(
-                {
-                    url: "/course/{{ course.id }}/modify_submission?page={{ page }}",
-                    type: 'post',
-
-                    // JSON definition.
-                    'Content-Type':'application/json',
-                    headers:{'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val()},
-                    data: JSON.stringify({
-                        deleteItemId: deleteItemId,
-                        page: page,
-                    }),
-                }
-            );
-        })
+        
     </script>
 {% endblock %}

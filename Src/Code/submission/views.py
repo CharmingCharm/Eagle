@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from .forms import SubmissionItemForm
 from course.models import Course
 from submission.models import SubmissionItem
@@ -40,23 +40,13 @@ def modify_submission(request, course_id):
         if request.session.get("deleteId") is not None:
             request.session.get("deleteId")
             deleteId = request.session.get("deleteId")
-        
+
         if request.method == 'POST':
-            request_data = json.loads(request.body)
-            if request_data.get("deleteItemId") is not None:
-                deleteId.add(int(request_data.get("deleteItemId")))
-                request.session["deleteId"] = deleteId
-                print(request.session["deleteId"])
-                print(request.session.keys())
-                submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
-            else:
-                submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
-            # if request_data.has_key('deleteItemId'):
-            #     print("lala")
+            deleteId.add(int(request.POST.get("deleteItemId")[0]))
+            request.session["deleteId"] = deleteId
+            submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
         else:
             submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
-
-        print(submissionItem)
 
         p = Paginator(submissionItem, 5)
         if p.num_pages <= 1:
@@ -106,7 +96,6 @@ def modify_submission(request, course_id):
                 'total_pages': total_pages,
                 'page': page
             }
-    
     return render(request, 'modify_submission.html', locals())
 
 
@@ -126,3 +115,4 @@ def member_assessment(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     return render(request, 'member_assessment.html', locals())
+
