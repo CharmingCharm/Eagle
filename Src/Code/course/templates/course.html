@@ -42,7 +42,9 @@
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont orange darken-2"
-                                                style="width:100%;"><i class="material-icons left">mode_edit</i> Export
+                                                style="width:100%;"
+                                                href="/course/{{ course_id }}/export_contribution"><i
+                                                class="material-icons left">mode_edit</i> Export
                                             contribution </a></div>
                                     </div>
                                     <div class="row">
@@ -61,13 +63,15 @@
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont purple darken-2"
-                                                style="width:100%;"><i class="material-icons left">cloud</i> Set team
+                                                style="width:100%;" href="/course/{{ course_id }}/group_size"><i
+                                                class="material-icons left">cloud</i> Set team
                                             forming </a></div>
                                     </div>
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont black darken-2"
-                                                style="width:100%;"><i class="material-icons left">cloud</i> Check
+                                                style="width:100%;" href="/course/{{ course_id }}/forming_method"><i
+                                                class="material-icons left">cloud</i> Check
                                             forming
                                         </a></div>
                                     </div>
@@ -75,13 +79,20 @@
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont orange darken-2"
-                                                style="width:100%;"><i class="material-icons left">mode_edit</i> Team
-                                            assessment </a></div>
+                                                style="width:100%;" href="/course/{{ course_id }}/member_assessment"><i
+                                                class="material-icons left">mode_edit</i> Assess other </a></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col l12 s12"><a
+                                                class="waves-effect waves-light btn changefont orange darken-2"
+                                                style="width:100%;" href="/course/{{ course_id }}/leader_assessment"><i
+                                                class="material-icons left">mode_edit</i> Assess other </a></div>
                                     </div>
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/generate_student"><i
+                                                style="width:100%;"
+                                                href="/course/{{ course_id }}/teammate_management"><i
                                                 class="material-icons left">cloud</i> Team forming </a></div>
                                     </div>
                                     <div class="row">
@@ -198,8 +209,8 @@
         var toast_msg;
         {% for message in msg %}
             toast_msg = "{{ message }}";
-            if(!(toast_msg == 'no_msg')){
-                var $toastContent = $('<span>' + toast_msg +'</span>');
+            if (!(toast_msg == 'no_msg')) {
+                var $toastContent = $('<span>' + toast_msg + '</span>');
                 Materialize.toast($toastContent, 4000);
             }
         {% endfor %}

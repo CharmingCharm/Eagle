@@ -206,3 +206,4 @@ def change_password(request):
                 msg = 'Wrong original password!'
     pwd_form = ChangePasswordForm()
     return render(request, 'change_password.html', locals())
+

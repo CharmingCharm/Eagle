@@ -122,7 +122,13 @@ def import_student_individual(request, course_id):
 
             if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
                 request.session['temp_user'] = temp_user
-                return redirect('/course/'+ str(course.id) +'/generate_student')
+                return redirect('/course/'+ str(course.id) + '/generate_student')
 
     inidividual_form = ImportIndividualForm()
     return render(request, 'import_student_individual.html', locals())
+
+
+def export_contribution(request, course_id):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'export_contribution.html', locals())

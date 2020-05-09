@@ -48,3 +48,23 @@ def vote_leader(request, course_id):
         messages.add_message(request, messages.ERROR, 'You are not in a team yet!')
         return redirect('/course/'+str(course_id))
     return render(request, 'login.html', locals())
+
+def manage(request, course_id):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'teammate_management.html', locals())
+
+def group_size(request, course_id):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'group_size.html', locals())
+
+def invite(request, course_id):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'invite.html', locals())
+
+def forming_method(request, course_id):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    return render(request, 'forming_method_1.html', locals())
