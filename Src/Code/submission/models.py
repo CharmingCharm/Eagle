@@ -19,3 +19,27 @@ class SubmissionContribution(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+        # if not request.session.has_key('curr_sub'):
+        #         submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
+        #         request.session['curr_sub'] = [[], []]
+        #         x = 0
+        #         for submission in submissionItem:
+        #             request.session['curr_sub'][0].append({'index': x,'id': submission.id, 'title': submission.title, 'percentage': submission.percentage})
+        #             x = x + 1
+        
+        # print(request.session['curr_sub'])
+        # showupLists = request.session['curr_sub'][0]
+        # deleteLists = request.session['curr_sub'][1]
+
+
+        # if request.method == 'POST':
+        #     formSet = ModifySubListSet(request.POST)
+        #     if formSet.is_valid():
+        #         deleteLists.append(showupLists.pop(int(request.POST.get('deleteItem'))))
+        #         request.session['curr_sub'][0] = showupLists
+        #         request.session['curr_sub'][1] = deleteLists
+        #         print(request.session['curr_sub'])
+
+        # print("lala")

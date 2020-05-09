@@ -1,7 +1,8 @@
 from django import forms
+from django.forms import formset_factory
 
 
-class AddSubmissionItemForm(forms.Form):
+class SubmissionItemForm(forms.Form):
     title = forms.CharField(label='title', max_length=128,
                             widget=forms.TextInput(
                                 attrs={'id': 'icon_prefix', 'required': "true"}))
