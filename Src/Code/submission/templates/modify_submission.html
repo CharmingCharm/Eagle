@@ -12,7 +12,7 @@
                 <div class="row center">
                     <h5 class="header col s12 light">·&nbsp;Course duration: {{ course.begin_time | date:'Y/m/d' }}
                         - {{ course.end_time | date:'Y/m/d' }}
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: Judy</h5>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;Professor: {% for teacher in teachers %}{{ teacher.truename }} {% endfor %}</h5>
                 </div>
                 <br>
                 <br>
@@ -25,123 +25,88 @@
 
             <!--   Icon Section   -->
             <div class="row">
-                <div class="col l4 s12">
-                    <div class="card cardpadding z-depth-1" style="padding:15px">
-                        <div class="card-content">
-                            <div class="row">
-                                <h5>Course Information:</h5>
-                                <p class="course_txt">Participants: 48</p>
-                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
-                                <p class="course_txt">Groups: 0</p>
-                                <br>
-                                <hr>
-                                <p class="course_txt">operations:</p>
-                                <br>
+                
+                <form method="POST" action="/course/{{ course.id }}/modify_submission">
+                    <div class="col l4 s12">
+                        <div class="card cardpadding z-depth-1" style="padding:15px">
+                            <div class="card-content">
                                 <div class="row">
-                                    <div class="col l12 s12"><a
-                                            class="waves-effect waves-light btn changefont blue darken-4"
-                                            style="width:100%;" href="/course/{{ course.id }}/add_submission"><i
-                                            class="material-icons left">open_in_new</i> Add submission</a></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col l12 s12"><a
-                                            class="waves-effect waves-light btn changefont teal lighten-2"
-                                            style="width:100%;"><i class="material-icons left">thumb_up</i> Confirm</a>
+                                    <h5>Course Information:</h5>
+                                    <p class="course_txt">Participants: {{ memNum }}</p>
+                                    <p class="course_txt">Group forming method: {{ course.form_method }}</p>
+                                    <p class="course_txt">Teams: 0</p>
+                                    <br>
+                                    <hr>
+                                    <p class="course_txt">operations:</p>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col l12 s12"><a
+                                                class="waves-effect waves-light btn changefont blue darken-4"
+                                                style="width:100%;" href="/course/{{ course.id }}/add_submission"><i
+                                                class="material-icons left">open_in_new</i> Add submission</a></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col l12 s12"><button name="confirm" type="submit"
+                                                class="waves-effect waves-light btn changefont teal lighten-2"
+                                                style="width:100%;"><i class="material-icons left">thumb_up</i> Confirm</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col l8 s12">
-                    <div class="card cardpadding z-depth-1">
-                        <div class="card-content">
-                            <h5 class="card-title" style="font-weight: 400">Submission modifying...</h5>
-                            <h6 class="card-subtitle ">If finish, please press "confirm" to check percentage</h6>
+                    <div class="col l8 s12">
+                        <div class="card cardpadding z-depth-1">
+                            <div class="card-content">
+                                <h5 class="card-title" style="font-weight: 400">Submission modifying...</h5>
+                                <h6 class="card-subtitle ">If finish, please press "confirm" to check percentage</h6>
 
-                            {% if submissionItem %}
-                                <table class="highlight">
-                                    <tr class="home_table">
-                                        <th>Title</th>
-                                        <th>Percentage</th>
-                                        <th>Delete?</th>
-                                    </tr>
-
-                                    {% for item in submissionItem_list %}
-
-                                        <tr class="home_table" id="{{ item.id }}">
-                                            <div>
-                                                <td><input value="{{ item.title }}" id="w" type="text" class="validate">
-                                                </td>
-                                                <!--                                        <td>2020/3/15 23:55</td>-->
-                                                <td><input value="{{ item.percentage }}" id="1" type="text"
-                                                           class="validate"></td>
-                                                <td>
-                                                    <form method="POST" action="/course/{{ course.id }}/modify_submission">
-                                                        {% csrf_token %}
-                                                        <input name="deleteItemId" value="{{ item.id }}" style="display: none;">
-                                                        <button type="submit" class="btn-floating btn-small waves-effect waves-light purple"><i
-                                                            class="material-icons">close</i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </div>
+                                {% if submissionItem %}
+                                    <table class="highlight">
+                                        <tr class="home_table">
+                                            <th>Title</th>
+                                            <th>Percentage</th>
+                                            <th>Delete?</th>
                                         </tr>
 
-                                    {% endfor %}
+                                        {% for item in submissionItem %}
+                                            
+                                            {% csrf_token %}
+                                            <tr class="home_table" id="{{ item.id }}">
+                                                <div>
+                                                    <input name="modifyId" value="{{ item.id }}" type="number" style="display: none;">
+                                                    <td><input value="{{ item.title }}" name="title" type="text" class="validate">
+                                                    </td>
+                                                    <!--                                        <td>2020/3/15 23:55</td>-->
+                                                    <td><input type="number" value="{{ item.percentage }}" name="percentage" type="text"
+                                                            class="validate"></td>
+                                                    <td>
+                                                        <form method="POST" action="/course/{{ course.id }}/modify_submission">
+                                                            {% csrf_token %}
+                                                            <input name="deleteItemId" value="{{ item.id }}" style="display: none;">
+                                                            <button type="submit" class="btn-floating btn-small waves-effect waves-light purple"><i
+                                                                class="material-icons">close</i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        {% endfor %}
 
-                                </table>
+                                    </table>
 
-                                <div class="center-align">
-                                    {% if data %}
-                                        <ul id="pages" class="pagination">
+                                    
 
-                                            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
-                                            </li>
+                                {% else %}
+                                    <h2>Currently there is no submission item.</h2>
+                                {% endif %}
 
-                                            {% if data.first %}
-                                                <li class="waves-effect"><a href="?page=1">1</a></li>
-                                            {% endif %}
-                                            {% if data.left %}
-                                                {% if data.left_has_more %}
-                                                    <li><span>...</span></li>
-                                                {% endif %}
-                                                {% for i in data.left %}
-                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
-                                                {% endfor %}
-                                            {% endif %}
-                                            <li class="active grey darken-3 waves-effect"><a
-                                                    href="?page={{ data.page }}">{{ data.page }}</a></li>
-
-                                            {% if data.right %}
-                                                {% for i in data.right %}
-                                                    <li class="waves-effect"><a href="?page={{ i }}">{{ i }}</a></li>
-                                                {% endfor %}
-                                                {% if data.right_has_more %}
-                                                    <li><span>...</span></li>
-                                                {% endif %}
-                                            {% endif %}
-                                            {% if data.last %}
-                                                <li class="waves-effect"><a
-                                                        href="?page={{ data.total_pages }}">{{ data.total_pages }}</a>
-                                                </li>
-                                            {% endif %}
-
-                                            <li class="waves-effect"><a href="#!"><i
-                                                    class="material-icons">chevron_right</i></a></li>
-                                        </ul>
-                                    {% endif %}
-                                </div>
-
-                            {% else %}
-                                <h2>Currently there is no submission item.</h2>
-                            {% endif %}
-
-                            <br>
-                            <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"></div>
+                                <br>
+                                <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"></div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <br>
@@ -268,6 +233,10 @@
             myChart.setOption(option);
 
         {% endif %}
-        
+        var toast_msg = "{{ msg }}";
+        if(!(toast_msg == 'no_msg')){
+            var $toastContent = $('<span>' + toast_msg +'</span>');
+            Materialize.toast($toastContent, 4000);
+        }
     </script>
 {% endblock %}

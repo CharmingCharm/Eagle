@@ -34,7 +34,9 @@ def modify_submission(request, course_id):
     if request.user.is_authenticated:
         user = request.user
         course = Course.objects.get(id=course_id)
-
+        teachers = course.member.filter(field='teacher')
+        memNum = course.member.count()
+        msg = "no_msg"
         deleteId = set()
 
         if request.session.get("deleteId") is not None:
@@ -42,60 +44,30 @@ def modify_submission(request, course_id):
             deleteId = request.session.get("deleteId")
 
         if request.method == 'POST':
-            deleteId.add(int(request.POST.get("deleteItemId")[0]))
-            request.session["deleteId"] = deleteId
-            submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
-        else:
-            submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+            if request.POST.get("confirm") is not None:
+                modifyId = list(map(int, request.POST.getlist("modifyId")))
+                titles = request.POST.getlist("title")
+                percentages = list(map(float, request.POST.getlist("percentage")))
 
-        p = Paginator(submissionItem, 5)
-        if p.num_pages <= 1:
-            submissionItem_list = submissionItem
-            data = ''
-        else:
-            page = int(request.GET.get('page', 1))
-            submissionItem_list = p.page(page)
-            left = []
-            right = []
-            left_has_more = False
-            right_has_more = False
-            first = False
-            last = False
-            total_pages = p.num_pages
-            page_range = p.page_range
-            if page == 1:
-                right = page_range[page:page + 2]
-                if right[-1] < total_pages - 1:
-                    right_has_more = True
-                if right[-1] < total_pages:
-                    last = True
-            elif page == total_pages:
-                left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
-                if left[0] > 2:
-                    left_has_more = True
-                if left[0] > 1:
-                    first = True
+                if sum(percentages) == 100:
+                    submissionItem = SubmissionItem.objects.filter(course=course_id)
+                    submissionItem.filter(id__in=deleteId).delete()
+                    for index in range(len(modifyId)):
+                        submissionItem.filter(id=modifyId[index]).update(title=titles[index])
+                        submissionItem.filter(id=modifyId[index]).update(percentage=percentages[index])
+                    request.session['msg'] = "Success saving the modifying of submissions!"
+                    return redirect("/course/" + str(course.id))
+                else:
+                    submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                    msg = "Your sum of percentage is not 100 percent!!"
+                    return render(request, 'modify_submission.html', locals())
             else:
-                left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
-                right = page_range[page:page + 2]
-                if left[0] > 2:
-                    left_has_more = True
-                if left[0] > 1:
-                    first = True
-                if right[-1] < total_pages - 1:
-                    right_has_more = True
-                if right[-1] < total_pages:
-                    last = True
-            data = {
-                'left': left,
-                'right': right,
-                'left_has_more': left_has_more,
-                'right_has_more': right_has_more,
-                'first': first,
-                'last': last,
-                'total_pages': total_pages,
-                'page': page
-            }
+                deleteId.add(int(request.POST.get("deleteItemId")[0]))
+                request.session["deleteId"] = deleteId
+                submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                msg = "Currently delete it!"
+        else:
+            submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
     return render(request, 'modify_submission.html', locals())
 
 
