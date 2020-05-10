@@ -11,6 +11,7 @@ class Course(models.Model):
     visit = models.IntegerField(default=0, unique=False)
     description = models.CharField(max_length=256, unique=False)
     participation = models.IntegerField(default=0)
+    team_num = models.IntegerField(default=0)
 
     member = models.ManyToManyField(User)
 

@@ -14,7 +14,7 @@
     <div class="nav-wrapper container"><a id="logo-container" href="/{{ request.user.field }}_home/" class="brand-logo">Teamwork System</a>
         <ul class="right hide-on-med-and-down">
         {% if request.user.is_authenticated %}
-                <li><a href="/{{ request.user.field }}_home/">{{ request.user.truename }}</a></li>
+                <li><a href="/{{ request.user.field }}_home/">{{ request.user.username }}</a></li>
                 <li><a href="/logout/">Logout</a></li>
         {% else %}
                 <li><a href="/login/">Login</a></li>
@@ -22,7 +22,7 @@
         </ul>
         <ul id="nav-mobile" class="side-nav">
             {% if request.user.is_authenticated %}
-                <li><a href="/{{ request.user.field }}_home/">{{ request.user.truename }}</a></li>
+                <li><a href="/{{ request.user.field }}_home/">{{ request.user.username }}</a></li>
                 <li><a href="/logout/">Logout</a></li>
             {% else %}
                 <li><a href="/login/">Login</a></li>
@@ -79,6 +79,7 @@
 </footer>
 
 {% include "js.html" %}
+
 {% block extra_js %}{% endblock %}
 </body>
 </html>

@@ -5,8 +5,8 @@ from django.forms import formset_factory
 class SubmissionItemForm(forms.Form):
     title = forms.CharField(label='title', max_length=128,
                             widget=forms.TextInput(
-                                attrs={'id': 'icon_prefix', 'required': "true"}))
+                                attrs={'id': 'icon_prefix', 'required': "true", "class": "validate"}))
 
     percentage = forms.FloatField(label='percentage',
                                   widget=forms.NumberInput(
-                                      attrs={'id': 'icon_per', 'required': "true"}))
+                                      attrs={'id': 'icon_per', 'required': "true", "class": "validate"}))

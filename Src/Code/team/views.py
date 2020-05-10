@@ -5,7 +5,6 @@ from django.contrib import messages
 from user.models import User
 from .models import Vote
 
-
 def max_list(lt):
     temp = 0
     max_ele = 0
@@ -57,7 +56,20 @@ def manage(request, course_id):
 def group_size(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    return render(request, 'group_size.html', locals())
+    stuNum = course.member.filter(field='student').count()
+    print(course.member)
+    if request.user.is_authenticated and user.field == 'teacher':
+        if request.method == 'POST':
+            group_size = request.POST.get("group_size")
+            form_method = request.POST.get("form_method")
+            consider_GPA = request.POST.get("consider_GPA")
+            course.team_num = stuNum/group_size
+            course.form_method = form_method
+            # course.consider_GPA = consider_GPA
+            course.save()
+            return redirect('/course/'+str(course_id) + '/group_size')
+        return render(request, 'group_size.html', locals())
+    return redirect('/')
 
 def invite(request, course_id):
     course = Course.objects.get(id=course_id)
