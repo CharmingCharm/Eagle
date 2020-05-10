@@ -23,74 +23,81 @@
                                 <div class="col l2 s12"></div>
                                 <div class="col l8 s12">
                                     <h5>Please input the group information:</h5>
-                                    <p style="font-size: 15px;">Notice that your course now have <b style="color:darkorchid;">{{ stuNum }}</b> students.</p>
+                                    <p style="font-size: 15px;">Notice that your course now have <b
+                                            style="color:darkorchid;">{{ stuNum }}</b> students.</p>
                                     <br>
                                     <br>
-                                    <div class="row">
-                                        <div>
-                                            <div class="row">
-                                                <div class="input-field col s12"><i class="material-icons prefix">assignment_ind</i>
-                                                    <input id="icon_per" type="number" class="validate">
-                                                    <label for="icon_per">Please set the group size</label>
-                                                </div>
-                                            </div>
+                                    <form role="form" method="post" action="/course/{{ course.id }}/group_size"
+                                          enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
 
-                                            <p style="margin-left: 20px; color:grey; font-size: 16px;">Please select the
-                                                forming method:</p>
-                                            <br>
-                                            <div class="row">
-                                                <div class="col s1"></div>
-                                                <div class="col s11">
-                                                    <div class="row notGPA" style="margin-bottom: 15px;">
-                                                        <input name="form_method" type="radio" id="1"/>
-
-                                                        <label for="1">Forming method 1: all the members are chosen
-                                                            by
-                                                            the
-                                                            students themselves.</label>
-                                                    </div>
-                                                    <div class="row GPA" style="margin-bottom: 15px;">
-                                                        <input name="form_method" type="radio" id="2"/>
-                                                        <label for="2">Forming method 2: the members are decided by
-                                                            the
-                                                            system automatically.</label>
-                                                    </div>
-                                                    <div class="row GPA" style="margin-bottom: 15px;">
-                                                        <input name="form_method" type="radio" id="3"/>
-                                                        <label for="3">Forming method 3: A student can choose one
-                                                            friend
-                                                            and
-                                                            others are given by the system randomly. </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="showGPA">
-                                                <p style="margin-left: 20px; color:grey; font-size: 16px; float:left;">
-                                                    Consider
-                                                    GPA?</p>
-                                                <div class="row"></div>
-
+                                            <div>
                                                 <div class="row">
-                                                    <div class="switch" style="margin-left: 30px; ">
-                                                        <label>
-                                                            NO
-                                                            <input type="checkbox" name="consider_GPA">
-                                                            <span class="lever"></span>
-                                                            YES
-                                                        </label>
+                                                    <div class="input-field col s12"><i class="material-icons prefix">assignment_ind</i>
+                                                        <input type="number" class="validate" name="group_size"
+                                                               required>
+                                                        <label for="icon_per">Please set the group size</label>
                                                     </div>
+                                                </div>
 
+                                                <p style="margin-left: 20px; color:grey; font-size: 16px;">Please select
+                                                    the
+                                                    forming method:</p>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col s1"></div>
+                                                    <div class="col s11">
+                                                        <div class="row notGPA" style="margin-bottom: 15px;">
+                                                            <input name="form_method" type="radio" id="1" value="1"/>
+
+                                                            <label for="1">Forming method 1: all the members are chosen
+                                                                by
+                                                                the
+                                                                students themselves.</label>
+                                                        </div>
+                                                        <div class="row GPA" style="margin-bottom: 15px;">
+                                                            <input name="form_method" type="radio" id="2" value="2"/>
+                                                            <label for="2">Forming method 2: the members are decided by
+                                                                the
+                                                                system automatically.</label>
+                                                        </div>
+                                                        <div class="row GPA" style="margin-bottom: 15px;">
+                                                            <input name="form_method" type="radio" id="3" value="3"/>
+                                                            <label for="3">Forming method 3: A student can choose one
+                                                                friend
+                                                                and
+                                                                others are given by the system randomly. </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="showGPA">
+                                                    <p style="margin-left: 20px; color:grey; font-size: 16px; float:left;">
+                                                        Consider
+                                                        GPA?</p>
+                                                    <div class="row"></div>
+
+                                                    <div class="row">
+                                                        <div class="switch" style="margin-left: 30px; ">
+                                                            <label>
+                                                                NO
+                                                                <input type="checkbox" name="consider_GPA" value="1">
+                                                                <span class="lever"></span>
+                                                                YES
+                                                            </label>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <button class="btn waves-effect waves-light red darken-3" type="btn"
-                                            name="action" style="float: left;">cancel <i
-                                            class="material-icons left">close</i></button>
-                                    <button class="btn waves-effect waves-light" type="submit" name="action"
-                                            style="float: right;">submit <i
-                                            class="material-icons right">send</i></button>
+                                        <button class="btn waves-effect waves-light red darken-3" type="btn"
+                                                name="action" style="float: left;">cancel <i
+                                                class="material-icons left">close</i></button>
+                                        <button class="btn waves-effect waves-light" type="submit" name="action"
+                                                style="float: right;">submit <i
+                                                class="material-icons right">send</i></button>
                                     </form>
                                 </div>
                             </div>
@@ -109,14 +116,14 @@
 {% endblock %}
 {% block extra_js %}
     <script>
-    $(function(){
-        $(".showGPA").hide();
-        $(".GPA").click(function(){
-            $(".showGPA").show();
-            });
-        $(".notGPA").click(function(){
+        $(function () {
             $(".showGPA").hide();
+            $(".GPA").click(function () {
+                $(".showGPA").show();
             });
-    })
+            $(".notGPA").click(function () {
+                $(".showGPA").hide();
+            });
+        })
     </script>
 {% endblock %}

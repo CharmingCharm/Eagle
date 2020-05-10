@@ -11,7 +11,7 @@ class ImportIndividualForm(forms.Form):
     email = forms.EmailField(label='Email',
                              widget=forms.EmailInput(
                                  attrs={'class': 'validate', 'required': "true"}))
-    GPA = forms.FloatField(label='GPA(Optional)', widget=forms.NumberInput(attrs={'class': 'validate'}))
+    GPA = forms.FloatField(label='GPA(Optional)', widget=forms.NumberInput(attrs={'class': 'validate', 'required': "false"}))
 
 class GenerateStudentsForm(forms.Form):
     initial_pwd = forms.CharField(label='Initial password', max_length=64, widget=forms.PasswordInput(

@@ -20,10 +20,8 @@ class Team(models.Model):
     def __str__(self):
         return str(self.id)
 
-class Vote(models.Model):
-    # team = models.OneToOneField(Team, on_delete=models.CASCADE, unique=False)
-    # member = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
 
+class Vote(models.Model):
     team = models.IntegerField(default=0)
     member = models.IntegerField(default=0)
     vote_id = models.IntegerField(default=0)
@@ -31,3 +29,13 @@ class Vote(models.Model):
     def __str__(self):
         return str(self.id)
 
+
+class Invitation(models.Model):
+    from_user = models.IntegerField(default=0)
+    to_user = models.IntegerField(default=0)
+    description = models.CharField(max_length=128, unique=False)
+    isAccept = models.IntegerField(default=0)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)

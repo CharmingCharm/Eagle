@@ -15,8 +15,8 @@
                                 <div class="card-content">
                                     <h3 class="truncate changefont">invite others to your team</h3>
                                     <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                            class="head_text"> Main page <b>&gt;</b> Software Development Workshop III <b>&gt;</b> <span
-                                            style="color: darkmagenta">team forming</span> </span></p>
+                                            class="head_text"> Main page <b>&gt;</b> {{ course.name }} <b>&gt;</b> <span
+                                            style="color: darkmagenta">Invite others</span> </span></p>
                                     <div class="row" style="margin-bottom: 0px;">
                                         <div class="card-content">
                                             <hr>
@@ -25,53 +25,61 @@
                                                 team:</p>
                                             <br>
                                             <div class="row">
-                                                <div class="col s4 m4">
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="row" style="margin-bottom: 0px;">
-                                                                <div class="col s4"><img src="img/head1.jpg" alt=""
-                                                                                         class="circle responsive-img">
-                                                                    <!-- notice the "circle" class -->
-                                                                </div>
-                                                                <div class="col s8"><span
-                                                                        class="card-title">Dragon King</span></div>
-                                                                <a class="waves-effect waves-light btn green modal-trigger"
-                                                                   style="margin-left: 15px; margin-top: 5px;"
-                                                                   href="#modal1"><i
-                                                                        class="material-icons left">send</i>Invite</a>
-                                                                <div id="modal1" class="modal">
-                                                                    <div class="modal-content">
-                                                                        <h4>模态标题</h4>
-                                                                        <p>一堆文本</p>
+                                                {% for one in student %}
+
+                                                    <div class="col s4 m4">
+                                                        <div class="card">
+                                                            <div class="card-content">
+                                                                <div class="row" style="margin-bottom: 0px;">
+                                                                    <div class="col s4"><img
+                                                                            src="{% static 'img/head1.jpg' %}" alt=""
+                                                                            class="circle responsive-img">
+                                                                        <!-- notice the "circle" class -->
                                                                     </div>
-                                                                    <div class="modal-footer"><a href="#!"
-                                                                                                 class="modal-action modal-close waves-effect waves-green btn-flat ">同意</a>
+                                                                    <div class="col s8"><span
+                                                                            class="card-title"
+                                                                            style="margin-left: 15px;">{{ one.username }}</span>
+                                                                    </div>
+                                                                    <a class="waves-effect waves-light btn green modal-trigger"
+                                                                       style="margin-left: 15px; margin-top: 5px;"
+                                                                       href="#modal{{ one.id }}"><i
+                                                                            class="material-icons left">send</i>Invite</a>
+                                                                    <div id="modal{{ one.id }}" class="modal">
+                                                                        <div class="modal-content">
+                                                                            <form method="post"
+                                                                                  href="/course/{{ course_id }}/invite">
+                                                                                {% csrf_token %}
+                                                                                <h4>You are going to invite <span
+                                                                                        class="purple-text">{{ one.username }}</span>
+                                                                                    to your team:</h4>
+
+                                                                                <br>
+                                                                                <h5 class="grey-text">What are you going
+                                                                                    to say?</h5>
+                                                                                <input type="text" name="to_user" value="{{ one.id }}"
+                                                                                       style="display: none;"/>
+                                                                                <input type="text" name="description"/>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button class="btn waves-effect waves-light"
+                                                                                    type="submit" name="action"
+                                                                                    style="float: right;">submit <i
+                                                                                    class="material-icons right">send</i>
+                                                                            </button>
+                                                                        </div>
+
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col s4 m4">
-                                                    <div class="card">
-                                                        <div class="card-content">
-                                                            <div class="row" style="margin-bottom: 0px;">
-                                                                <div class="col s4"><img src="img/head1.jpg" alt=""
-                                                                                         class="circle responsive-img">
-                                                                    <!-- notice the "circle" class -->
-                                                                </div>
-                                                                <div class="col s8"><span
-                                                                        class="card-title">Dragon King</span></div>
-                                                                <a class="waves-effect waves-light btn green"
-                                                                   style="margin-left: 15px; margin-top: 5px;"><i
-                                                                        class="material-icons left">send</i>Invite</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {% endfor %}
+
                                             </div>
                                             <br>
-                                            <a href="#" class="btn red waves-effect waves-light"><i
+                                            <a href="/course/{{ course.id }}/teammate_management"
+                                               class="btn red waves-effect waves-light"><i
                                                     class="material-icons left">fast_rewind</i>back</a></div>
                                     </div>
                                 </div>
@@ -118,4 +126,20 @@
         <div class="container"> Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
         </div>
     </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 300, // Transition in duration
+                out_duration: 200, // Transition out duration
+                starting_top: '40%', // Starting top style attribute
+                ending_top: '20%', // Ending top style attribute
+            });
+        });
+    </script>
+
 {% endblock %}

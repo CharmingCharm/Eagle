@@ -3,7 +3,8 @@ from course.models import Course
 from .models import Team
 from django.contrib import messages
 from user.models import User
-from .models import Vote
+from .models import Vote, Team, Invitation
+import random
 
 def max_list(lt):
     temp = 0
@@ -51,32 +52,76 @@ def vote_leader(request, course_id):
 def manage(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    own_team = Team.objects.get(course=course, member=user)
+    invite = Invitation.objects.filter(course=course, to_user=request.user.id)
     return render(request, 'teammate_management.html', locals())
 
 def group_size(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     stuNum = course.member.filter(field='student').count()
-    print(course.member)
     if request.user.is_authenticated and user.field == 'teacher':
         if request.method == 'POST':
-            group_size = request.POST.get("group_size")
-            form_method = request.POST.get("form_method")
+            group_size = int(request.POST.get("group_size"))
+            form_method = int(request.POST.get("form_method"))
             consider_GPA = request.POST.get("consider_GPA")
-            course.team_num = stuNum/group_size
-            course.form_method = form_method
-            # course.consider_GPA = consider_GPA
-            course.save()
-            return redirect('/course/'+str(course_id) + '/group_size')
+            team_num = int(stuNum/group_size)
+
+            if consider_GPA and form_method == 2:
+                form_method = 4
+            if consider_GPA and form_method == 3:
+                form_method = 5
+
+            if stuNum % group_size == 0:
+                course.team_num = team_num
+                course.form_method = form_method
+                course.save()
+                # messages.add_message(request, messages.success, 'You have successfully set the team forming!')
+
+            if form_method == 1 or form_method == 4 or form_method == 5:
+                messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
+                return redirect('/course/' + str(course_id))
+
+            if form_method == 2:
+                student_list = []
+                rand_student_list = []
+                students = course.member.filter(field='student')
+                for item in students:
+                    student_list.append(item.id)
+                randlist = random.sample(range(0, stuNum), stuNum)
+                for index in range(0, stuNum):
+                    rand_student_list.append(student_list[randlist[index]])
+
+                index = 0
+                for cycle in range(0, team_num):
+                    new_team = Team.objects.create(name='group'+str(cycle), course=course)
+                    for cycle2 in range(0, group_size):
+                        new_member = User.objects.get(id=rand_student_list[cycle * group_size + cycle2])
+                        new_team.member.add(new_member)
+                    new_team.save()
+                return redirect('/course/' + str(course_id) + '/forming_method')
         return render(request, 'group_size.html', locals())
     return redirect('/')
+
 
 def invite(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    student = User.objects.filter(course=course)
+    team = Team.objects.filter(course=course)
+    if request.method == 'POST':
+        to_user = int(request.POST.get("to_user"))
+        description = int(request.POST.get("description"))
+        new_invite = Invitation.objects.create(from_user=request.user.id, to_user=to_user, description=description, course=course)
+        new_invite.save()
+    # for item in team:
+    #     student_has_team = User.objects.filter(team=item.id)
+    #     student_not_has_team = students - student_has_team
     return render(request, 'invite.html', locals())
+
 
 def forming_method(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    team = Team.objects.get(course=course)
     return render(request, 'forming_method_1.html', locals())

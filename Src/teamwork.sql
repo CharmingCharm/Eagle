@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2020-05-05 12:48:02
+-- 生成日期： 2020-05-10 22:35:12
 -- 服务器版本： 10.1.37-MariaDB
 -- PHP 版本： 7.3.1
 
@@ -118,7 +118,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (53, 'Can add vote', 14, 'add_vote'),
 (54, 'Can change vote', 14, 'change_vote'),
 (55, 'Can delete vote', 14, 'delete_vote'),
-(56, 'Can view vote', 14, 'view_vote');
+(56, 'Can view vote', 14, 'view_vote'),
+(57, 'Can add invitation', 15, 'add_invitation'),
+(58, 'Can change invitation', 15, 'change_invitation'),
+(59, 'Can delete invitation', 15, 'delete_invitation'),
+(60, 'Can view invitation', 15, 'view_invitation');
 
 -- --------------------------------------------------------
 
@@ -135,20 +139,21 @@ CREATE TABLE `course_course` (
   `pic` varchar(64) NOT NULL,
   `visit` int(11) NOT NULL,
   `description` varchar(256) NOT NULL,
-  `participation` int(11) NOT NULL
+  `participation` int(11) NOT NULL,
+  `team_num` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `course_course`
 --
 
-INSERT INTO `course_course` (`id`, `name`, `begin_time`, `end_time`, `form_method`, `pic`, `visit`, `description`, `participation`) VALUES
-(1, 'zqmdsbbbbbbbbbbb', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 2),
-(2, 'zqmcccccccccc', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1),
-(3, 'zqmdddddddddd', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1),
-(4, 'zqmeeeeeeee', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1),
-(5, 'zqmfffffffff', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1),
-(6, 'zqmdsggggggggg', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1);
+INSERT INTO `course_course` (`id`, `name`, `begin_time`, `end_time`, `form_method`, `pic`, `visit`, `description`, `participation`, `team_num`) VALUES
+(1, 'zqmdsbbbbbbbbbbb', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 3, 0),
+(2, 'zqmcccccccccc', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', '2', '1.jpg', 12, '12312321123', 7, 3),
+(3, 'zqmdddddddddd', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1, 0),
+(4, 'zqmeeeeeeee', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1, 0),
+(5, 'zqmfffffffff', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1, 0),
+(6, 'zqmdsggggggggg', '2020-04-01 00:00:00.000000', '2020-04-02 00:00:00.000000', 'ramdom', '1.jpg', 12, '12312321123', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -169,7 +174,14 @@ CREATE TABLE `course_course_member` (
 INSERT INTO `course_course_member` (`id`, `course_id`, `user_id`) VALUES
 (7, 1, 1),
 (1, 1, 2),
+(15, 1, 8),
+(14, 2, 1),
 (2, 2, 2),
+(9, 2, 3),
+(10, 2, 4),
+(11, 2, 5),
+(12, 2, 6),
+(13, 2, 7),
 (3, 3, 2),
 (4, 4, 2),
 (5, 5, 2),
@@ -217,6 +229,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (5, 'sessions', 'session'),
 (10, 'submission', 'submissioncontribution'),
 (11, 'submission', 'submissionitem'),
+(15, 'team', 'invitation'),
 (12, 'team', 'leader'),
 (13, 'team', 'team'),
 (14, 'team', 'vote'),
@@ -273,7 +286,9 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (29, 'team', '0005_auto_20200505_1359', '2020-05-05 05:59:26.304717'),
 (30, 'team', '0006_remove_team_leader', '2020-05-05 06:13:13.705878'),
 (31, 'team', '0007_auto_20200505_1824', '2020-05-05 10:24:59.865983'),
-(32, 'team', '0008_auto_20200505_1833', '2020-05-05 10:33:13.414668');
+(32, 'team', '0008_auto_20200505_1833', '2020-05-05 10:33:13.414668'),
+(33, 'course', '0004_course_team_num', '2020-05-10 13:54:04.033146'),
+(34, 'team', '0009_invitation', '2020-05-10 20:22:52.072264');
 
 -- --------------------------------------------------------
 
@@ -292,7 +307,7 @@ CREATE TABLE `django_session` (
 --
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('k6t4mc4xul289vjenfsrtlywxfifto5w', 'MDYyZGFkMWVjZjU2N2YxOWM5OTNjMTk1OWI0ZDRiN2EyNWIxOGZkYjqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATKUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDZiY2ZjZjRiNDA5NzA0NzNhY2E3NWIwMTEwN2Y1N2NlZDMyZTk4ZjSUdS4=', '2020-05-19 10:34:49.640040');
+('oyby4h6vn2szcyww8t1z2z38lo1x84j2', 'MDYyZGFkMWVjZjU2N2YxOWM5OTNjMTk1OWI0ZDRiN2EyNWIxOGZkYjqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATKUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDZiY2ZjZjRiNDA5NzA0NzNhY2E3NWIwMTEwN2Y1N2NlZDMyZTk4ZjSUdS4=', '2020-05-24 20:33:58.781354');
 
 -- --------------------------------------------------------
 
@@ -325,12 +340,32 @@ CREATE TABLE `submission_submissionitem` (
 --
 
 INSERT INTO `submission_submissionitem` (`id`, `title`, `percentage`, `course_id`) VALUES
-(1, 'cacal', 30, 1),
-(2, 'qqwq', 20, 1),
 (3, 'eeeee', 40, 1),
 (5, 'qwqqwqwq', 10, 1),
 (6, 'qwq', 30, 1),
-(7, 'qeqeqe', 38, 1);
+(7, 'qeqeqe', 20, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `team_invitation`
+--
+
+CREATE TABLE `team_invitation` (
+  `id` int(11) NOT NULL,
+  `from_user` int(11) NOT NULL,
+  `to_user` int(11) NOT NULL,
+  `description` varchar(128) NOT NULL,
+  `isAccept` int(11) NOT NULL,
+  `course_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `team_invitation`
+--
+
+INSERT INTO `team_invitation` (`id`, `from_user`, `to_user`, `description`, `isAccept`, `course_id`) VALUES
+(1, 4, 2, '123', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -362,7 +397,10 @@ CREATE TABLE `team_team` (
 --
 
 INSERT INTO `team_team` (`id`, `name`, `course_id`, `leader`) VALUES
-(4, 'Eagle', 1, 2);
+(4, 'Eagle', 1, 2),
+(13, 'group0', 2, 0),
+(14, 'group1', 2, 0),
+(15, 'group2', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -382,7 +420,13 @@ CREATE TABLE `team_team_member` (
 
 INSERT INTO `team_team_member` (`id`, `team_id`, `user_id`) VALUES
 (1, 4, 1),
-(2, 4, 2);
+(2, 4, 2),
+(25, 13, 4),
+(24, 13, 6),
+(26, 14, 3),
+(27, 14, 7),
+(29, 15, 2),
+(28, 15, 5);
 
 -- --------------------------------------------------------
 
@@ -423,6 +467,13 @@ CREATE TABLE `user_student` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 转存表中的数据 `user_student`
+--
+
+INSERT INTO `user_student` (`id`, `studentID`, `GPA`, `user_id`) VALUES
+(1, '1730026102', 1, 8);
+
 -- --------------------------------------------------------
 
 --
@@ -462,8 +513,14 @@ CREATE TABLE `user_user` (
 --
 
 INSERT INTO `user_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `field`, `truename`) VALUES
-(1, 'pbkdf2_sha256$150000$hAU829ZVucLH$stMX/smg8yE+FdjDWJJmv5UKwpBxN29lyNBA3O/egsg=', '2020-05-05 10:27:36.620864', 1, 'tzm', '', '', '', 1, 1, '2020-04-30 04:15:58.009282', 'teacher', 'zqm'),
-(2, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-05 10:34:49.614744', 0, '123', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm');
+(1, 'pbkdf2_sha256$150000$hAU829ZVucLH$stMX/smg8yE+FdjDWJJmv5UKwpBxN29lyNBA3O/egsg=', '2020-05-10 20:31:22.160195', 1, 'tzm', '', '', '', 1, 1, '2020-04-30 04:15:58.009282', 'teacher', 'zqm'),
+(2, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-10 20:33:58.744650', 0, '123', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(3, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-10 15:14:42.748663', 0, '124', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(4, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-09 14:44:15.723173', 0, '125', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(5, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-09 14:44:15.723173', 0, '126', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(6, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-09 14:44:15.723173', 0, '127', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(7, 'pbkdf2_sha256$150000$ctz83xTLE7dZ$iEP0z4fBBFuRFQypf4d1fuybQvA2UNRsSmzgujus5vI=', '2020-05-09 14:44:15.723173', 0, '128', '', '', '1220219614@qq.com', 0, 1, '2020-04-30 04:17:17.100308', 'student', 'zqm'),
+(8, 'pbkdf2_sha256$150000$xsD0iDCPLufY$gnagYwbO/rY934XmxRznpywd/uIHmK1fbxZoiu1QkTY=', NULL, 0, '1234', '', '', '1220219614@qq.com', 0, 1, '2020-05-10 17:32:40.002014', 'student', '');
 
 -- --------------------------------------------------------
 
@@ -573,6 +630,13 @@ ALTER TABLE `submission_submissionitem`
   ADD KEY `submission_submissionitem_course_id_f804ab42_fk_course_course_id` (`course_id`);
 
 --
+-- 表的索引 `team_invitation`
+--
+ALTER TABLE `team_invitation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `team_invitation_course_id_800bb231_fk_course_course_id` (`course_id`);
+
+--
 -- 表的索引 `team_leader`
 --
 ALTER TABLE `team_leader`
@@ -657,7 +721,7 @@ ALTER TABLE `auth_group_permissions`
 -- 使用表AUTO_INCREMENT `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- 使用表AUTO_INCREMENT `course_course`
@@ -669,7 +733,7 @@ ALTER TABLE `course_course`
 -- 使用表AUTO_INCREMENT `course_course_member`
 --
 ALTER TABLE `course_course_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- 使用表AUTO_INCREMENT `django_admin_log`
@@ -681,13 +745,13 @@ ALTER TABLE `django_admin_log`
 -- 使用表AUTO_INCREMENT `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- 使用表AUTO_INCREMENT `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- 使用表AUTO_INCREMENT `submission_submissioncontribution`
@@ -702,6 +766,12 @@ ALTER TABLE `submission_submissionitem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- 使用表AUTO_INCREMENT `team_invitation`
+--
+ALTER TABLE `team_invitation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- 使用表AUTO_INCREMENT `team_leader`
 --
 ALTER TABLE `team_leader`
@@ -711,13 +781,13 @@ ALTER TABLE `team_leader`
 -- 使用表AUTO_INCREMENT `team_team`
 --
 ALTER TABLE `team_team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- 使用表AUTO_INCREMENT `team_team_member`
 --
 ALTER TABLE `team_team_member`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- 使用表AUTO_INCREMENT `team_vote`
@@ -729,7 +799,7 @@ ALTER TABLE `team_vote`
 -- 使用表AUTO_INCREMENT `user_student`
 --
 ALTER TABLE `user_student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `user_teacher`
@@ -741,7 +811,7 @@ ALTER TABLE `user_teacher`
 -- 使用表AUTO_INCREMENT `user_user`
 --
 ALTER TABLE `user_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- 使用表AUTO_INCREMENT `user_user_groups`
@@ -798,6 +868,12 @@ ALTER TABLE `submission_submissioncontribution`
 --
 ALTER TABLE `submission_submissionitem`
   ADD CONSTRAINT `submission_submissionitem_course_id_f804ab42_fk_course_course_id` FOREIGN KEY (`course_id`) REFERENCES `course_course` (`id`);
+
+--
+-- 限制表 `team_invitation`
+--
+ALTER TABLE `team_invitation`
+  ADD CONSTRAINT `team_invitation_course_id_800bb231_fk_course_course_id` FOREIGN KEY (`course_id`) REFERENCES `course_course` (`id`);
 
 --
 -- 限制表 `team_leader`

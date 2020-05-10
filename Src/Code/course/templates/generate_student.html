@@ -65,8 +65,9 @@
                             </div>
                             
                             <div class="col l8 s12" style="padding: 20px;">
-                                
+                                {% if temp_stu %}
                                 <p class="course_txt"><b>Students:</b></p>
+
                                 <table>
                                     <tr class="home_table">
                                         <th>Name</th>
@@ -99,6 +100,13 @@
                                     <li class="waves-effect"><a href="#!">5</a></li>
                                     <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
                                 </ul>
+                                {% else %}
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <h4>Wait for importing..</h4>
+                                    <h5>Please import students on the left.</h5>
+                                    {% endif %}
                             </div>
                             </div>
                             
