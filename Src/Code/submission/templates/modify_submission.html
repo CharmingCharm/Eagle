@@ -68,10 +68,8 @@
                                             <th>Percentage</th>
                                             <th>Delete?</th>
                                         </tr>
-
+                                        {% csrf_token %}
                                         {% for item in submissionItem %}
-                                            
-                                            {% csrf_token %}
                                             <tr class="home_table" id="{{ item.id }}">
                                                 <div>
                                                     <input name="modifyId" value="{{ item.id }}" type="number" style="display: none;">
@@ -92,7 +90,32 @@
                                                 </div>
                                             </tr>
                                         {% endfor %}
-
+                                        {% if newSubmission %}
+                                        {% for item in newSubmission %}
+                                            <tr class="home_table">
+                                                <div>
+                                                    <input name="modifyNewIndex" value="{{ item.index }}" type="number" style="display: none;">
+                                                    <td><input value="{{ item.title }}" name="title" type="text" class="validate">
+                                                    </td>
+                                                    <!--                                        <td>2020/3/15 23:55</td>-->
+                                                    <td><input type="number" value="{{ item.percentage }}" name="percentage" type="text"
+                                                            class="validate"></td>
+                                                    <td>
+                                                        <form method="POST" action="/course/{{ course.id }}/modify_submission">
+                                                            {% csrf_token %}
+                                                            <input name="deleteNewIndex" value="{{ item.index }}" style="display: none;">
+                                                            <button type="submit" class="btn-floating btn-small waves-effect waves-light purple"><i
+                                                                class="material-icons">close</i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                            <script>
+                                                alert("{{ item.index }}");
+                                            </script>
+                                        {% endfor %}
+                                        {% endif %}
                                     </table>
 
                                     
