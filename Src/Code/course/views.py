@@ -10,6 +10,15 @@ from django.contrib import messages
 from django.db import transaction
 import xlrd
 
+def clean_session(request):
+    if request.session.get("deleteId") is not None:
+        request.session.pop("deleteId")
+    if request.session.get("addSubmission") is not None:
+        request.session.pop("addSubmission")
+    if request.session.get("newSubmission") is not None:
+        request.session.pop("newSubmission")
+    if request.session.get('user_list') is not None:
+        request.session.pop('user_list')
 
 @csrf_exempt
 def course_page(request, course_id):
@@ -79,8 +88,10 @@ def generate_student(request, course_id):
     user_list = []
     msg = 'no_msg'
     initial_pwd_form = GenerateStudentsForm()
+    
     if request.session.get('user_list') is not None:
         user_list = request.session.get('user_list')
+
     if request.session.get('temp_user') is not None:
         temp_stu = request.session['temp_user']
         for curr_user in user_list:
@@ -90,6 +101,25 @@ def generate_student(request, course_id):
         user_list.append(request.session.pop('temp_user'))
         msg = 'Add successfully!'
         request.session['user_list'] = user_list
+
+    if request.session.get('temp_stu_excel') is not None:
+        temp_stu_excel = request.session.get('temp_stu_excel')
+        success_num = 0
+        fail_num = 0
+        for temp_curr_stu in temp_stu_excel:
+            flag = 0
+            for curr_user in user_list:
+                if curr_user['stu_id'] == temp_curr_stu['stu_id']:
+                    flag = 1
+                    fail_num = fail_num + 1
+                    break
+            if flag == 0:
+                success_num = success_num + 1
+                user_list.append(temp_curr_stu)
+        msg = 'Add ' + str(success_num) + ' students successfully and ' + str(fail_num) + ' students fail!'
+        request.session.pop('temp_stu_excel')
+        request.session['user_list'] = user_list
+
     if request.method == 'POST':
         initial_pwd_form = GenerateStudentsForm(request.POST)
         if initial_pwd_form.is_valid():
@@ -109,34 +139,34 @@ def generate_student(request, course_id):
 
 def import_student_excel(request, course_id):
     course = Course.objects.get(id=course_id)
-    excel_file = request.FILES.get('excel_file', '')
-    file_type = excel_file.name.split('.')[1]
+    msg = "no_msg"
+    print(request.session.get('user_list'))
+    if request.method == 'POST':
+        if len(request.FILES) != 0:
+            excel_file = request.FILES.get('excel_file', '')
+            file_type = excel_file.name.split('.')[1]
 
-    #https://blog.csdn.net/qq_42571805/article/details/89057331
+            # https://blog.csdn.net/qq_42571805/article/details/89057331
 
-    if file_type in ['xlsx']:
-        data = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
-        tables = data.sheets()
-        for table in tables:
-            rows = table.nrows
-            try:
-                with transaction.atomic():
+            if file_type in ['xlsx']:
+                data = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
+                tables = data.sheets()
+                temp_stu = []
+                for table in tables:
+                    rows = table.nrows
+
                     for row in range(1, rows):
                         row_values = table.row_values(row)
-                        temp_user = {}
-                        temp_user['user_name']=row_values[0]
-                        temp_user['stu_id']=row_values[1]
-                        temp_user['email']=row_values[2]
-                        temp_user['GPA']=row_values[3]
-                        if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
-                            request.session['temp_user'] = temp_user
-                            return redirect('/course/' + str(course.id) + '/generate_student')
-            except:
-                return "error(message='解析excel文件或者数据插入错误！')"
-        return 'success'
-    else:
-        return "error(message='上传文件类型错误！')"
-    course = Course.objects.get(id=course_id)
+                        temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
+                        if Student.objects.filter(studentID=temp_curr_stu['stu_id']).first() is None:
+                            temp_stu.append(temp_curr_stu)
+
+                request.session['temp_stu_excel'] = temp_stu
+                msg = 'success'
+                return redirect('/course/' + str(course.id) + '/generate_student')
+            else:
+                msg = "Wrong file!"
+                return render(request, 'import_student_excel.html', locals())
     return render(request, 'import_student_excel.html', locals())
 
 

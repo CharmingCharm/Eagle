@@ -29,7 +29,8 @@
                                     <h5>Please input the student list: (Must be .xlsx file)</h5>
                                     <p style="color:#ee6e73; font-size: 15px;"> Notice: The format must be NAME, ID,
                                         EMAIL, GPA. (GPA is optional)</p>
-                                    <form href="/course/{{ course.id }}/import_student_excel" method="post">
+                                    <form method="POST" action="/course/{{ course.id }}/import_student_excel" enctype="multipart/form-data">
+                                        {% csrf_token %}
                                         <div class="file-field input-field">
                                             <div class="btn"><span>File</span>
                                                 <input type="file" name="excel_file"/>
@@ -60,4 +61,14 @@
         <div class="section"></div>
     </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    var toast_msg = "{{ msg }}";
+        if(!(toast_msg == 'no_msg')){
+            var $toastContent = $('<span>' + toast_msg +'</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+</script>
 {% endblock %}

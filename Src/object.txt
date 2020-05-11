@@ -1,0 +1,12 @@
+1. username 要unique
+2. invite显示班里没有在一个组里的
+3. invitation to user应该显示用户名而不是id
+4. 人数没整除 怎么安排
+5. 联动（当老师设置了forming method 1，3，5，学生才能操作invitation）
+6. forming method 1 搞定
+7. forming method 4 加gpa想算法
+8. suggestion page实现，forming method的1和2
+**************
+1. toast
+**************
+1. invtation的accept,0:未读 1:接受 2.拒绝 

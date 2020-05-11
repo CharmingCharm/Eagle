@@ -17,6 +17,8 @@ def clean_session(request):
         request.session.pop("addSubmission")
     if request.session.get("newSubmission") is not None:
         request.session.pop("newSubmission")
+    if request.session.get('user_list') is not None:
+        request.session.pop('user_list')
 
 def add_submission(request, course_id):
     course = Course.objects.get(id=course_id)
