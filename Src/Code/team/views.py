@@ -80,7 +80,7 @@ def group_size(request, course_id):
                 course.save()
                 # messages.add_message(request, messages.success, 'You have successfully set the team forming!')
 
-            if form_method == 1 or form_method == 4 or form_method == 5:
+            if form_method == 1 or form_method == 3 or form_method == 5:
                 messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
                 return redirect('/course/' + str(course_id))
 
@@ -113,7 +113,7 @@ def invite(request, course_id):
     team = Team.objects.filter(course=course)
     if request.method == 'POST':
         to_user = int(request.POST.get("to_user"))
-        description = int(request.POST.get("description"))
+        description = request.POST.get("description")
         new_invite = Invitation.objects.create(from_user=request.user.id, to_user=to_user, description=description, course=course)
         new_invite.save()
     # for item in team:
@@ -157,5 +157,5 @@ def processInvite(request, course_id, invite_id, isAccept):
 def forming_method(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    team = Team.objects.get(course=course)
+    team = Team.objects.filter(course=course)
     return render(request, 'forming_method_1.html', locals())
