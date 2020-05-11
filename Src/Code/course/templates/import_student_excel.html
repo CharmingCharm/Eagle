@@ -29,10 +29,10 @@
                                     <h5>Please input the student list: (Must be .xlsx file)</h5>
                                     <p style="color:#ee6e73; font-size: 15px;"> Notice: The format must be NAME, ID,
                                         EMAIL, GPA. (GPA is optional)</p>
-                                    <form action="#">
+                                    <form href="/course/{{ course.id }}/import_student_excel">
                                         <div class="file-field input-field">
                                             <div class="btn"><span>File</span>
-                                                <input type="file">
+                                                <input type="file" name="excel_file"/>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text">

@@ -23,6 +23,7 @@ urlpatterns = [
     path('course/<int:course_id>/vote_leader', views.vote_leader),
     path('course/<int:course_id>/teammate_management', views.manage),
     path('course/<int:course_id>/invite', views.invite),
+    path('course/<int:course_id>/invite/<int:invite_id>/<int:isAccept>', views.processInvite),
     path('course/<int:course_id>/group_size', views.group_size),
     path('course/<int:course_id>/forming_method', views.forming_method),
 ]

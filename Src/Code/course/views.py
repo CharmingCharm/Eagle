@@ -7,6 +7,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from django.core import serializers
 from django.contrib import messages
+from django.db import transaction
+import xlrd
+
 
 @csrf_exempt
 def course_page(request, course_id):
@@ -106,6 +109,34 @@ def generate_student(request, course_id):
 
 def import_student_excel(request, course_id):
     course = Course.objects.get(id=course_id)
+    excel_file = request.FILES.get('excel_file', '')
+    file_type = excel_file.name.split('.')[1]
+
+    #https://blog.csdn.net/qq_42571805/article/details/89057331
+
+    if file_type in ['xlsx']:
+        data = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
+        tables = data.sheets()
+        for table in tables:
+            rows = table.nrows
+            try:
+                with transaction.atomic():
+                    for row in range(1, rows):
+                        row_values = table.row_values(row)
+                        temp_user = {}
+                        temp_user['user_name']=row_values[0]
+                        temp_user['stu_id']=row_values[1]
+                        temp_user['email']=row_values[2]
+                        temp_user['GPA']=row_values[3]
+                        if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
+                            request.session['temp_user'] = temp_user
+                            return redirect('/course/' + str(course.id) + '/generate_student')
+            except:
+                return "error(message='解析excel文件或者数据插入错误！')"
+        return 'success'
+    else:
+        return "error(message='上传文件类型错误！')"
+    course = Course.objects.get(id=course_id)
     return render(request, 'import_student_excel.html', locals())
 
 
@@ -123,7 +154,6 @@ def import_student_individual(request, course_id):
             if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
                 request.session['temp_user'] = temp_user
                 return redirect('/course/'+ str(course.id) + '/generate_student')
-
     inidividual_form = ImportIndividualForm()
     return render(request, 'import_student_individual.html', locals())
 

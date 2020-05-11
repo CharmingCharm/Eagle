@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from .forms import SubmissionItemForm
 from course.models import Course
 from submission.models import SubmissionItem
+from team.models import Team
 from user.models import User
 from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
@@ -71,10 +72,14 @@ def modify_submission(request, course_id):
     return render(request, 'modify_submission.html', locals())
 
 
-def forming_method(request, course_id):
+def member_assessment(request, course_id, team_id):
     course = Course.objects.get(id=course_id)
+    team = Team.objects.get(id=team_id)
     user = User.objects.get(id=request.user.id)
-    return render(request, 'add_submission_item.html', locals())
+    if team.leader != request.user.id:
+        if request.method == 'POST':
+            leader_assessment = request.POST.get("leader_assessment")
+    return render(request, 'member_assessment.html', locals())
 
 
 def leader_assessment(request, course_id):
@@ -82,9 +87,9 @@ def leader_assessment(request, course_id):
     user = User.objects.get(id=request.user.id)
     return render(request, 'leader_assessment.html', locals())
 
-
-def member_assessment(request, course_id):
+def submission_assessment(request, course_id, submission_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    submission = SubmissionItem.objects.get(id=submission_id)
     return render(request, 'member_assessment.html', locals())
 

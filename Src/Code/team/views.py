@@ -49,12 +49,14 @@ def vote_leader(request, course_id):
         return redirect('/course/'+str(course_id))
     return render(request, 'login.html', locals())
 
+
 def manage(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     own_team = Team.objects.get(course=course, member=user)
-    invite = Invitation.objects.filter(course=course, to_user=request.user.id)
+    invite = Invitation.objects.filter(course=course, to_user=request.user.id, isAccept=0)
     return render(request, 'teammate_management.html', locals())
+
 
 def group_size(request, course_id):
     course = Course.objects.get(id=course_id)
@@ -118,6 +120,38 @@ def invite(request, course_id):
     #     student_has_team = User.objects.filter(team=item.id)
     #     student_not_has_team = students - student_has_team
     return render(request, 'invite.html', locals())
+
+
+def processInvite(request, course_id, invite_id, isAccept):
+    course = Course.objects.get(id=course_id)
+    user = User.objects.get(id=request.user.id)
+    process_invite = Invitation.objects.get(id=invite_id)
+    if isAccept == 1:
+        process_invite.isAccept = 1
+        process_invite.save()
+        own_team = Team.objects.filter(course=course, member=user). first()
+        new_member = User.objects.get(id=process_invite.from_user)
+        if own_team and own_team.member.count() < course.team_num:
+            own_team.member.add(new_member)
+            print('hhhhhhhhhhhhhhhhhhhhhhhhh')
+            # msg
+            redirect('course/'+str(course.id)+'/teammate_management')
+        if not own_team:
+            create_team = Team.objects.create(course=course)
+            create_team.member.add(user)
+            create_team.member.add(new_member)
+            print('gggggggggggggggggggggggggggg')
+            # msg
+            redirect('course/' + str(course.id) + '/teammate_management')
+        else:
+            print("emmmmmmmmmmmmmmmmm")
+            redirect('course/' + str(course.id) + '/teammate_management')
+    elif isAccept == 2:
+        process_invite.isAccept = 2
+        process_invite.save()
+        print('qqqqqqqqqqqqqqqqqqq')
+        redirect('course/' + str(course.id) + '/teammate_management')
+    redirect('course/' + str(course.id) + '/teammate_management')
 
 
 def forming_method(request, course_id):
