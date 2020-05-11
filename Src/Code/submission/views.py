@@ -9,6 +9,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 import json
 
+def clean_session(request):
+    if request.session.get("deleteId") is not None:
+        request.session.pop("deleteId")
+    if request.session.get("addSubmission") is not None:
+        request.session.pop("addSubmission")
+    if request.session.get("newSubmission") is not None:
+        request.session.pop("newSubmission")
+
 def add_submission(request, course_id):
     course = Course.objects.get(id=course_id)
     if request.user.is_authenticated:
@@ -19,11 +27,8 @@ def add_submission(request, course_id):
                 percentage = add_submission_form.cleaned_data['percentage']
                 submission_dup = SubmissionItem.objects.filter(title=title).first()
                 if not submission_dup:
-                    submission_new = SubmissionItem.objects.create(title=title,percentage=percentage,course_id=course_id)
-                    submission_new.save()
-                    messages.add_message(request, messages.SUCCESS, 'Add submission item succeed!')
-                    return redirect('/course/'+str(course_id))
-                messages.add_message(request, messages.ERROR, 'The title of the submission item exists!')
+                    request.session["addSubmission"] = {"title": title, "percentage": percentage}
+                    return redirect('/course/' + str(course_id) + "/modify_submission")
                 return redirect('/course/' + str(course_id) + '/add_submission')
         add_submission_form = SubmissionItemForm()
         return render(request, 'add_submission_item.html', locals())
@@ -40,8 +45,20 @@ def modify_submission(request, course_id):
         deleteId = set()
 
         if request.session.get("deleteId") is not None:
-            request.session.get("deleteId")
             deleteId = request.session.get("deleteId")
+
+        if request.session.get("addSubmission") is not None:
+            addSubmission = request.session.get("addSubmission")
+            if request.session.get("newSubmission") is not None:
+                newSubmission = request.session.get("newSubmission")
+            else:
+                newSubmission = list()
+            addSubmission.update({"index": len(newSubmission)})
+            newSubmission.append(addSubmission)
+            request.session.pop("addSubmission")
+            request.session["newSubmission"] = newSubmission
+        elif request.session.get("newSubmission") is not None:
+            newSubmission = request.session.get("newSubmission")
 
         if request.method == 'POST':
             if request.POST.get("confirm") is not None:
@@ -52,15 +69,25 @@ def modify_submission(request, course_id):
                 if sum(percentages) == 100:
                     submissionItem = SubmissionItem.objects.filter(course=course_id)
                     submissionItem.filter(id__in=deleteId).delete()
+                    for index in range(len(modifyId),len(titles)):
+                        SubmissionItem.objects.create(title=titles[index], percentage=percentages[index], course_id=course_id)
                     for index in range(len(modifyId)):
                         submissionItem.filter(id=modifyId[index]).update(title=titles[index])
                         submissionItem.filter(id=modifyId[index]).update(percentage=percentages[index])
                     request.session['msg'] = "Success saving the modifying of submissions!"
+                    clean_session(request)
                     return redirect("/course/" + str(course.id))
                 else:
                     submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
                     msg = "Your sum of percentage is not 100 percent!!"
                     return render(request, 'modify_submission.html', locals())
+            elif request.POST.get("deleteNewIndex") is not None:
+                for item in newSubmission:
+                    if item.get("index") == int(request.POST.get("deleteNewIndex")[0]):
+                        newSubmission.remove(item)
+                        request.session["newSubmission"] = newSubmission
+                        break
+                submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
             else:
                 deleteId.add(int(request.POST.get("deleteItemId")[0]))
                 request.session["deleteId"] = deleteId

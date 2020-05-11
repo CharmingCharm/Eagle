@@ -7,10 +7,19 @@ from course.models import Course
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 
+def clean_session(request):
+    if request.session.get("deleteId") is not None:
+        request.session.pop("deleteId")
+    if request.session.get("addSubmission") is not None:
+        request.session.pop("addSubmission")
+    if request.session.get("newSubmission") is not None:
+        request.session.pop("newSubmission")
+
 def index(request):
     return redirect('/student_home/')
 
 def login_self(request):
+    clean_session(request)
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
@@ -33,6 +42,7 @@ def login_self(request):
     return render(request, 'login.html', locals())
 
 def register(request):
+    clean_session(request)
     if request.user.is_authenticated:
         return redirect('/')
     if request.method == 'POST':
@@ -60,6 +70,7 @@ def register(request):
 
 def logout_self(request):
     logout(request)
+    clean_session(request)
     messages.add_message(request, messages.SUCCESS, 'Logout successfully.')
     return redirect("/login/")
 
@@ -69,6 +80,8 @@ def student_home(request):
     if request.user.id == None:
         return redirect('/login/')
 
+    clean_session(request)
+    
     user = User.objects.get(id=request.user.id)
     course = Course.objects.filter(member=request.user.id).order_by('id')
     for item in course:
@@ -130,6 +143,8 @@ def teacher_home(request):
     if request.user.id == None:
         return redirect('/login/')
 
+    clean_session(request)
+
     user = User.objects.get(id=request.user.id)
     course = Course.objects.filter(member=request.user.id).order_by('id')
     for item in course:
@@ -187,6 +202,7 @@ def teacher_home(request):
     return render(request, 'mainpage_teacher.html', locals())
 
 def change_password(request):
+    clean_session(request)
     user = User.objects.get(id=request.user.id)
     msg = 'no_msg'
     if request.method == 'POST':
