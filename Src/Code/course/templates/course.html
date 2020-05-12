@@ -100,7 +100,6 @@
                                                         class="material-icons left">mode_edit</i> Assess leader </a>
                                                 </div>
                                             </div>
-
                                         {% else %}
                                             <div class="row">
                                                 <div class="col l12 s12"><a
@@ -112,7 +111,7 @@
                                             </div>
                                         {% endif %}
                                     {% endif %}
-
+                                    {% if course_stu_form_flag == 1 %}
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
@@ -120,6 +119,7 @@
                                                 href="/course/{{ course_id }}/teammate_management"><i
                                                 class="material-icons left">cloud</i> Team forming </a></div>
                                     </div>
+                                    {% endif %}
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont light-blue darken-2"
