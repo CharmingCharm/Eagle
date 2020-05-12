@@ -92,12 +92,51 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn waves-effect waves-light red darken-3" type="btn"
-                                                name="action" style="float: left;">cancel <i
-                                                class="material-icons left">close</i></button>
-                                        <button class="btn waves-effect waves-light" type="submit" name="action"
-                                                style="float: right;">submit <i
-                                                class="material-icons right">send</i></button>
+                                        <a class="btn waves-effect waves-light red darken-3" type="btn"
+                                           name="action" style="float: left;">cancel <i
+                                                class="material-icons left">close</i></a>
+
+                                        <a class="waves-effect waves-light btn green modal-trigger"
+                                           style="float: right;"
+                                           href="#modal1"><i
+                                                class="material-icons left">send</i>Confirm</a>
+
+                                        <div id="modal1" class="modal">
+                                            <form method="post"
+                                                  href="这个地方要写到额外的函数">
+                                                <div class="modal-content" style="padding:40px;">
+
+                                                    {% csrf_token %}
+                                                    <h4> Suggestions for you:</h4>
+
+                                                    <p style="font-size: 20px;"> The total number is <span
+                                                            class="purple-text">not the multiple of the group size!</span>
+                                                    </p>
+                                                    <hr>
+                                                    <br>
+                                                    <p style="font-weight: 500; font-size:20px;">Options:</p>
+                                                    <div style="margin-left: 40px; margin-top: 30px;">
+                                                        <div class="row">
+                                                            <input name="group" type="radio" value="1"
+                                                                   id="suggestion1"/>
+                                                            <label for="suggestion1">zqm hahahhahahahhahhahhahh </label>
+                                                        </div>
+                                                        <div class="row">
+                                                            <input name="group" type="radio" value="2"
+                                                                   id="suggestion2"/>
+                                                            <label for="suggestion2">zqm hahahhahahahhahhahhahh </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a class="waves-effect waves-light btn green modal-trigger"
+                                                       style="float: right; margin-right: 40px; margin-bottom: 40px;"
+                                                       href="#modal1"><i
+                                                            class="material-icons left">send</i>Confirm</a>
+                                                </div>
+                                            </form>
+
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -124,6 +163,19 @@
             $(".notGPA").click(function () {
                 $(".showGPA").hide();
             });
-        })
+        });
+
+        $(document).ready(function () {
+            // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+            $('.modal').modal({
+                dismissible: true, // Modal can be dismissed by clicking outside of the modal
+                opacity: .5, // Opacity of modal background
+                in_duration: 300, // Transition in duration
+                out_duration: 200, // Transition out duration
+                starting_top: '40%', // Starting top style attribute
+                ending_top: '20%', // Ending top style attribute
+            });
+        });
     </script>
+
 {% endblock %}
