@@ -213,7 +213,6 @@
             }
         {% endfor %}
 
-        {% if submissionItem %}
 
             $(document).ready(function () {
                 $('.parallax').parallax();
@@ -276,12 +275,13 @@
                                 }
                             }
                         },
-
+                        {% if submissionItem %}
                         data: [
                             {% for item in submissionItem %}
                                 {value: {{item.percentage}}, name: '{{ item.title }}'},
                             {% endfor %}
                         ]
+                        {% endif %}
                     }
                 ]
 //    tooltip: {
@@ -328,7 +328,6 @@
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
 
-        {% endif %}
 
 
     </script>
