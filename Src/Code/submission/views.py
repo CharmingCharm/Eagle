@@ -4,6 +4,7 @@ from course.models import Course
 from submission.models import SubmissionItem
 from team.models import Team
 from user.models import User
+from .models import LeaderAssessment
 from django.contrib.auth import authenticate, logout, login
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
@@ -104,19 +105,28 @@ def modify_submission(request, course_id):
 def member_assessment(request, course_id, team_id):
     course = Course.objects.get(id=course_id)
     team = Team.objects.get(id=team_id)
+    leader = User.objects.get(id=team.leader)
     user = User.objects.get(id=request.user.id)
     if team.leader != request.user.id:
         if request.method == 'POST':
-            leader_assessment = request.POST.get("leader_assessment")
+            leader_mark = request.POST.get("leader_mark")
+            leader_assessment = LeaderAssessment.objects.create(leader=team.leader, member=request.user.id, mark=leader_mark)
+            leader_assessment.save()
+            print("mark success!")
+            redirect('/course/' + str(course_id))
+        print("Your are a leader!")
+        redirect('/course/' + str(course_id))
     return render(request, 'member_assessment.html', locals())
 
 
-def leader_assessment(request, course_id):
+def leader_assessment(request, course_id, team_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    member = Team.objects.get(id=team_id)
     return render(request, 'leader_assessment.html', locals())
 
-def submission_assessment(request, course_id, submission_id):
+
+def submission_assessment(request, course_id, team_id, submission_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     submission = SubmissionItem.objects.get(id=submission_id)

@@ -20,40 +20,23 @@
                                             <div class="row" style="margin-bottom: 0px;">
                                                 <div class="col s2 m2"></div>
                                                 <div class="col s8 m8"> <img src="img/head1.jpg" alt="" class="circle responsive-img">
-                                                    <div class="center-align"> <span class="card-title">Dragon King</span> </div>
+                                                    <div class="center-align"> <span class="card-title">{{ team.name }}</span> </div>
                                                 </div>
                                             </div>
                                             <div style="margin-left: 10px; margin-top: 10px;"> <span style="font-size: 15px">Team members:</span>
                                                 <div class="row" style="margin-bottom: 0px;">
+                                                    {% for one in team %}
                                                     <div class="col s6 l12">
                                                         <div class="lighten-5" style="padding: 12px;">
                                                             <div class="valign-wrapper">
-                                                                <div class="col s4"> <img src="img/icon.jpg" alt="" class="circle responsive-img"  style="height: 80%; width:80%"> 
+                                                                <div class="col s4"> <img src="{% static 'img/icon.jpg' %}" alt="" class="circle responsive-img"  style="height: 80%; width:80%">
                                                                     <!-- notice the "circle" class --> 
                                                                 </div>
-                                                                <div class="col s8"> <span style="font-size: 18px; font-weight: 300;" > Charm </span> </div>
+                                                                <div class="col s8"> <span style="font-size: 18px; font-weight: 300;" > {{ one.username }} </span> </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col s6 l12">
-                                                        <div class="lighten-5" style="padding: 12px;">
-                                                            <div class="valign-wrapper">
-                                                                <div class="col s4"> <img src="img/icon.jpg" alt="" class="circle responsive-img" style="height: 80%; width:80%"> 
-                                                                    <!-- notice the "circle" class --> 
-                                                                </div>
-                                                                <div class="col s8"> <span style="font-size: 18px; font-weight: 300;"> Elliot </span> </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--
-                                                        <div class="card horizontal">
-                                                            <div class="card-stacked">
-                                                                <div class="card-content">
-                                                                    <p class="center-align" style="font-size: 16px; font-weight: 400;">Charm</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
---> 
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                             <!--                                                        <a class="waves-effect waves-light btn green modal-trigger" style="margin-left: 15px; margin-top: 5px;" href="#modal1"><i class="material-icons left">send</i>Invite</a>--> 

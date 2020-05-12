@@ -32,8 +32,22 @@
                             <div class="row">
                                 <h5>Course Information:</h5>
                                 <p class="course_txt">Participants: {{ memNum }}</p>
-                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
-                                <p class="course_txt">Teams: 0</p>
+                                <p class="course_txt">Group forming method:
+                                    {% if course.form_method == 0 %}
+                                        not decided
+                                    {% elif course.form_method == 1 %}
+                                        chosen by students themselves
+                                    {% elif course.form_method == 2 %}
+                                        randomly decided by system
+                                    {% elif course.form_method == 3 %}
+                                        choose one friend and others are given by system automatically
+                                    {% elif course.form_method == 4 %}
+                                        randomly decided by system (considering GPA)
+                                    {% elif course.form_method == 5 %}
+                                        choose one friend and others are given by system automatically (considering GPA)
+                                    {% endif %}
+                                </p>
+                                <p class="course_txt">Teams: {{ teamNum }}</p>
                                 <br>
                                 <hr>
                                 <p class="course_txt">operations:</p>
@@ -76,18 +90,29 @@
                                         </a></div>
                                     </div>
                                 {% else %}
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont orange darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/member_assessment"><i
-                                                class="material-icons left">mode_edit</i> Assess other </a></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont orange darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/leader_assessment"><i
-                                                class="material-icons left">mode_edit</i> Assess other </a></div>
-                                    </div>
+                                    {% if team %}
+                                        {% if team.leader != 0 and team.leader != request.user.id %}
+                                            <div class="row">
+                                                <div class="col l12 s12"><a
+                                                        class="waves-effect waves-light btn changefont orange darken-2"
+                                                        style="width:100%;"
+                                                        href="/course/{{ course_id }}/team/{{ team.id }}/member_assessment"><i
+                                                        class="material-icons left">mode_edit</i> Assess leader </a>
+                                                </div>
+                                            </div>
+
+                                        {% else %}
+                                            <div class="row">
+                                                <div class="col l12 s12"><a
+                                                        class="waves-effect waves-light btn changefont orange darken-2"
+                                                        style="width:100%;"
+                                                        href="/course/{{ course_id }}/team/{{ team.id }}/leader_assessment"><i
+                                                        class="material-icons left">mode_edit</i> Assess members </a>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
@@ -214,76 +239,76 @@
         {% endfor %}
 
 
-            $(document).ready(function () {
-                $('.parallax').parallax();
-            });
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
 
-            // 基于准备好的dom，初始化echarts实例
-            var myChart = echarts.init(document.getElementById('chart'));
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
 
-            // 指定图表的配置项和数据
-            var option = {
-                title: {
-                    text: '',
-                    subtext: '',
-                    x: 'center'
-                },
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '',
+                subtext: '',
+                x: 'center'
+            },
 
-                // Add legend
-                /*
-                    legend: {
-                        orient: 'vertical',
-                        x: 'left',
-                        data: [
-                        {% for item in submissionItem %}
+            // Add legend
+            /*
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: [
+{% for item in submissionItem %}
                             '{{ item.title }}',
                         {% endfor %}
                     ]
                 },
             */
-                // Add custom colors
-                color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
+            // Add custom colors
+            color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
 
-                // Enable drag recalculate
-                calculable: true,
+            // Enable drag recalculate
+            calculable: true,
 
-                // Add series
-                series: [
-                    {
-                        name: '',
-                        type: 'pie',
-                        radius: ['50%', '70%'],
-                        center: ['50%', '57.5%'],
-                        itemStyle: {
-                            normal: {
-                                label: {
-                                    show: true
-                                },
-                                labelLine: {
-                                    show: true
-                                }
+            // Add series
+            series: [
+                {
+                    name: '',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    center: ['50%', '57.5%'],
+                    itemStyle: {
+                        normal: {
+                            label: {
+                                show: true
                             },
-                            emphasis: {
-                                label: {
-                                    show: true,
-                                    formatter: '{b}' + ' ({d}%)',
-                                    position: 'center',
-                                    textStyle: {
-                                        fontSize: '17',
-                                        fontWeight: '500'
-                                    }
-                                }
+                            labelLine: {
+                                show: true
                             }
                         },
-                        {% if submissionItem %}
+                        emphasis: {
+                            label: {
+                                show: true,
+                                formatter: '{b}' + ' ({d}%)',
+                                position: 'center',
+                                textStyle: {
+                                    fontSize: '17',
+                                    fontWeight: '500'
+                                }
+                            }
+                        }
+                    },
+                    {% if submissionItem %}
                         data: [
                             {% for item in submissionItem %}
                                 {value: {{item.percentage}}, name: '{{ item.title }}'},
                             {% endfor %}
                         ]
-                        {% endif %}
-                    }
-                ]
+                    {% endif %}
+                }
+            ]
 //    tooltip: {
 //        trigger: 'item',
 //        formatter: '{b}:({d}%)'
@@ -323,11 +348,10 @@
 //            ]
 //        }
 //    ]
-            };
+        };
 
-            // 使用刚指定的配置项和数据显示图表。
-            myChart.setOption(option);
-
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
 
 
     </script>

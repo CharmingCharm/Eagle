@@ -20,6 +20,14 @@ class SubmissionContribution(models.Model):
     def __str__(self):
         return str(self.id)
 
+class LeaderAssessment(models.Model):
+    member = models.IntegerField(default=0)
+    leader = models.IntegerField(default=0)
+    mark = models.FloatField(default=0)
+
+    def __str__(self):
+        return str(self.id)
+
 
         # if not request.session.has_key('curr_sub'):
         #         submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')

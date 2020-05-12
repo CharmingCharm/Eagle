@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from user.models import User, Student
 from .models import Course
+from team.models import Team
 from submission.models import SubmissionItem
 from .forms import ImportIndividualForm, GenerateStudentsForm
 from django.views.decorators.csrf import csrf_exempt
@@ -25,6 +26,8 @@ def course_page(request, course_id):
     user = User.objects.get(id=request.user.id)
     course = Course.objects.get(id=course_id)
     teachers = course.member.filter(field='teacher')
+    team = Team.objects.filter(course=course, member=request.user.id).first()
+    teamNum = Team.objects.filter(course=course).count()
     memNum = course.member.count()
     # stuNum = course.member.filter(field='student').count()
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
