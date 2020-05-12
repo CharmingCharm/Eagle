@@ -110,11 +110,10 @@ def member_assessment(request, course_id, team_id):
     if team.leader != request.user.id:
         if request.method == 'POST':
             leader_mark = request.POST.get("leader_mark")
-            leader_assessment = LeaderAssessment.objects.create(leader=team.leader, member=request.user.id, mark=leader_mark)
+            leader_assessment = LeaderAssessment.objects.create(leader=team.leader, member=request.user.id, mark=leader_mark, team=team)
             leader_assessment.save()
-            print("mark success!")
-            redirect('/course/' + str(course_id))
-        print("Your are a leader!")
+            request.session['course_msg'] = "Assess your leader success!"
+            return redirect("/course/" + str(course.id))
         redirect('/course/' + str(course_id))
     return render(request, 'member_assessment.html', locals())
 
@@ -124,24 +123,38 @@ def leader_assessment(request, course_id, team_id):
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
     submission = SubmissionItem.objects.filter(course=course)
-
+    clean_session(request)
+    submission_msg = 'no_msg'
+    if request.session.get('submission_msg') is not None:
+        submission_msg = request.session.get('submission_msg')
+        request.session.pop('submission_msg')
     return render(request, 'leader_assessment.html', locals())
 
 
 def submission_assessment(request, course_id, team_id, submissionitem_id):
+    submission_assessment_msg = "no_msg"
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
     submission = SubmissionItem.objects.get(id=submissionitem_id)
+    leader = User.objects.get(id=team.leader)
     index = 0
     if request.method == 'POST':
         for item in range(1, team.member.count()+1):
             mark = request.POST.get("member_mark"+str(item))
+
+            if mark is None:
+                submission_assessment_msg = "Some members are not assessed!"
+                return render(request, 'submission_assessment.html', locals())
+
             to_member_id = int(request.POST.get("member_id"+str(item)))
             to_member = User.objects.get(id=to_member_id)
             submission_assessment = SubmissionContribution.objects.create(value=mark, member=to_member, submission=submission, team=team)
             submission_assessment.save()
-        print("mark success!")
-        redirect('/course/' + str(course_id))
+            submission.isFinishAssess = True
+            submission.save()
+        request.session['submission_msg'] = "Assess " + submission.title + " success!"
+        request.session.pop('submission_msg')
+        return redirect("/course/" + str(course.id) + "/team/" + str(team.id) + "/leader_assessment")
     return render(request, 'submission_assessment.html', locals())
 

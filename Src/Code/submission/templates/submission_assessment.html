@@ -87,3 +87,13 @@
     <div class="section"></div>
     </div>
 {% endblock %}
+
+{% block extra_js %}
+<script>
+    var toast_msg = "{{ submission_assessment_msg }}";
+        if(!(toast_msg == 'no_msg')){
+            var $toastContent = $('<span>' + toast_msg +'</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+</script>
+{% endblock %}

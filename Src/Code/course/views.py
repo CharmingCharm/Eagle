@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from user.models import User, Student
-from .models import Course
+from .models import Course, ExportFile
+from submission.models import LeaderAssessment
 from team.models import Team
-from submission.models import SubmissionItem
+from submission.models import SubmissionItem, SubmissionContribution
 from .forms import ImportIndividualForm, GenerateStudentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
@@ -30,16 +32,19 @@ def course_page(request, course_id):
     team = Team.objects.filter(course=course, member=request.user.id).first()
     teamNum = Team.objects.filter(course=course).count()
     memNum = course.member.count()
-    # stuNum = course.member.filter(field='student').count()
+    clean_session(request)
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
-    msg = ['no_msg']
+    course_msg = ['no_msg']
+    if request.session.get('course_msg') is not None:
+        course_msg.append(request.session.get('course_msg'))
+        request.session.pop('course_msg')
 
     # Check if team forming.
     if course.form_method == (1 or 3 or 5):
         course_stu_form_flag = 1
 
     for message in messages.get_messages(request):
-        msg.append(message)
+        course_msg.append(message)
     p = Paginator(submissionItem, 5)
     if p.num_pages <= 1:
         submissionItem_list = submissionItem
@@ -200,4 +205,85 @@ def import_student_individual(request, course_id):
 def export_contribution(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
+    students = User.objects.filter(course=course, field='student')
+    submissions = SubmissionItem.objects.filter(course=course)
+    contribution = 0
+    total_bonus_mark = 0
+
+    for one in students:
+        for one_submission in submissions:
+            one_submission_contribution = SubmissionContribution.objects.filter(submission=one_submission, member=one).first()
+            if one_submission_contribution is None:
+                contribution = -1
+                break
+            else:
+                contribution += one_submission_contribution.value * one_submission.percentage * 0.01
+
+        team = Team.objects.filter(course=course, member=one).first()
+        if team is None:
+            print('Someone still not in a team!')
+            contribution = -2
+            bonus = -2
+        else:
+            if team.leader == one.id:
+                for each_member in team.member.all():
+                    if team.leader == each_member.id:
+                        continue
+                    else:
+                        leaderBonus = LeaderAssessment.objects.filter(leader=team.leader, member=each_member.id, team=team).first()
+                        if leaderBonus is None:
+                            bonus = -1
+                            break
+                        else:
+                            total_bonus_mark += leaderBonus.mark
+                if bonus != -1:
+                    bonus = total_bonus_mark/(team.member.count()-1)
+        export = ExportFile.objects.create(student=one, course=course, contribution=contribution, bonus=bonus)
+        contribution = 0
+        total_bonus_mark = 0
+        export.save()
+
+    export_display = ExportFile.objects.filter(course=course)
     return render(request, 'export_contribution.html', locals())
+
+#     response = HttpResponse(content_type='application/vnd.ms-excel')
+#     response['Content-Disposition'] = 'attachment;filename='+ course.name +'.xls'
+#
+# # 导出Excel文件
+# def export_excel(request):
+#     city = request.POST.get('city')
+#     print(city)
+#     list_obj=place.objects.filter(city=city)
+#     # 设置HTTPResponse的类型
+#
+#     """导出excel表"""
+#     if list_obj:
+#         # 创建工作簿
+#         ws = xlwt.Workbook(encoding='utf-8')
+#         # 添加第一页数据表
+#         w = ws.add_sheet('sheet1')  # 新建sheet（sheet的名称为"sheet1"）
+#         # 写入表头
+#         w.write(0, 0, u'地名')
+#         w.write(0, 1, u'次数')
+#         w.write(0, 2, u'经度')
+#         w.write(0, 3, u'纬度')
+#         # 写入数据
+#         excel_row = 1
+#         for obj in list_obj:
+#             name = obj.place
+#             sum = obj.sum
+#             lng = obj.lng
+#             lat = obj.lat
+#             # 写入每一行对应的数据
+#             w.write(excel_row, 0, name)
+#             w.write(excel_row, 1, sum)
+#             w.write(excel_row, 2, lng)
+#             w.write(excel_row, 3, lat)
+#             excel_row += 1
+#         # 写出到IO
+#         output = BytesIO()
+#         ws.save(output)
+#         # 重新定位到开始
+#         output.seek(0)
+#         response.write(output.getvalue())
+#     return response

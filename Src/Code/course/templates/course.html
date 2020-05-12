@@ -112,13 +112,13 @@
                                         {% endif %}
                                     {% endif %}
                                     {% if course_stu_form_flag == 1 %}
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont green darken-2"
-                                                style="width:100%;"
-                                                href="/course/{{ course_id }}/teammate_management"><i
-                                                class="material-icons left">cloud</i> Team forming </a></div>
-                                    </div>
+                                        <div class="row">
+                                            <div class="col l12 s12"><a
+                                                    class="waves-effect waves-light btn changefont green darken-2"
+                                                    style="width:100%;"
+                                                    href="/course/{{ course_id }}/teammate_management"><i
+                                                    class="material-icons left">cloud</i> Team forming </a></div>
+                                        </div>
                                     {% endif %}
                                     <div class="row">
                                         <div class="col l12 s12"><a
@@ -230,7 +230,7 @@
 {% block extra_js %}
     <script type="text/javascript">
         var toast_msg;
-        {% for message in msg %}
+        {% for message in course_msg %}
             toast_msg = "{{ message }}";
             if (!(toast_msg == 'no_msg')) {
                 var $toastContent = $('<span>' + toast_msg + '</span>');

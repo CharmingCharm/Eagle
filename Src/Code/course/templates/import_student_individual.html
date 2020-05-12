@@ -33,7 +33,7 @@
                                             <div class="row">
                                                 <div class="input-field col s12"><i class="material-icons prefix">account_circle</i>
                                                     {{ inidividual_form.user_name }}
-                                                    <label for="icon_prefix">User Name</label>
+                                                    <label for="icon_prefix">True Name</label>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -77,4 +77,14 @@
         <br>
         <div class="section"></div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    var toast_msg = "{{ msg }}";
+        if(!(toast_msg == 'no_msg')){
+            var $toastContent = $('<span>' + toast_msg +'</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+</script>
 {% endblock %}

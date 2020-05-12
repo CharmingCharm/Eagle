@@ -29,9 +29,30 @@
                                                     </div>
                                                 </div>
                                                 <div style="margin-left: 10px; margin-top: 10px;"><span
+                                                        style="font-size: 15px">Team leader:</span>
+                                                    <div class="row" style="margin-bottom: 0px;">
+                                                            <div class="col s6 l12">
+                                                                <div class="lighten-5" style="padding: 12px;">
+                                                                    <div class="valign-wrapper">
+                                                                        <div class="col s4"><img
+                                                                                src="{% static 'img/icon.jpg' %}" alt=""
+                                                                                class="circle responsive-img"
+                                                                                style="height: 80%; width:80%">
+                                                                            <!-- notice the "circle" class -->
+                                                                        </div>
+                                                                        <div class="col s8"><span
+                                                                                style="font-size: 18px; font-weight: 300;"> {{ request.user.username }} </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 10px; margin-top: 10px;"><span
                                                         style="font-size: 15px">Team members:</span>
                                                     <div class="row" style="margin-bottom: 0px;">
                                                         {% for one in team.member.all %}
+                                                            {% if one.id != team.leader %}
                                                             <div class="col s6 l12">
                                                                 <div class="lighten-5" style="padding: 12px;">
                                                                     <div class="valign-wrapper">
@@ -47,6 +68,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            {% endif %}
                                                         {% endfor %}
                                                     </div>
                                                 </div>
@@ -73,21 +95,24 @@
 
                                                         <td>{{ item.percentage }}%</td>
                                                         {% if item.isFinishAssess != True %}
-                                                        <td><a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}" class="btn green waves-effect waves-light"
-                                                               style="margin-left: 20px;"><i
-                                                                class="material-icons left">fast_forward</i>assess</a>
-                                                        </td>
+                                                            <td>
+                                                                <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
+                                                                   class="btn green waves-effect waves-light"
+                                                                   style="margin-left: 20px;"><i
+                                                                        class="material-icons left">fast_forward</i>assess</a>
+                                                            </td>
                                                         {% else %}
-                                                        <td><a class="btn green waves-effect waves-light disabled"
-                                                               style="margin-left: 20px;"><i
-                                                                class="material-icons left">done</i>finished</a>
-                                                        </td>
+                                                            <td><a class="btn green waves-effect waves-light disabled"
+                                                                   style="margin-left: 20px;"><i
+                                                                    class="material-icons left">done</i>finished</a>
+                                                            </td>
                                                         {% endif %}
                                                     </tr>
                                                 {% endfor %}
                                             {% else %}
 
-                                                <h5 style="margin: 100px 40px;">This course now have no submission item.</h5>
+                                                <h5 style="margin: 100px 40px;">This course now have no submission
+                                                    item.</h5>
 
                                             {% endif %}
 
@@ -108,4 +133,14 @@
     <br>
     <div class="section"></div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var toast_msg = "{{ submission_msg }}";
+        if (!(toast_msg == 'no_msg')) {
+            var $toastContent = $('<span>' + toast_msg + '</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+    </script>
 {% endblock %}

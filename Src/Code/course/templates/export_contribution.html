@@ -21,17 +21,50 @@
                                 <div class="col l10 s12">
                                     <h5>Export preview:</h5>
                                     <div class="row">
-                                        <div style="margin: 20px 0px;" class="z-depth-5">
-                                            <img class="materialboxed" width="100%" src="img/background1.jpg">
+                                        <div style="margin: 20px 0px; padding: 30px;" class="z-depth-5">
+                                            {#                                            <img class="materialboxed" width="100%" src="img/background1.jpg">#}
+
+                                            <table>
+                                                <tr class="home_table">
+                                                    <th>Name</th>
+                                                    <th>ID</th>
+                                                    <th>Contribution</th>
+                                                    <th>bonus</th>
+                                                </tr>
+                                                <!-- <tr class="home_table">
+                                                    <td>Charm</td>
+                                                    <td>1730026111</td>
+                                                    <td>1730026111@uic.edu.hk</td>
+                                                    <td>4.0</td>
+                                                </tr> -->
+                                                {% for one in export_display %}
+                                                    <tr class="home_table">
+                                                        <td>{{ one.student.truename }}</td>
+                                                        <td>{{ one.student.student.studentID }}</td>
+                                                        {% if one.contribution == -1 %}
+                                                            <td class="red-text">Not finished</td>
+                                                        {% else %}
+                                                            <td>{{ one.contribution }}</td>
+                                                        {% endif %}
+                                                        {% if one.bonus == -1 %}
+                                                            <td class="red-text">Not finished</td>
+                                                        {% else %}
+                                                            <td>{{ one.bonus }}</td>
+                                                        {% endif %}
+
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
                                         </div>
                                         <br>
                                         <br>
-                                        <button class="btn waves-effect waves-light red darken-3" type="btn"
-                                                name="action" style="float: left;">cancel <i
-                                                class="material-icons left">close</i></button>
-                                        <button class="btn waves-effect waves-light" type="submit" name="action"
-                                                style="float: right;">submit <i class="material-icons right">send</i>
-                                        </button>
+                                        <a class="btn waves-effect waves-light red darken-3" type="btn"
+                                           name="action" style="float: left;" href="/course/{{ course.id }}">cancel
+                                            <i
+                                                    class="material-icons left">close</i></a>
+                                        <a class="btn waves-effect waves-light" type="submit" name="action"
+                                                style="float: right;">export<i
+                                                class="material-icons right">send</i></a>
                                         </form>
                                     </div>
                                 </div>
@@ -45,4 +78,13 @@
         <br>
         <div class="section"></div>
     </div>
+{% endblock %}
+{% block extra_js %}
+    <script>
+        var toast_msg = "{{ msg }}";
+        if (!(toast_msg == 'no_msg')) {
+            var $toastContent = $('<span>' + toast_msg + '</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+    </script>
 {% endblock %}

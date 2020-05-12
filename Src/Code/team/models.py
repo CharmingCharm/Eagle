@@ -16,6 +16,7 @@ class Team(models.Model):
     leader = models.IntegerField(default=0)
     member = models.ManyToManyField(User)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    size = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
