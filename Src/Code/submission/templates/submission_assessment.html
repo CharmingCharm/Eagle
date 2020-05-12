@@ -19,7 +19,8 @@
                             <hr>
                             <br>
                             <div class="row">
-                                <form action="#">
+                                <form method="post" href="course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ submission.id }}">
+                                {% csrf_token %}
                                     {% for one in team.member.all %}
                                         <div class="col l4 s12">
                                             <div class="card">
@@ -39,27 +40,28 @@
                                                         <div class="col s8 m8">
 
                                                             <div class="row" style="margin-bottom: 15px;">
-                                                                <input name="group1" type="radio" id="test1"/>
-                                                                <label for="test1">Full (1.0)</label>
+                                                                <input name="member_mark{{ forloop.counter }}" type="radio" id="a_{{ forloop.counter }}" value="1.0"/>
+                                                                <label for="a_{{ forloop.counter }}">Full (1.0)</label>
                                                             </div>
                                                             <div class="row" style="margin-bottom: 15px;">
-                                                                <input name="group1" type="radio" id="test2"/>
-                                                                <label for="test2">Fair (0.67)</label>
+                                                                <input name="member_mark{{  forloop.counter  }}" type="radio" id="b_{{ forloop.counter }}" value="0.67"/>
+                                                                <label for="b_{{ forloop.counter }}">Fair (0.67)</label>
                                                             </div>
                                                             <div class="row" style="margin-bottom: 15px;">
-                                                                <input name="group1" type="radio" id="test3"/>
-                                                                <label for="test3">Little (0.33)</label>
+                                                                <input name="member_mark{{  forloop.counter  }}" type="radio" id="c_{{ forloop.counter }}" value="0.33"/>
+                                                                <label for="c_{{ forloop.counter }}">Little (0.33)</label>
                                                             </div>
                                                             <div class="row" style="margin-bottom: 15px;">
-                                                                <input name="group1" type="radio" id="test4"/>
-                                                                <label for="test4">None (0)</label>
+                                                                <input name="member_mark{{  forloop.counter  }}" type="radio" id="d_{{ forloop.counter }}" value="0"/>
+                                                                <label for="d_{{ forloop.counter }}">None (0)</label>
                                                             </div>
-
+                                                            <input name="member_id{{  forloop.counter  }}" type="text" value="{{ one.id }}" style="display: none;"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     {% endfor %}
                                 </div>
                                     <div class="row" style="margin: 20px 20px;">

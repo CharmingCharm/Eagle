@@ -1,7 +1,7 @@
 from django.db import models
 from user.models import User
 from course.models import Course
-
+from team.models import Team
 
 class SubmissionItem(models.Model):
     title = models.CharField(max_length=64, unique=False)
@@ -17,6 +17,7 @@ class SubmissionContribution(models.Model):
     value = models.FloatField(default=0)
     member = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     submission = models.ForeignKey(SubmissionItem, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.id)

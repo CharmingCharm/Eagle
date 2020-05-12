@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from .forms import SubmissionItemForm
 from course.models import Course
-from submission.models import SubmissionItem
+from submission.models import SubmissionItem, SubmissionContribution
 from team.models import Team
 from user.models import User
 from .models import LeaderAssessment
@@ -133,5 +133,15 @@ def submission_assessment(request, course_id, team_id, submissionitem_id):
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
     submission = SubmissionItem.objects.get(id=submissionitem_id)
+    index = 0
+    if request.method == 'POST':
+        for item in range(1, team.member.count()+1):
+            mark = request.POST.get("member_mark"+str(item))
+            to_member_id = int(request.POST.get("member_id"+str(item)))
+            to_member = User.objects.get(id=to_member_id)
+            submission_assessment = SubmissionContribution.objects.create(value=mark, member=to_member, submission=submission, team=team)
+            submission_assessment.save()
+        print("mark success!")
+        redirect('/course/' + str(course_id))
     return render(request, 'submission_assessment.html', locals())
 
