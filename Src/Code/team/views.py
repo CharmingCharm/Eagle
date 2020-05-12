@@ -53,7 +53,11 @@ def vote_leader(request, course_id):
 def manage(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    own_team = Team.objects.get(course=course, member=user)
+    try:
+        own_team = Team.objects.get(course=course, member=user)
+    except:
+        own_team = 0
+    
     invite = Invitation.objects.filter(course=course, to_user=request.user.id, isAccept=0)
     return render(request, 'teammate_management.html', locals())
 
@@ -109,16 +113,20 @@ def group_size(request, course_id):
 def invite(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    student = User.objects.filter(course=course)
-    team = Team.objects.filter(course=course)
+    team = Team.objects.filter(course_id=course.id)
+    student_free_id = []
+
     if request.method == 'POST':
         to_user = int(request.POST.get("to_user"))
         description = request.POST.get("description")
         new_invite = Invitation.objects.create(from_user=request.user.id, to_user=to_user, description=description, course=course)
         new_invite.save()
-    # for item in team:
-    #     student_has_team = User.objects.filter(team=item.id)
-    #     student_not_has_team = students - student_has_team
+
+    for item in team.values("member"):
+        student_free_id.append(item.get('member'))
+
+    student_free = User.objects.filter(course=course).exclude(id__in=student_free_id)
+
     return render(request, 'invite.html', locals())
 
 
@@ -129,7 +137,7 @@ def processInvite(request, course_id, invite_id, isAccept):
     if isAccept == 1:
         process_invite.isAccept = 1
         process_invite.save()
-        own_team = Team.objects.filter(course=course, member=user). first()
+        own_team = Team.objects.filter(course=course, member=user).first()
         new_member = User.objects.get(id=process_invite.from_user)
         if own_team and own_team.member.count() < course.team_num:
             own_team.member.add(new_member)

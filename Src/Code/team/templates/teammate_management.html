@@ -25,26 +25,32 @@
                                                     <hr>
                                                     <br>
                                                     <p style="font-size: 20px; font-weight: 300;">Current teammates:</p>
+                                                    
                                                     <div class="row" style="margin-bottom: 0px;">
-                                                        {% for one in own_team.member.all %}
+                                                        {% if own_team == 0 %}
                                                             <div class="col s6 l12">
-                                                                <div class="lighten-5" style="padding: 12px;">
-                                                                    <div class="valign-wrapper">
-                                                                        <div class="col s4"><img
-                                                                                src="{% static 'img/icon.jpg' %}"
-                                                                                alt=""
-                                                                                class="circle responsive-img"
-                                                                                style="height: 80%; width:80%">
-                                                                            <!-- notice the "circle" class -->
-                                                                        </div>
-                                                                        <div class="col s8"><span
-                                                                                style="font-size: 18px; font-weight: 300;"> {{ one.username }} </span>
+                                                                <h5>Currently you have no teammates.</h5>
+                                                            </div>
+                                                        {% else %}
+                                                            {% for one in own_team.member.all %}
+                                                                <div class="col s6 l12">
+                                                                    <div class="lighten-5" style="padding: 12px;">
+                                                                        <div class="valign-wrapper">
+                                                                            <div class="col s4"><img
+                                                                                    src="{% static 'img/icon.jpg' %}"
+                                                                                    alt=""
+                                                                                    class="circle responsive-img"
+                                                                                    style="height: 80%; width:80%">
+                                                                                <!-- notice the "circle" class -->
+                                                                            </div>
+                                                                            <div class="col s8"><span
+                                                                                    style="font-size: 18px; font-weight: 300;"> {{ one.username }} </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        {% endfor %}
-
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                     <hr>
                                                     <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">

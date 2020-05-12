@@ -24,11 +24,17 @@ def clean_session(request):
 def course_page(request, course_id):
     user = User.objects.get(id=request.user.id)
     course = Course.objects.get(id=course_id)
+    course_stu_form_flag = 0
     teachers = course.member.filter(field='teacher')
     memNum = course.member.count()
     # stuNum = course.member.filter(field='student').count()
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
     msg = ['no_msg']
+
+    # Check if team forming.
+    if course.form_method == (1 or 3 or 5):
+        course_stu_form_flag = 1
+
     for message in messages.get_messages(request):
         msg.append(message)
     p = Paginator(submissionItem, 5)
@@ -119,7 +125,7 @@ def generate_student(request, course_id):
         msg = 'Add ' + str(success_num) + ' students successfully and ' + str(fail_num) + ' students fail!'
         request.session.pop('temp_stu_excel')
         request.session['user_list'] = user_list
-
+    print(user_list)
     if request.method == 'POST':
         initial_pwd_form = GenerateStudentsForm(request.POST)
         if initial_pwd_form.is_valid():
@@ -129,7 +135,7 @@ def generate_student(request, course_id):
                 curr_user = user_list.pop()
                 user = User.objects.create_user(username=curr_user['user_name'], password=initial_pwd, email=curr_user['email'], field='student')
                 user.save()
-                student = Student.objects.create(studentID=curr_user['stu_id'], GPA=curr_user['GPA'], user=user)
+                student = Student.objects.create(studentID=str(curr_user['stu_id']), GPA=curr_user['GPA'], user=user)
                 student.save()
                 course.member.add(user)
             msg = 'Import students success!'
@@ -157,7 +163,7 @@ def import_student_excel(request, course_id):
 
                     for row in range(1, rows):
                         row_values = table.row_values(row)
-                        temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
+                        temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
                         if Student.objects.filter(studentID=temp_curr_stu['stu_id']).first() is None:
                             temp_stu.append(temp_curr_stu)
 
