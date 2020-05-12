@@ -133,7 +133,7 @@ def generate_student(request, course_id):
         msg = 'Add ' + str(success_num) + ' students successfully and ' + str(fail_num) + ' students fail!'
         request.session.pop('temp_stu_excel')
         request.session['user_list'] = user_list
-    print(user_list)
+        
     if request.method == 'POST':
         initial_pwd_form = GenerateStudentsForm(request.POST)
         if initial_pwd_form.is_valid():
@@ -171,7 +171,10 @@ def import_student_excel(request, course_id):
 
                     for row in range(1, rows):
                         row_values = table.row_values(row)
-                        temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
+                        if type(row_values[1]) == float:
+                            temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
+                        else:
+                            temp_curr_stu = {'user_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
                         if Student.objects.filter(studentID=temp_curr_stu['stu_id']).first() is None:
                             temp_stu.append(temp_curr_stu)
 

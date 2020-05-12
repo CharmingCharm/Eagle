@@ -35,7 +35,7 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="input-field col s12"><i class="material-icons prefix">assignment_ind</i>
-                                                        <input type="number" class="validate" name="group_size"
+                                                        <input type="number" class="validate" id="group_size" name="group_size"
                                                                required>
                                                         <label for="icon_per">Please set the group size</label>
                                                     </div>
@@ -96,46 +96,30 @@
                                            name="action" style="float: left;">cancel <i
                                                 class="material-icons left">close</i></a>
 
-                                        <a class="waves-effect waves-light btn green modal-trigger"
+                                        <a id="first_confirm" class="waves-effect waves-light btn green modal-trigger"
                                            style="float: right;"
                                            href="#modal1"><i
                                                 class="material-icons left">send</i>Confirm</a>
+                                        
 
                                         <div id="modal1" class="modal">
-                                            <form method="post"
-                                                  href="这个地方要写到额外的函数">
                                                 <div class="modal-content" style="padding:40px;">
-
-                                                    {% csrf_token %}
                                                     <h4> Suggestions for you:</h4>
 
-                                                    <p style="font-size: 20px;"> The total number is <span
-                                                            class="purple-text">not the multiple of the group size!</span>
+                                                    <div id="p_re-check"></div>
                                                     </p>
                                                     <hr>
                                                     <br>
                                                     <p style="font-weight: 500; font-size:20px;">Options:</p>
-                                                    <div style="margin-left: 40px; margin-top: 30px;">
-                                                        <div class="row">
-                                                            <input name="group" type="radio" value="1"
-                                                                   id="suggestion1"/>
-                                                            <label for="suggestion1">zqm hahahhahahahhahhahhahh </label>
-                                                        </div>
-                                                        <div class="row">
-                                                            <input name="group" type="radio" value="2"
-                                                                   id="suggestion2"/>
-                                                            <label for="suggestion2">zqm hahahhahahahhahhahhahh </label>
-                                                        </div>
-                                                    </div>
+                                                    <div id="re-check"></div>
+                                                    
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <a class="waves-effect waves-light btn green modal-trigger"
+                                                    <button type="submit" class="waves-effect waves-light btn green modal-trigger"
                                                        style="float: right; margin-right: 40px; margin-bottom: 40px;"
                                                        href="#modal1"><i
-                                                            class="material-icons left">send</i>Confirm</a>
+                                                            class="material-icons left">send</i>Confirm</button>
                                                 </div>
-                                            </form>
-
                                         </div>
                                     </form>
                                 </div>
@@ -163,6 +147,7 @@
             $(".notGPA").click(function () {
                 $(".showGPA").hide();
             });
+
         });
 
         $(document).ready(function () {
@@ -176,6 +161,56 @@
                 ending_top: '20%', // Ending top style attribute
             });
         });
+
+        $("#first_confirm").click(function (){
+            var total_num = {{ stuNum }};
+            var group_size = parseInt($("#group_size").val());
+            var text1, text2;
+            if(total_num % group_size == 0){
+                text1 = "<p style=\"font-size: 20px;\"> The total number is the multiple of the group size!";
+                text2 = "<h5>No suggestions</h5>";
+            } else {
+                var resid = total_num % group_size;
+                var num_group1 = parseInt(total_num / group_size);
+                var num_group2 = num_group1 + 1;
+
+                // suggestion 1.
+                var more1_num = resid % num_group1;// In more1_num groups, each group add (average_more + 1) students.
+                var normal_num = num_group1 - more1_num;// In normal, normal_num groups should add average_more students.
+                var average_more = parseInt(resid / num_group1);
+                var group1_normal = group_size + average_more;
+                var group1_abnormal = group1_normal + 1;
+                
+                // suggestion 2.
+                var group2_abnormal = resid;
+
+                text1 = "<p style=\"font-size: 20px;\"> The total number is <span class=\"purple-text\">not the multiple of the group size!</span>";
+                text2 = "<div style=\"margin-left: 40px; margin-top: 30px;\">";
+                text2 = text2 + "<div class=\"row\">";
+                text2 = text2 + "<input name=\"group\" type=\"radio\" value=\"1\" id=\"suggestion1\"/>";
+                text2 = text2 + "<label for=\"suggestion1\">";
+                text2 = text2 + String(num_group1) + " groups, ";
+                if (more1_num != 0){
+                    text2 = text2 + String(more1_num) + " groups have(has) size " + String(group1_abnormal) + ", ";
+                }
+                if (normal_num != 0){
+                    text2 = text2 + String(normal_num) + " groups have(has) size " + String(group1_normal) + ".";
+                }
+                text2 = text2 + "</label>";
+                text2 = text2 + "</div>";
+                text2 = text2 + "<div class=\"row\">";
+                text2 = text2 + "<input name=\"group\" type=\"radio\" value=\"2\" id=\"suggestion2\"/>";
+                text2 = text2 + "<label for=\"suggestion2\">";
+                text2 = text2 + String(num_group2) + " groups, " + String(num_group1) + " groups have(has) size " + String(group_size) + ", ";
+                text2 = text2 + "1 group has size " + String(group2_abnormal) + ".";
+                text2 = text2 + "</label>";
+                text2 = text2 + "</div>";
+                text2 = text2 + "</div>";
+            }
+            document.getElementById("p_re-check").innerHTML = text1;
+            document.getElementById("re-check").innerHTML = text2;
+        });
+
     </script>
 
 {% endblock %}
