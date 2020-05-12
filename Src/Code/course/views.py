@@ -141,8 +141,11 @@ def generate_student(request, course_id):
             user_list = request.session.pop('user_list')
             while len(user_list) > 0:
                 curr_user = user_list.pop()
-                user = User.objects.create_user(username=curr_user['user_name'] ,truename=curr_user['true_name'], password=initial_pwd, email=curr_user['email'], field='student')
-                user.save()
+                if User.objects.get(username=curr_user['user_name']) is None:
+                    user = User.objects.create_user(username=curr_user['user_name'] ,truename=curr_user['true_name'], password=initial_pwd, email=curr_user['email'], field='student')
+                    user.save()
+                else:
+                    continue
                 student = Student.objects.create(studentID=str(curr_user['stu_id']), GPA=curr_user['GPA'], user=user)
                 student.save()
                 course.member.add(user)
