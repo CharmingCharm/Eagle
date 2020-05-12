@@ -6,6 +6,7 @@ from course.models import Course
 class SubmissionItem(models.Model):
     title = models.CharField(max_length=64, unique=False)
     percentage = models.FloatField(default=0)
+    isFinishAssess = models.BooleanField(default=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):

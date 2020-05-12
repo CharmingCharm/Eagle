@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/course.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/course.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/submission/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/submission/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/submission/templates/leader_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/leader_assessment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/member_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/member_assessment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submission/templates/submission_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/submission_assessment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/submission/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/submission/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/submission/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/submission/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="105">
+              <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -36,20 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/submission/forms.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/submission/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="124" column="41" lean-forward="true" selection-start-line="124" selection-start-column="41" selection-end-line="124" selection-end-column="41" />
+            <state relative-caret-position="315">
+              <caret line="134" column="65" selection-start-line="134" selection-start-column="65" selection-end-line="134" selection-end-column="65" />
               <folding>
                 <element signature="e#0#59#0" expanded="true" />
               </folding>
@@ -58,10 +47,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/submission/urls.py">
+        <entry file="file://$PROJECT_DIR$/submission/templates/submission_assessment.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="483">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="69" />
+              <caret line="74" column="28" lean-forward="true" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/submission/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="317">
+              <caret line="23" column="58" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
               <folding>
                 <element signature="e#643#671#0" expanded="true" />
               </folding>
@@ -93,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+            <state relative-caret-position="336">
+              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
               <folding>
                 <element signature="e#0#45#0" expanded="true" />
               </folding>
@@ -117,20 +115,27 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/templates/course.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1407">
+            <state relative-caret-position="-1155">
               <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#6;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#0;n#div#0;n#div#7;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="22" column="116" selection-start-line="22" selection-start-column="116" selection-end-line="22" selection-end-column="116" />
+            <state relative-caret-position="252">
+              <caret line="75" column="118" selection-start-line="75" selection-start-column="118" selection-end-line="75" selection-end-column="118" />
               <folding>
+                <element signature="e#1106#1133#0#HTML" expanded="true" />
                 <element signature="e#1795#1822#0#HTML" expanded="true" />
                 <element signature="e#1980#2002#0#HTML" expanded="true" />
+                <element signature="e#6388#6414#0#HTML" expanded="true" />
+                <element signature="e#6242#6268#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -157,7 +162,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/user/templates/css.html" />
         <option value="$PROJECT_DIR$/static/css/login.css" />
         <option value="$PROJECT_DIR$/templates/mainpage_student.html" />
         <option value="$PROJECT_DIR$/templates/css.html" />
@@ -197,17 +201,18 @@
         <option value="$PROJECT_DIR$/team/templates/group_size.html" />
         <option value="$PROJECT_DIR$/team/templates/invite.html" />
         <option value="$PROJECT_DIR$/team/urls.py" />
-        <option value="$PROJECT_DIR$/submission/urls.py" />
         <option value="$PROJECT_DIR$/course/templates/import_student_excel.html" />
         <option value="$PROJECT_DIR$/team/templates/teammate_management.html" />
         <option value="$PROJECT_DIR$/team/views.py" />
         <option value="$PROJECT_DIR$/course/models.py" />
-        <option value="$PROJECT_DIR$/submission/models.py" />
         <option value="$PROJECT_DIR$/submission/templates/member_assessment.html" />
         <option value="$PROJECT_DIR$/course/views.py" />
         <option value="$PROJECT_DIR$/course/templates/course.html" />
-        <option value="$PROJECT_DIR$/submission/views.py" />
+        <option value="$PROJECT_DIR$/submission/models.py" />
+        <option value="$PROJECT_DIR$/submission/urls.py" />
         <option value="$PROJECT_DIR$/submission/templates/leader_assessment.html" />
+        <option value="$PROJECT_DIR$/submission/templates/submission_assessment.html" />
+        <option value="$PROJECT_DIR$/submission/views.py" />
       </list>
     </option>
   </component>
@@ -231,6 +236,17 @@
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
               <item name="Code" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Code" type="462c0819:PsiDirectoryNode" />
+              <item name="course" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Code" type="462c0819:PsiDirectoryNode" />
+              <item name="course" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
@@ -338,12 +354,12 @@
       <workItem from="1589122374934" duration="15292000" />
       <workItem from="1589174920428" duration="9058000" />
       <workItem from="1589249576257" duration="5876000" />
-      <workItem from="1589255936830" duration="2398000" />
+      <workItem from="1589255936830" duration="6313000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103792000" />
+    <option name="totallyTimeSpent" value="107707000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -645,13 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/submission_assessment.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="987">
-          <caret line="47" column="58" selection-start-line="47" selection-start-column="58" selection-end-line="47" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/course/templates/export_contribution.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -696,16 +705,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="69" />
-          <folding>
-            <element signature="e#643#671#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/course/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
@@ -726,39 +725,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/course/templates/course.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1155">
+          <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#6;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#0;n#div#0;n#div#7;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/course/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+        <state relative-caret-position="336">
+          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course/templates/course.html">
+    <entry file="file://$PROJECT_DIR$/submission/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1407">
-          <caret line="35" column="65" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
+        <state relative-caret-position="317">
+          <caret line="23" column="58" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
+          <folding>
+            <element signature="e#643#671#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/submission/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="105">
+          <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/views.py">
+    <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="124" column="41" lean-forward="true" selection-start-line="124" selection-start-column="41" selection-end-line="124" selection-end-column="41" />
+        <state relative-caret-position="252">
+          <caret line="75" column="118" selection-start-line="75" selection-start-column="118" selection-end-line="75" selection-end-column="118" />
           <folding>
-            <element signature="e#0#59#0" expanded="true" />
+            <element signature="e#1106#1133#0#HTML" expanded="true" />
+            <element signature="e#1795#1822#0#HTML" expanded="true" />
+            <element signature="e#1980#2002#0#HTML" expanded="true" />
+            <element signature="e#6388#6414#0#HTML" expanded="true" />
+            <element signature="e#6242#6268#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -770,13 +787,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
+    <entry file="file://$PROJECT_DIR$/submission/templates/submission_assessment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="22" column="116" selection-start-line="22" selection-start-column="116" selection-end-line="22" selection-end-column="116" />
+        <state relative-caret-position="483">
+          <caret line="74" column="28" lean-forward="true" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/submission/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="134" column="65" selection-start-line="134" selection-start-column="65" selection-end-line="134" selection-end-column="65" />
           <folding>
-            <element signature="e#1795#1822#0#HTML" expanded="true" />
-            <element signature="e#1980#2002#0#HTML" expanded="true" />
+            <element signature="e#0#59#0" expanded="true" />
           </folding>
         </state>
       </provider>

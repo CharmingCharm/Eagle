@@ -122,13 +122,16 @@ def member_assessment(request, course_id, team_id):
 def leader_assessment(request, course_id, team_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    member = Team.objects.get(id=team_id)
+    team = Team.objects.get(id=team_id)
+    submission = SubmissionItem.objects.filter(course=course)
+
     return render(request, 'leader_assessment.html', locals())
 
 
-def submission_assessment(request, course_id, team_id, submission_id):
+def submission_assessment(request, course_id, team_id, submissionitem_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    submission = SubmissionItem.objects.get(id=submission_id)
-    return render(request, 'member_assessment.html', locals())
+    team = Team.objects.get(id=team_id)
+    submission = SubmissionItem.objects.get(id=submissionitem_id)
+    return render(request, 'submission_assessment.html', locals())
 

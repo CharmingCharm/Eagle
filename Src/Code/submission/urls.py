@@ -21,6 +21,6 @@ urlpatterns = [
     path('course/<int:course_id>/modify_submission', views.modify_submission),
     path('course/<int:course_id>/add_submission', views.add_submission),
     path('course/<int:course_id>/team/<int:team_id>/leader_assessment', views.leader_assessment),
-    path('course/<int:course_id>/team/<int:team_id>/leader_assessment/<int:submissionitem_id>', views.submission_assessment),
+    path('course/<int:course_id>/team/<int:team_id>/member_assessment/<int:submissionitem_id>', views.submission_assessment),
     path('course/<int:course_id>/team/<int:team_id>/member_assessment', views.member_assessment),
 ]
