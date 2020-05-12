@@ -74,16 +74,49 @@ def manage(request, course_id):
     return render(request, 'teammate_management.html', locals())
 
 
+def random_form(group_size, num_group_in_size, total_group_size, course):
+    student_list = []
+    rand_student_list = []
+    students = course.member.filter(field='student')# course
+    for item in students:
+        student_list.append(item.id)
+    randlist = random.sample(range(0, total_group_size), total_group_size)# stuNum
+    for index in range(0, total_group_size):
+        rand_student_list.append(student_list[randlist[index]])
+
+    count_stu = 0
+    for index in range(0, len(num_group_in_size)):
+        if index == 0:
+            front = 0
+        else:
+            front = num_group_in_size[index - 1]
+        back = front + num_group_in_size[index]
+
+        for cycle in range(front, back):# num_group_in_size
+            new_team = Team.objects.create(name='group ' + str(cycle), course=course)
+            for cycle2 in range(0, group_size[index]):
+                new_member = User.objects.get(id=rand_student_list[count_stu])
+                new_team.member.add(new_member)
+                count_stu = count_stu + 1
+            new_team.save()
+    return "Success!"
+
 def group_size(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     stuNum = course.member.filter(field='student').count()
+
     if request.user.is_authenticated and user.field == 'teacher':
         if request.method == 'POST':
             group_size = int(request.POST.get("group_size"))
             form_method = int(request.POST.get("form_method"))
             consider_GPA = request.POST.get("consider_GPA")
             team_num = int(stuNum/group_size)
+
+            if request.POST.get("group") is not None:
+                size_type = int(request.POST.get("group"))
+            else:
+                size_type = None
 
             if consider_GPA and form_method == 2:
                 form_method = 4
@@ -94,30 +127,35 @@ def group_size(request, course_id):
                 course.team_num = team_num
                 course.form_method = form_method
                 course.save()
+
                 # messages.add_message(request, messages.success, 'You have successfully set the team forming!')
 
             if form_method == 1 or form_method == 3 or form_method == 5:
-                messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
+                # messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
                 return redirect('/course/' + str(course_id))
 
+            
             if form_method == 2:
-                student_list = []
-                rand_student_list = []
-                students = course.member.filter(field='student')
-                for item in students:
-                    student_list.append(item.id)
-                randlist = random.sample(range(0, stuNum), stuNum)
-                for index in range(0, stuNum):
-                    rand_student_list.append(student_list[randlist[index]])
+                if size_type is None:
+                    random_form([group_size],[team_num],stuNum,course)
+                    return redirect('/course/' + str(course_id) + '/forming_method')
+                else:
+                    resid = stuNum % group_size
+                    num_group1 = int(stuNum / group_size)
+                    num_group2 = num_group1 + 1
+                    if size_type == 1:
+                        more1_num = resid % num_group1
+                        normal_num = num_group1 - more1_num
+                        average_more = int(resid / num_group1)
+                        group1_normal = group_size + average_more
+                        group1_abnormal = group1_normal + 1
+                        random_form([group1_normal, group1_abnormal],[normal_num,more1_num],stuNum,course)
+                    elif size_type == 2:
+                        group2_abnormal = resid
+                        random_form([group_size, group2_abnormal],[num_group2 - 1,1],stuNum,course)
 
-                index = 0
-                for cycle in range(0, team_num):
-                    new_team = Team.objects.create(name='group'+str(cycle), course=course)
-                    for cycle2 in range(0, group_size):
-                        new_member = User.objects.get(id=rand_student_list[cycle * group_size + cycle2])
-                        new_team.member.add(new_member)
-                    new_team.save()
-                return redirect('/course/' + str(course_id) + '/forming_method')
+                    return redirect('/course/' + str(course_id) + '/forming_method')
+
         return render(request, 'group_size.html', locals())
     return redirect('/')
 
