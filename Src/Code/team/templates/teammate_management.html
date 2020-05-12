@@ -73,8 +73,8 @@
                                                         class="card-title">Invitation messages:</span>
                                                     <hr>
                                                     <div class="row">
-                                                        {% if invite %}
-                                                            {% for item in invite %}
+                                                        {% if invitation_list %}
+                                                            {% for item in invitation_list %}
                                                                 <div class="col s12 m6">
                                                                     <div class="card">
                                                                         <div class="card-content">
@@ -88,7 +88,7 @@
                                                                                 </div>
                                                                                 <div class="col s8"
                                                                                      style="margin-top: 5px;">
-                                                                                    <span class="card-title">{{ item.from_user }}</span>
+                                                                                    <span class="card-title">{{ item.username }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

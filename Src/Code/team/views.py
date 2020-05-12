@@ -57,8 +57,21 @@ def manage(request, course_id):
         own_team = Team.objects.get(course=course, member=user)
     except:
         own_team = 0
-    
     invite = Invitation.objects.filter(course=course, to_user=request.user.id, isAccept=0)
+    invitation_list = []
+    invitation_id_list = []
+    invitation_description_list = []
+    for invitation_item in invite.values("from_user"):
+        invitation_id_list.append(invitation_item.get("from_user"))
+    for invitation_item in invite.values("description"):
+        invitation_description_list.append(invitation_item.get("description"))
+    
+    invitation_stu = list(User.objects.filter(id__in=invitation_id_list).values("username"))
+
+    for index in range(len(invitation_id_list)):
+        invitation_list.append({"id": invitation_id_list[index], "username": invitation_stu[index].get("username"), "description": invitation_description_list[index]})
+    print(invitation_list)
+    
     return render(request, 'teammate_management.html', locals())
 
 
