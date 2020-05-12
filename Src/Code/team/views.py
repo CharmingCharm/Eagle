@@ -70,7 +70,6 @@ def manage(request, course_id):
 
     for index in range(len(invitation_id_list)):
         invitation_list.append({"id": invitation_id_list[index], "username": invitation_stu[index].get("username"), "description": invitation_description_list[index]})
-    print(invitation_list)
     
     return render(request, 'teammate_management.html', locals())
 
