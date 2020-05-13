@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/course/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/course.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/course.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/export_contribution.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/export_contribution.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/import_student_individual.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/import_student_individual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/submission/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/add_submission_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/add_submission_item.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/leader_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/leader_assessment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/submission_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/submission_assessment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/submission/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/templates/vote_leader.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/vote_leader.html" afterDir="false" />
-    </list>
+    <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/course/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1848">
-              <caret line="140" column="56" lean-forward="true" selection-start-line="140" selection-start-column="56" selection-end-line="140" selection-end-column="56" />
+            <state relative-caret-position="63">
+              <caret line="207" column="8" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="8" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -101,7 +88,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/templates/export_contribution.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="344">
@@ -215,7 +202,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="380" />
     <option name="y" value="-30" />
     <option name="width" value="980" />
@@ -355,12 +342,12 @@
       <workItem from="1589249576257" duration="5876000" />
       <workItem from="1589255936830" duration="6313000" />
       <workItem from="1589262441980" duration="3125000" />
-      <workItem from="1589271757313" duration="13638000" />
+      <workItem from="1589271757313" duration="14468000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124470000" />
+    <option name="totallyTimeSpent" value="125300000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -764,16 +751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1848">
-          <caret line="140" column="56" lean-forward="true" selection-start-line="140" selection-start-column="56" selection-end-line="140" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/course/templates/import_student_individual.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
@@ -794,6 +771,16 @@
           <caret line="49" column="79" selection-start-line="49" selection-start-column="79" selection-end-line="49" selection-end-column="79" />
           <folding>
             <element signature="e#1187#1227#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="207" column="8" selection-start-line="207" selection-start-column="8" selection-end-line="207" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
