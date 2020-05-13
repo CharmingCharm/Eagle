@@ -2,7 +2,7 @@ from django import forms
 
 
 class ImportIndividualForm(forms.Form):
-    user_name = forms.CharField(label='User name', max_length=32,
+    true_name = forms.CharField(label='True name', max_length=32,
                                widget=forms.TextInput(
                                    attrs={'class': 'validate', 'required': "true"}))
     stu_id = forms.CharField(label='Student ID', max_length=32,

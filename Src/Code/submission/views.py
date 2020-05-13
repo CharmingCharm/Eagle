@@ -23,6 +23,7 @@ def clean_session(request):
 
 def add_submission(request, course_id):
     course = Course.objects.get(id=course_id)
+    msg = "no_msg"
     if request.user.is_authenticated:
         if request.method == 'POST':
             add_submission_form = SubmissionItemForm(request.POST)
@@ -30,10 +31,21 @@ def add_submission(request, course_id):
                 title = add_submission_form.cleaned_data['title']
                 percentage = add_submission_form.cleaned_data['percentage']
                 submission_dup = SubmissionItem.objects.filter(title=title).first()
-                if not submission_dup:
-                    request.session["addSubmission"] = {"title": title, "percentage": percentage}
-                    return redirect('/course/' + str(course_id) + "/modify_submission")
-                return redirect('/course/' + str(course_id) + '/add_submission')
+                if submission_dup:
+                    msg = "Duplicate submission name!"
+                    return render(request, 'add_submission_item.html', locals())
+                
+                if float(percentage) < 0:
+                    msg = "The percentage cannot less than 0%!"
+                    return render(request, 'add_submission_item.html', locals())
+
+                if float(percentage) > 100:
+                    msg = "The percentage cannot greater than 100%!"
+                    return render(request, 'add_submission_item.html', locals())
+                
+                request.session["addSubmission"] = {"title": title, "percentage": percentage}
+                return redirect('/course/' + str(course_id) + "/modify_submission")
+
         add_submission_form = SubmissionItemForm()
         return render(request, 'add_submission_item.html', locals())
     return redirect('/')
@@ -63,12 +75,39 @@ def modify_submission(request, course_id):
             request.session["newSubmission"] = newSubmission
         elif request.session.get("newSubmission") is not None:
             newSubmission = request.session.get("newSubmission")
-
+        else:
+            newSubmission = list()
+        
         if request.method == 'POST':
             if request.POST.get("confirm") is not None:
+
+                for title_item in request.POST.getlist("title"):
+                    if title_item == "":
+                        msg = "Empty titles exist!"
+                        submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                        return render(request, 'modify_submission.html', locals())
+
+                for percentage_item in request.POST.getlist("percentage"):
+                    if percentage_item == "":
+                        msg = "Empty percentage exist!"
+                        submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                        return render(request, 'modify_submission.html', locals())
+
                 modifyId = list(map(int, request.POST.getlist("modifyId")))
                 titles = request.POST.getlist("title")
                 percentages = list(map(float, request.POST.getlist("percentage")))
+
+                title_set = set(titles)
+                if len(title_set) != len(titles):
+                    msg = "Duplicate submission name!"
+                    submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                    return render(request, 'modify_submission.html', locals())
+
+                for percentage_of_submission in percentages:
+                    if percentage_of_submission > 100 or percentage_of_submission < 0:
+                        msg = "Some percentage is out of bound!"
+                        submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
+                        return render(request, 'modify_submission.html', locals())
 
                 if sum(percentages) == 100:
                     submissionItem = SubmissionItem.objects.filter(course=course_id)
