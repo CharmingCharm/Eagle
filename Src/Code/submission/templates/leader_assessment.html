@@ -13,8 +13,13 @@
                             <div class="card-content">
                                 <h3 class="truncate changefont">Evaluate your team member</h3>
                                 <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                        class="head_text"> Main page <b>&gt;</b> {{ course.name }} <b>&gt;</b> <span
-                                        style="color: darkmagenta">Evaluate your members</span> </span></p>
+                                        class="head_text"> <a href="/student_home"
+                                                              style="color: grey"> Main page </a><b>&gt;</b> <a
+                                        href="/course/{{ course.id }}"
+                                        style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
+                                        style="color: dodgerblue">Leader assessment</span> </span></p>
+
+
                                 <div class="row">
                                     <div class="col l4 s12">
                                         <div class="card">
@@ -31,21 +36,21 @@
                                                 <div style="margin-left: 10px; margin-top: 10px;"><span
                                                         style="font-size: 15px">Team leader:</span>
                                                     <div class="row" style="margin-bottom: 0px;">
-                                                            <div class="col s6 l12">
-                                                                <div class="lighten-5" style="padding: 12px;">
-                                                                    <div class="valign-wrapper">
-                                                                        <div class="col s4"><img
-                                                                                src="{% static 'img/icon.jpg' %}" alt=""
-                                                                                class="circle responsive-img"
-                                                                                style="height: 80%; width:80%">
-                                                                            <!-- notice the "circle" class -->
-                                                                        </div>
-                                                                        <div class="col s8"><span
-                                                                                style="font-size: 18px; font-weight: 300;"> {{ request.user.username }} </span>
-                                                                        </div>
+                                                        <div class="col s6 l12">
+                                                            <div class="lighten-5" style="padding: 12px;">
+                                                                <div class="valign-wrapper">
+                                                                    <div class="col s4"><img
+                                                                            src="{% static 'img/icon.jpg' %}" alt=""
+                                                                            class="circle responsive-img"
+                                                                            style="height: 80%; width:80%">
+                                                                        <!-- notice the "circle" class -->
+                                                                    </div>
+                                                                    <div class="col s8"><span
+                                                                            style="font-size: 18px; font-weight: 300;"> {{ request.user.username }} </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div style="margin-left: 10px; margin-top: 10px;"><span
@@ -53,21 +58,22 @@
                                                     <div class="row" style="margin-bottom: 0px;">
                                                         {% for one in team.member.all %}
                                                             {% if one.id != team.leader %}
-                                                            <div class="col s6 l12">
-                                                                <div class="lighten-5" style="padding: 12px;">
-                                                                    <div class="valign-wrapper">
-                                                                        <div class="col s4"><img
-                                                                                src="{% static 'img/icon.jpg' %}" alt=""
-                                                                                class="circle responsive-img"
-                                                                                style="height: 80%; width:80%">
-                                                                            <!-- notice the "circle" class -->
-                                                                        </div>
-                                                                        <div class="col s8"><span
-                                                                                style="font-size: 18px; font-weight: 300;"> {{ one.username }} </span>
+                                                                <div class="col s6 l12">
+                                                                    <div class="lighten-5" style="padding: 12px;">
+                                                                        <div class="valign-wrapper">
+                                                                            <div class="col s4"><img
+                                                                                    src="{% static 'img/icon.jpg' %}"
+                                                                                    alt=""
+                                                                                    class="circle responsive-img"
+                                                                                    style="height: 80%; width:80%">
+                                                                                <!-- notice the "circle" class -->
+                                                                            </div>
+                                                                            <div class="col s8"><span
+                                                                                    style="font-size: 18px; font-weight: 300;"> {{ one.username }} </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                             {% endif %}
                                                         {% endfor %}
                                                     </div>
