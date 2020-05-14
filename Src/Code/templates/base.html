@@ -15,7 +15,9 @@
             src="{% static "img/nav.png" %}" height="40px" width="85px"> | &nbsp;Teamwork System</a>
         <ul class="right hide-on-med-and-down">
             {% if request.user.is_authenticated %}
-                <li><a href="/{{ request.user.field }}_home/">{{ request.user.truename }} &nbsp;|&nbsp; {{ request.user.username }}</a></li>
+                <li><a href="/{{ request.user.field }}_home/">Homepage</a></li>
+{#                <li><a href="/change_password/">Change password</a></li>#}
+                <li><a href="/{{ request.user.field }}_home/">{{ request.user.truename }}</a></li>
                 <li><a href="/logout/">Logout</a></li>
             {% else %}
                 <li><a href="/login/">Login</a></li>
@@ -23,7 +25,8 @@
         </ul>
         <ul id="nav-mobile" class="side-nav">
             {% if request.user.is_authenticated %}
-                <li><a href="/{{ request.user.field }}_home/">{{ request.user.true_name }} &nbsp;|&nbsp; {{ request.user.username }}</a></li>
+                <li><a href="/{{ request.user.field }}_home/">Homepage</a></li>
+                <li><a href="/{{ request.user.field }}_home/">{{ request.user.true_name }}</a></li>
                 <li><a href="/logout/">Logout</a></li>
             {% else %}
                 <li><a href="/login/">Login</a></li>
@@ -67,16 +70,16 @@
             <div class="col l6 s12">
                 <h5 class="white-text">Connect</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Github</a></li>
-                    <li><a class="white-text" href="#!">Wechat</a></li>
-                    <li><a class="white-text" href="#!">Telegram</a></li>
-                    <li><a class="white-text" href="#!">QQ<a></li>
+                    <li><a class="white-text" href="github.com">Github</a></li>
+                    <li><a class="white-text" href="qq.com">Wechat</a></li>
+                    <li><a class="white-text" href="telegram.com">Telegram</a></li>
+                    <li><a class="white-text" href="qq.com">QQ<a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer-copyright black">
-        <div class="container"> Made by <a class="orange-text text-lighten-3" href="#">Eagle</a></div>
+        <div class="container"> Made by <a class="orange-text text-lighten-3" href="hixiaotian.com">Eagle</a></div>
     </div>
 </footer>
 

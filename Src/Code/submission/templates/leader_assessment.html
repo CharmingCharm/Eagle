@@ -100,7 +100,8 @@
                                                         <td>{{ item.title }}</td>
 
                                                         <td>{{ item.percentage }}%</td>
-                                                        {% if item.isFinishAssess != True %}
+
+                                                        {% if item %}
                                                             <td>
                                                                 <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
                                                                    class="btn green waves-effect waves-light"
@@ -143,7 +144,7 @@
 
 {% block extra_js %}
     <script>
-        var toast_msg = "{{ submission_msg }}";
+        var toast_msg = "{{ leader_msg }}";
         if (!(toast_msg == 'no_msg')) {
             var $toastContent = $('<span>' + toast_msg + '</span>');
             Materialize.toast($toastContent, 4000);

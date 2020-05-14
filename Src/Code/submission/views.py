@@ -21,6 +21,7 @@ def clean_session(request):
     if request.session.get('user_list') is not None:
         request.session.pop('user_list')
 
+
 def add_submission(request, course_id):
     course = Course.objects.get(id=course_id)
     msg = "no_msg"
@@ -50,6 +51,7 @@ def add_submission(request, course_id):
         return render(request, 'add_submission_item.html', locals())
     return redirect('/')
 
+
 @csrf_exempt
 def modify_submission(request, course_id):
     if request.user.is_authenticated:
@@ -57,6 +59,7 @@ def modify_submission(request, course_id):
         course = Course.objects.get(id=course_id)
         teachers = course.member.filter(field='teacher')
         memNum = course.member.count()
+
         msg = "no_msg"
         deleteId = set()
 
@@ -146,9 +149,14 @@ def member_assessment(request, course_id, team_id):
     team = Team.objects.get(id=team_id)
     leader = User.objects.get(id=team.leader)
     user = User.objects.get(id=request.user.id)
+    member_assessment_msg = 'no_msg'
     if team.leader != request.user.id:
         if request.method == 'POST':
             leader_mark = request.POST.get("leader_mark")
+            leader_dup = LeaderAssessment.objects.filter(leader=team.leader, member=request.user.id, team=team).first()
+            if leader_dup:
+                member_assessment_msg = 'You have already assessed your leader, do not do it again!'
+                return render(request, 'member_assessment.html', locals())
             leader_assessment = LeaderAssessment.objects.create(leader=team.leader, member=request.user.id, mark=leader_mark, team=team)
             leader_assessment.save()
             request.session['course_msg'] = "Assess your leader success!"
@@ -162,11 +170,14 @@ def leader_assessment(request, course_id, team_id):
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
     submission = SubmissionItem.objects.filter(course=course)
+
+    submission_contribution = SubmissionContribution.objects.filter(team=team)
+
     clean_session(request)
-    submission_msg = 'no_msg'
-    if request.session.get('submission_msg') is not None:
-        submission_msg = request.session.get('submission_msg')
-        request.session.pop('submission_msg')
+    leader_msg = 'no_msg'
+    if request.session.get('leader_msg') is not None:
+        leader_msg = request.session.get('leader_msg')
+        request.session.pop('leader_msg')
     return render(request, 'leader_assessment.html', locals())
 
 
@@ -188,12 +199,9 @@ def submission_assessment(request, course_id, team_id, submissionitem_id):
 
             to_member_id = int(request.POST.get("member_id"+str(item)))
             to_member = User.objects.get(id=to_member_id)
-            submission_assessment = SubmissionContribution.objects.create(value=mark, member=to_member, submission=submission, team=team)
+            submission_assessment = SubmissionContribution.objects.create(value=mark, member=to_member, submission=submission, team=team, isFinishAssess=True)
             submission_assessment.save()
-            submission.isFinishAssess = True
-            submission.save()
-        request.session['submission_msg'] = "Assess " + submission.title + " success!"
-        request.session.pop('submission_msg')
+        request.session['leader_msg'] = "Assess " + submission.title + " success!"
         return redirect("/course/" + str(course.id) + "/team/" + str(team.id) + "/leader_assessment")
     return render(request, 'submission_assessment.html', locals())
 

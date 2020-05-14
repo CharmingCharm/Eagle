@@ -35,7 +35,7 @@
                                                                     src="{% static 'img/head1.jpg' %}" alt=""
                                                                     class="circle responsive-img">
                                                                 <div class="center-align"><span
-                                                                        class="card-title">Your leader: {{ leader.username }}</span>
+                                                                        class="card-title">Your leader: {{ leader.truename }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -98,6 +98,12 @@
 {% endblock %}
 {% block extra_js %}
     <script>
+        var toast_msg = "{{ member_assessment_msg }}";
+        if (!(toast_msg == 'no_msg')) {
+            var $toastContent = $('<span>' + toast_msg + '</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+
         $("#leader_mark").mouseup(function () {
             if ($("#leader_mark").val() == "-2"){
                 $("#assessment").text("very bad");
