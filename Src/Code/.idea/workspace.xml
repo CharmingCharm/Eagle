@@ -3,20 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/export_contribution.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/export_contribution.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/generate_student.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/generate_student.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/import_student_excel.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/import_student_excel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/templates/import_student_individual.html" beforeDir="false" afterPath="$PROJECT_DIR$/course/templates/import_student_individual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/course/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/member_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/member_assessment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/modify_submission.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/modify_submission.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/submission/templates/submission_assessment.html" beforeDir="false" afterPath="$PROJECT_DIR$/submission/templates/submission_assessment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/templates/forming_method_1.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/forming_method_1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/templates/group_size.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/group_size.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/templates/invite.html" beforeDir="false" afterPath="$PROJECT_DIR$/team/templates/invite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_zqmdsbbbbbbbbbbb_contribution" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_zqmdsbbbbbbbbbbb_contribution.xls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/course_zqmdsbbbbbbbbbbb_contribution.xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/templates/index.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,15 +23,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/team/templates/group_size.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="98" column="108" selection-start-line="98" selection-start-column="108" selection-end-line="98" selection-end-column="108" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/team/templates/teammate_management.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="268">
@@ -50,14 +31,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
-              <caret line="310" column="31" lean-forward="true" selection-start-line="310" selection-start-column="31" selection-end-line="310" selection-end-column="31" />
+            <state relative-caret-position="142">
+              <caret line="306" column="20" lean-forward="true" selection-start-line="306" selection-start-column="20" selection-end-line="306" selection-end-column="20" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
             </state>
           </provider>
         </entry>
@@ -185,7 +175,6 @@
         <option value="$PROJECT_DIR$/user/templates/change_password.html" />
         <option value="$PROJECT_DIR$/submission/templates/add_submission_item.html" />
         <option value="$PROJECT_DIR$/course/urls.py" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/course/templates/export_contribution.html" />
         <option value="$PROJECT_DIR$/course/templates/generate_student.html" />
         <option value="$PROJECT_DIR$/course/templates/import_student_excel.html" />
@@ -197,6 +186,7 @@
         <option value="$PROJECT_DIR$/team/templates/group_size.html" />
         <option value="$PROJECT_DIR$/team/templates/invite.html" />
         <option value="$PROJECT_DIR$/course/views.py" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
       </list>
     </option>
   </component>
@@ -230,6 +220,11 @@
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
               <item name="Code" type="462c0819:PsiDirectoryNode" />
               <item name="course" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Code" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -331,12 +326,12 @@
       <workItem from="1589262441980" duration="3125000" />
       <workItem from="1589271757313" duration="14468000" />
       <workItem from="1589447309318" duration="5715000" />
-      <workItem from="1589454508226" duration="4081000" />
+      <workItem from="1589454508226" duration="5032000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135096000" />
+    <option name="totallyTimeSpent" value="136047000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -348,15 +343,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="762" y="0" width="781" height="830" extended-state="0" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.503055" side_tool="true" weight="0.18791947" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49694502" visible="true" weight="0.3526971" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49694502" visible="true" weight="0.18565683" />
       <window_info id="Structure" order="2" sideWeight="0.503055" side_tool="true" weight="0.18791947" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.48547718" visible="true" weight="0.265043" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.51452285" side_tool="true" visible="true" weight="0.265043" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.48592493" visible="true" weight="0.26203966" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.51407504" side_tool="true" visible="true" weight="0.26203966" />
       <window_info anchor="bottom" id="Database Changes" order="3" />
       <window_info anchor="bottom" id="Version Control" order="4" sideWeight="0.49865952" weight="0.3286119" />
       <window_info anchor="bottom" id="Python Console" order="5" sideWeight="0.4986577" weight="0.32840237" />
@@ -604,16 +598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="77" column="38" selection-start-line="77" selection-start-column="38" selection-end-line="77" selection-end-column="38" />
-          <folding>
-            <element signature="e#697#703#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/course/templates/course.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="516">
@@ -765,11 +749,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/course/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="310" column="31" lean-forward="true" selection-start-line="310" selection-start-column="31" selection-end-line="310" selection-end-column="31" />
+        <state relative-caret-position="142">
+          <caret line="306" column="20" lean-forward="true" selection-start-line="306" selection-start-column="20" selection-end-line="306" selection-end-column="20" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="25" column="87" selection-start-line="25" selection-start-column="87" selection-end-line="25" selection-end-column="87" />
         </state>
       </provider>
     </entry>
