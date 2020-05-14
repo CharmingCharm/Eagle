@@ -163,6 +163,7 @@ def import_student_excel(request, course_id):
     msg = "no_msg"
     
     if request.method == 'POST':
+
         if len(request.FILES) != 0:
             excel_file = request.FILES.get('excel_file', '')
             file_type = excel_file.name.split('.')[1]
@@ -221,39 +222,42 @@ def export_contribution(request, course_id):
     submissions = SubmissionItem.objects.filter(course=course)
     contribution = 0
     total_bonus_mark = 0
+    IsCalculate = request.session.get('IsCalculate')
+    if IsCalculate is None:
+        for one in students:
+            for one_submission in submissions:
+                one_submission_contribution = SubmissionContribution.objects.filter(submission=one_submission, member=one).first()
+                if one_submission_contribution is None:
+                    contribution = -1
+                    break
+                else:
+                    contribution += one_submission_contribution.value * one_submission.percentage * 0.01
 
-    for one in students:
-        for one_submission in submissions:
-            one_submission_contribution = SubmissionContribution.objects.filter(submission=one_submission, member=one).first()
-            if one_submission_contribution is None:
-                contribution = -1
-                break
+            team = Team.objects.filter(course=course, member=one).first()
+            if team is None:
+                print('Someone still not in a team!')
+                contribution = -2
+                bonus = -2
             else:
-                contribution += one_submission_contribution.value * one_submission.percentage * 0.01
-
-        team = Team.objects.filter(course=course, member=one).first()
-        if team is None:
-            print('Someone still not in a team!')
-            contribution = -2
-            bonus = -2
-        else:
-            if team.leader == one.id:
-                for each_member in team.member.all():
-                    if team.leader == each_member.id:
-                        continue
-                    else:
-                        leaderBonus = LeaderAssessment.objects.filter(leader=team.leader, member=each_member.id, team=team).first()
-                        if leaderBonus is None:
-                            bonus = -1
-                            break
+                if team.leader == one.id:
+                    for each_member in team.member.all():
+                        if team.leader == each_member.id:
+                            continue
                         else:
-                            total_bonus_mark += leaderBonus.mark
-                if bonus != -1:
-                    bonus = total_bonus_mark/(team.member.count()-1)
-        export = ExportFile.objects.create(student=one, course=course, contribution=contribution, bonus=bonus)
-        contribution = 0
-        total_bonus_mark = 0
-        export.save()
+                            leaderBonus = LeaderAssessment.objects.filter(leader=team.leader, member=each_member.id, team=team).first()
+                            if leaderBonus is None:
+                                bonus = -1
+                                break
+                            else:
+                                total_bonus_mark += leaderBonus.mark
+                    if bonus != -1:
+                        bonus = total_bonus_mark/(team.member.count()-1)
+            export = ExportFile.objects.create(student=one, course=course, contribution=contribution, bonus=bonus)
+            contribution = 0
+            total_bonus_mark = 0
+            IsCalculate = 'true'
+            request.session['IsCalculate'] = IsCalculate
+            export.save()
 
     export_display = ExportFile.objects.filter(course=course)
     return render(request, 'export_contribution.html', locals())
