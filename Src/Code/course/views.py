@@ -1,5 +1,10 @@
+import os
+from io import BytesIO
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from xlwt import Workbook
+
 from user.models import User, Student
 from .models import Course, ExportFile
 from submission.models import LeaderAssessment
@@ -11,7 +16,7 @@ from django.core.paginator import Paginator
 from django.core import serializers
 from django.contrib import messages
 from django.db import transaction
-import xlrd
+import xlrd, xlwt
 
 def clean_session(request):
     if request.session.get("deleteId") is not None:
@@ -219,7 +224,18 @@ def export_contribution(request, course_id):
     submissions = SubmissionItem.objects.filter(course=course)
     contribution = 0
     total_bonus_mark = 0
-    IsCalculate = request.session.get('IsCalculate')
+
+    clean_session(request)
+
+    submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
+
+    export_msg = 'no_msg'
+    if request.session.get('export_msg') is not None:
+        export_msg = request.session.get('export_msg')
+        request.session.pop('export_msg')
+
+    IsCalculate = request.session.get('IsCalculate'+str(course_id))
+    # IsCalculate = None
     if IsCalculate is None:
         for one in students:
             for one_submission in submissions:
@@ -253,50 +269,45 @@ def export_contribution(request, course_id):
             contribution = 0
             total_bonus_mark = 0
             IsCalculate = 'true'
-            request.session['IsCalculate'] = IsCalculate
+            request.session['IsCalculate'+str(course_id)] = IsCalculate
             export.save()
-
     export_display = ExportFile.objects.filter(course=course)
     return render(request, 'export_contribution.html', locals())
 
-#     response = HttpResponse(content_type='application/vnd.ms-excel')
-#     response['Content-Disposition'] = 'attachment;filename='+ course.name +'.xls'
-#
-# # 导出Excel文件
-# def export_excel(request):
-#     city = request.POST.get('city')
-#     print(city)
-#     list_obj=place.objects.filter(city=city)
-#     # 设置HTTPResponse的类型
-#
-#     """导出excel表"""
-#     if list_obj:
-#         # 创建工作簿
-#         ws = xlwt.Workbook(encoding='utf-8')
-#         # 添加第一页数据表
-#         w = ws.add_sheet('sheet1')  # 新建sheet（sheet的名称为"sheet1"）
-#         # 写入表头
-#         w.write(0, 0, u'地名')
-#         w.write(0, 1, u'次数')
-#         w.write(0, 2, u'经度')
-#         w.write(0, 3, u'纬度')
-#         # 写入数据
-#         excel_row = 1
-#         for obj in list_obj:
-#             name = obj.place
-#             sum = obj.sum
-#             lng = obj.lng
-#             lat = obj.lat
-#             # 写入每一行对应的数据
-#             w.write(excel_row, 0, name)
-#             w.write(excel_row, 1, sum)
-#             w.write(excel_row, 2, lng)
-#             w.write(excel_row, 3, lat)
-#             excel_row += 1
-#         # 写出到IO
-#         output = BytesIO()
-#         ws.save(output)
-#         # 重新定位到开始
-#         output.seek(0)
-#         response.write(output.getvalue())
-#     return response
+
+def export_file(request, course_id):
+    course = Course.objects.get(id=course_id)
+    export_display = ExportFile.objects.filter(course=course)
+    msg = 'no_msg'
+    if export_display:
+        ws = Workbook(encoding="UTF-8")
+        w = ws.add_sheet('contribution')
+        w.write(0, 0, 'name')
+        w.write(0, 1, 'ID')
+        w.write(0, 2, 'contribution')
+        w.write(0, 3, 'bonus')
+
+        excel_row = 1
+        for item in export_display:
+            data_name = item.student.truename
+            data_ID = item.id
+            data_contribution = item.contribution
+            data_bonus = item.bonus
+            w.write(excel_row, 0, data_name)
+            w.write(excel_row, 1, data_ID)
+            w.write(excel_row, 2, data_contribution)
+            w.write(excel_row, 3, data_bonus)
+            excel_row += 1
+
+        ws.save("course_" + course.name + "_contribution.xls")
+        sio = BytesIO()
+        ws.save(sio)
+        sio.seek(0)
+
+        response = HttpResponse(sio.getvalue(), content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = "attachment; filename=" + "course_" + course.name + "_contribution.xls"
+        response.write(sio.getvalue())
+
+        export_msg = 'Success!'
+        request.session['export_msg'] = export_msg
+        return response

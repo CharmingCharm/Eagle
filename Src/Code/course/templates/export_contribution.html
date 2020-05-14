@@ -65,11 +65,11 @@
                                         <br>
                                         <br>
                                         <a class="btn waves-effect waves-light red darken-3" type="btn"
-                                           name="action" style="float: left;" href="/course/{{ course.id }}">cancel
+                                           name="action" style="float: left;" href="/course/{{ course.id }}">back
                                             <i
-                                                    class="material-icons left">close</i></a>
+                                                    class="material-icons left">fast_rewind</i></a>
                                         <a class="btn waves-effect waves-light" type="submit" name="action"
-                                           style="float: right;">export<i
+                                           style="float: right;" href="/course/{{ course.id }}/export_file">export<i
                                                 class="material-icons right">send</i></a>
                                         </form>
                                     </div>
@@ -87,7 +87,7 @@
 {% endblock %}
 {% block extra_js %}
     <script>
-        var toast_msg = "{{ msg }}";
+        var toast_msg = "{{ export_msg }}";
         if (!(toast_msg == 'no_msg')) {
             var $toastContent = $('<span>' + toast_msg + '</span>');
             Materialize.toast($toastContent, 4000);

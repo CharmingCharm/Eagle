@@ -24,4 +24,5 @@ urlpatterns = [
     path('course/<int:course_id>/export_contribution', views.export_contribution),
     path('course/<int:course_id>/import_student_excel', views.import_student_excel),
     path('course/<int:course_id>/import_student_individual', views.import_student_individual),
+    path('course/<int:course_id>/export_file', views.export_file),
 ]
