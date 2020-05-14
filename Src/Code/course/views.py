@@ -123,7 +123,7 @@ def generate_student(request, course_id):
         for temp_curr_stu in temp_stu_excel:
             flag = 0
             for curr_user in user_list:
-                if curr_user['stu_id'] == temp_curr_stu['stu_id']:
+                if curr_user['user_name'] == temp_curr_stu['user_name']:
                     flag = 1
                     fail_num = fail_num + 1
                     break
@@ -139,17 +139,21 @@ def generate_student(request, course_id):
         if initial_pwd_form.is_valid():
             initial_pwd = initial_pwd_form.cleaned_data['initial_pwd']
             user_list = request.session.pop('user_list')
+            num_already_have = 0
+            num_new_create = 0
             while len(user_list) > 0:
                 curr_user = user_list.pop()
-                if User.objects.get(username=curr_user['user_name']) is None:
+                if len(User.objects.filter(username=curr_user['user_name'])) == 0:
                     user = User.objects.create_user(username=curr_user['user_name'] ,truename=curr_user['true_name'], password=initial_pwd, email=curr_user['email'], field='student')
                     user.save()
+                    student = Student.objects.create(studentID=str(curr_user['stu_id']), GPA=curr_user['GPA'], user=user)
+                    student.save()
+                    num_new_create = num_new_create + 1
                 else:
-                    continue
-                student = Student.objects.create(studentID=str(curr_user['stu_id']), GPA=curr_user['GPA'], user=user)
-                student.save()
+                    user = User.objects.get(username=curr_user['user_name'])
+                    num_already_have = num_already_have + 1
                 course.member.add(user)
-            msg = 'Import students success!'
+            msg = str(num_new_create) + ' students are created and added into class and ' + str(num_already_have) + " duplicated students are added into class!"
     memNum = course.member.count()
     return render(request, 'generate_student.html', locals())
 
@@ -180,8 +184,7 @@ def import_student_excel(request, course_id):
                             temp_curr_stu = {'user_name': user_name, 'true_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
                         else:
                             temp_curr_stu = {'user_name': user_name, 'true_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
-                        if Student.objects.filter(studentID=temp_curr_stu['stu_id']).first() is None:
-                            temp_stu.append(temp_curr_stu)
+                        temp_stu.append(temp_curr_stu)
                 request.session['temp_stu_excel'] = temp_stu
                 msg = 'success'
                 return redirect('/course/' + str(course.id) + '/generate_student')

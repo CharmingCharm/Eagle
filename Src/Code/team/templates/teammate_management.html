@@ -21,7 +21,7 @@
                                             <div class="card cardpadding z-depth-1">
                                                 <div class="card-content">
                                                     <p class="center-align" style="font-size: 28px; font-weight: 300;">
-                                                        Hi, {{ request.user.username }}!</p>
+                                                        Hi, {{ request.user.truename }}!</p>
                                                     <hr>
                                                     <br>
                                                     <p style="font-size: 20px; font-weight: 300;">Current teammates:</p>
@@ -44,7 +44,7 @@
                                                                                 <!-- notice the "circle" class -->
                                                                             </div>
                                                                             <div class="col s8"><span
-                                                                                    style="font-size: 18px; font-weight: 300;"> {{ one.username }} </span>
+                                                                                    style="font-size: 18px; font-weight: 300;"> {{ one.truename }} </span>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -88,7 +88,7 @@
                                                                                 </div>
                                                                                 <div class="col s8"
                                                                                      style="margin-top: 5px;">
-                                                                                    <span class="card-title">{{ item.username }}</span>
+                                                                                    <span class="card-title">{{ item.truename }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -132,4 +132,14 @@
     <br>
     <div class="section"></div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    var toast_msg = "{{ msg }}";
+        if(!(toast_msg == 'no_msg')){
+            var $toastContent = $('<span>' + toast_msg +'</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+</script>
 {% endblock %}
