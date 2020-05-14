@@ -43,7 +43,7 @@
                                                                     </div>
                                                                     <div class="col s8"><span
                                                                             class="card-title"
-                                                                            style="margin-left: 15px;">{{ one.username }}</span>
+                                                                            style="margin-left: 15px;">{{ one.truename }}</span>
                                                                     </div>
                                                                     <a class="waves-effect waves-light btn green modal-trigger"
                                                                        style="margin-left: 15px; margin-top: 5px;"
@@ -55,7 +55,7 @@
                                                                                   href="/course/{{ course_id }}/invite">
                                                                                 {% csrf_token %}
                                                                                 <h4>You are going to invite <span
-                                                                                        class="purple-text">{{ one.username }}</span>
+                                                                                        class="purple-text">{{ one.truename }}</span>
                                                                                     to your team:</h4>
 
                                                                                 <br>
