@@ -123,39 +123,52 @@ def group_size(request, course_id):
 
                 # messages.add_message(request, messages.success, 'You have successfully set the team forming!')
 
-            if size_type is None:
-                course.form_method = form_method
-                course.team_number_1 = team_num
-                course.team_number_2 = 0
-                course.team_size_1 = group_size
-                course.team_size_2 = 0
-                course.save()
-            else:
-                resid = stuNum % group_size
-                num_group1 = int(stuNum / group_size)
-                num_group2 = num_group1 + 1
-                if size_type == 1:
-                    more1_num = resid % num_group1
-                    normal_num = num_group1 - more1_num
-                    average_more = int(resid / num_group1)
-                    group1_normal = group_size + average_more
-                    group1_abnormal = group1_normal + 1
-                    
+            if form_method == 1 or form_method == 2 or form_method == 4:
+                if size_type is None:
                     course.form_method = form_method
-                    course.team_number_1 = more1_num
-                    course.team_number_2 = normal_num
-                    course.team_size_1 = group1_abnormal
-                    course.team_size_2 = group1_normal
-                    course.save()
-                elif size_type == 2:
-                    group2_abnormal = resid
-
-                    course.form_method = form_method
-                    course.team_number_1 = num_group2 - 1
-                    course.team_number_2 = 1
+                    course.team_number_1 = team_num
+                    course.team_number_2 = 0
                     course.team_size_1 = group_size
-                    course.team_size_2 = group2_abnormal
+                    course.team_size_2 = 0
                     course.save()
+                else:
+                    resid = stuNum % group_size
+                    num_group1 = int(stuNum / group_size)
+                    num_group2 = num_group1 + 1
+                    if size_type == 1:
+                        more1_num = resid % num_group1
+                        normal_num = num_group1 - more1_num
+                        average_more = int(resid / num_group1)
+                        group1_normal = group_size + average_more
+                        group1_abnormal = group1_normal + 1
+                        
+                        course.form_method = form_method
+                        course.team_number_1 = more1_num
+                        course.team_number_2 = normal_num
+                        course.team_size_1 = group1_abnormal
+                        course.team_size_2 = group1_normal
+                        course.save()
+                    elif size_type == 2:
+                        group2_abnormal = resid
+
+                        course.form_method = form_method
+                        course.team_number_1 = num_group2 - 1
+                        course.team_number_2 = 1
+                        course.team_size_1 = group_size
+                        course.team_size_2 = group2_abnormal
+                        course.save()
+            else:
+                if stuNum % 2 == 0:
+                    course.team_number_1 = stuNum / 2
+                    course.team_number_2 = 0
+                    course.team_size_1 = 2
+                    course.team_size_2 = 0
+                else:
+                    course.team_number_1 = (stuNum - 1) / 2
+                    course.team_number_2 = 1
+                    course.team_size_1 = 2
+                    course.team_size_2 = 1
+                course.save()
                 
             if form_method == 1 or form_method == 3 or form_method == 5:
                 # messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
@@ -224,7 +237,6 @@ def processInvite(request, course_id, invite_id, isAccept):
 
     if isAccept == 1:
 
-        
         if team_from_user is None:
             if num_of_groups < (course.team_number_1 + course.team_number_2):
                 team_from_user = Team.objects.create(course=course, name="group " + str(num_of_groups), size=2)
