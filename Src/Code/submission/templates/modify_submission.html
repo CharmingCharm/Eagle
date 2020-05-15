@@ -117,15 +117,40 @@
                                                 </div>
                                             </tr>
                                         {% endfor %}
-                                        {% endif %}
+                                    {% endif %}
                                     </table>
-
-                                    
-
+                                {% elif newSubmission %}
+                                <table class="highlight">
+                                    <tr class="home_table">
+                                        <th>Title</th>
+                                        <th>Percentage</th>
+                                        <th>Delete?</th>
+                                    </tr>
+                                {% for item in newSubmission %}
+                                    <tr class="home_table">
+                                        <div>
+                                            <input name="modifyNewIndex" value="{{ item.index }}" type="number" style="display: none;">
+                                            <td><input value="{{ item.title }}" name="title" type="text" class="validate">
+                                            </td>
+                                            <!--                                        <td>2020/3/15 23:55</td>-->
+                                            <td><input type="number" value="{{ item.percentage }}" name="percentage" type="text"
+                                                    class="validate"></td>
+                                            <td>
+                                                <form method="POST" action="/course/{{ course.id }}/modify_submission">
+                                                    {% csrf_token %}
+                                                    <input name="deleteNewIndex" value="{{ item.index }}" style="display: none;">
+                                                    <button type="submit" class="btn-floating btn-small waves-effect waves-light purple"><i
+                                                        class="material-icons">close</i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </div>
+                                    </tr>
+                                {% endfor %}
+                                </table>
                                 {% else %}
                                     <h2>Currently there is no submission item.</h2>
                                 {% endif %}
-
                                 <br>
                                 <div id="chart" class="valign-wrapper" style="width:100%; height: 400px;"></div>
                             </div>
@@ -141,9 +166,6 @@
 {% endblock %}
 {% block extra_js %}
     <script type="text/javascript">
-
-        {% if submissionItem %}
-
             $(document).ready(function () {
                 $('.parallax').parallax();
             });
@@ -205,13 +227,14 @@
                                 }
                             }
                         },
-
+                        {% if submissionItem %}
                         data: [
                             // 要改！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                             {% for item in submissionItem %}
                                 {value: {{item.percentage}}, name: '{{ item.title }}'},
                             {% endfor %}
                         ]
+                        {% endif %}
                     }
                 ]
 //    tooltip: {
@@ -258,7 +281,7 @@
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
 
-        {% endif %}
+
         var toast_msg = "{{ msg }}";
         if(!(toast_msg == 'no_msg')){
             var $toastContent = $('<span>' + toast_msg +'</span>');

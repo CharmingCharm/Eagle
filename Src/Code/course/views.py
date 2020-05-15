@@ -36,6 +36,7 @@ def course_page(request, course_id):
     teachers = course.member.filter(field='teacher')
     team = Team.objects.filter(course=course, member=request.user.id).first()
     vote = None
+    isSetGroup = 0
 
     if team and team.leader != 0:
         leader = User.objects.get(id=team.leader)
@@ -49,8 +50,8 @@ def course_page(request, course_id):
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
     course_msg = ['no_msg']
 
-    if request.session.get('isSetGroup') is not None:
-        isSetGroup = 'yes'
+    if course.form_method != 0:
+        isSetGroup = 1
 
     if request.session.get('course_msg') is not None:
         course_msg.append(request.session.get('course_msg'))

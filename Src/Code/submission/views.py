@@ -31,7 +31,7 @@ def add_submission(request, course_id):
             if add_submission_form.is_valid():
                 title = add_submission_form.cleaned_data['title']
                 percentage = add_submission_form.cleaned_data['percentage']
-                submission_dup = SubmissionItem.objects.filter(title=title).first()
+                submission_dup = SubmissionItem.objects.filter(course=course, title=title).first()
                 if submission_dup:
                     msg = "Duplicate submission name!"
                     return render(request, 'add_submission_item.html', locals())
@@ -83,7 +83,6 @@ def modify_submission(request, course_id):
         
         if request.method == 'POST':
             if request.POST.get("confirm") is not None:
-
                 for title_item in request.POST.getlist("title"):
                     if title_item == "":
                         msg = "Empty titles exist!"
@@ -112,7 +111,7 @@ def modify_submission(request, course_id):
                         submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
                         return render(request, 'modify_submission.html', locals())
 
-                if sum(percentages) == 100:
+                if sum(percentages) == 100 or (len(titles) == 0 and len(percentages) == 0):
                     submissionItem = SubmissionItem.objects.filter(course=course_id)
                     submissionItem.filter(id__in=deleteId).delete()
                     for index in range(len(modifyId),len(titles)):
@@ -135,7 +134,8 @@ def modify_submission(request, course_id):
                         break
                 submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
             else:
-                deleteId.add(int(request.POST.get("deleteItemId")[0]))
+
+                deleteId.add(int(request.POST.get("deleteItemId")))
                 request.session["deleteId"] = deleteId
                 submissionItem = SubmissionItem.objects.filter(course=course_id).exclude(id__in=deleteId).order_by('id')
                 msg = "Currently delete it!"
