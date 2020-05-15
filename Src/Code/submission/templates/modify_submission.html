@@ -7,8 +7,7 @@
         <div class="section no-pad-bot">
             <div class="container"><br>
                 <br>
-                <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}
-                    III</h1>
+                <h1 class="header center white-text text-lighten-2 text-shadow changefont">{{ course.name }}</h1>
                 <div class="row center">
                     <h5 class="header col s12 light">·&nbsp;Course duration: {{ course.begin_time | date:'Y/m/d' }}
                         - {{ course.end_time | date:'Y/m/d' }}
@@ -28,9 +27,9 @@
                 
                 <form method="POST" action="/course/{{ course.id }}/modify_submission">
                     <div class="col l4 s12">
-                        <div class="card cardpadding z-depth-1" style="padding:15px">
+                        <div class="card cardpadding z-depth-1" style="padding:7px 15px 7px 15px;">
                             <div class="card-content">
-                                <div class="row">
+                                <div class="row" style="margin-bottom: 0px;">
                                     <h5>Course Information:</h5>
                                     <p class="course_txt">Participants: {{ memNum }}</p>
                                     <p class="course_txt">Group forming method: {{ course.form_method }}</p>

@@ -27,12 +27,38 @@
             <!--   Icon Section   -->
             <div class="row">
                 <div class="col l4 s12">
-                    <div class="card cardpadding z-depth-1" style="padding:15px">
+                    <div class="card cardpadding z-depth-1" style="padding:7px 15px 7px 15px;">
                         <div class="card-content">
-                            <div class="row">
+                            <div class="row" style="margin-bottom: 0px;">
                                 <h5>Course Information:</h5>
                                 <p class="course_txt">Participants: {{ memNum }}</p>
+                                <p class="course_txt">Team numbers: {{ teamNum }}</p>
+
+                                {% if team %}
+                                    <p class="course_txt">Your team: {{ team.name }}</p>
+                                    {% if team.leader == 0 %}
+                                        {% if not isVote %}
+                                        <p class="red-text course_txt">No Leader! Wait for your voting!</p>
+                                            {% else %}
+                                            <p class="red-text course_txt">Already vote a leader, wait for other members to vote!</p>
+                                            {% endif %}
+                                        {#                                        <p class="course_txt">Your team members:#}
+                                        {#                                            {% for one in team.member.all %}#}
+                                        {#                                                {{ one.truename }} &nbsp;#}
+                                        {#                                            {% endfor %}#}
+                                        {#                                        </p>#}
+                                    {% else %}
+                                        <p class="course_txt">Your team leader: {{ leader.truename }}</p>
+                                        {#                                        <p class="course_txt">Your team members:#}
+                                        {#                                            {% for one in team.member.all %}#}
+                                        {#                                                {{ one.truename }}, &nbsp;#}
+                                        {#                                            {% endfor %}#}
+                                        {#                                        </p>#}
+                                    {% endif %}
+                                {% endif %}
+
                                 <p class="course_txt">Group forming method:
+                                <p class="course_txt purple-text" style="font-weight: 500; ">&nbsp;&nbsp;&nbsp;&nbsp;
                                     {% if course.form_method == 0 %}
                                         not decided
                                     {% elif course.form_method == 1 %}
@@ -47,7 +73,7 @@
                                         choose one friend and others are given by system automatically (considering GPA)
                                     {% endif %}
                                 </p>
-                                <p class="course_txt">Teams: {{ teamNum }}</p>
+                                </p>
                                 <br>
                                 <hr>
                                 <p class="course_txt">operations:</p>
@@ -74,21 +100,24 @@
                                                 style="width:100%;" href="/course/{{ course_id }}/modify_submission"><i
                                                 class="material-icons left">cloud</i> Modify submission </a></div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont purple darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/group_size"><i
-                                                class="material-icons left">cloud</i> Set team
-                                            forming </a></div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont black darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/forming_method"><i
-                                                class="material-icons left">cloud</i> Check
-                                            forming
-                                        </a></div>
-                                    </div>
+                                    {% if not isSetGroup %}
+                                        <div class="row">
+                                            <div class="col l12 s12"><a
+                                                    class="waves-effect waves-light btn changefont purple darken-2"
+                                                    style="width:100%;" href="/course/{{ course_id }}/group_size"><i
+                                                    class="material-icons left">cloud</i> Set team
+                                                forming </a></div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col l12 s12"><a
+                                                    class="waves-effect waves-light btn changefont black darken-2"
+                                                    style="width:100%;" href="/course/{{ course_id }}/forming_method"><i
+                                                    class="material-icons left">cloud</i> Check
+                                                forming
+                                            </a></div>
+                                        </div>
+                                    {% endif %}
                                 {% else %}
                                     {% if team %}
                                         {% if team.leader != 0 and team.leader != request.user.id %}
@@ -100,7 +129,7 @@
                                                         class="material-icons left">mode_edit</i> Assess leader </a>
                                                 </div>
                                             </div>
-                                        {% else %}
+                                        {% elif team.leader != 0 and team.leader == request.user.id %}
                                             <div class="row">
                                                 <div class="col l12 s12"><a
                                                         class="waves-effect waves-light btn changefont orange darken-2"
@@ -120,12 +149,14 @@
                                                     class="material-icons left">cloud</i> Team forming </a></div>
                                         </div>
                                     {% endif %}
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont light-blue darken-2"
-                                                style="width:100%;" href="/course/{{ course_id }}/vote_leader"><i
-                                                class="material-icons left">cloud</i> Vote for leader </a></div>
-                                    </div>
+                                    {% if team.leader == 0 and not isVote %}
+                                        <div class="row">
+                                            <div class="col l12 s12"><a
+                                                    class="waves-effect waves-light btn changefont light-blue darken-2"
+                                                    style="width:100%;" href="/course/{{ course_id }}/vote_leader"><i
+                                                    class="material-icons left">cloud</i> Vote for leader </a></div>
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -266,7 +297,7 @@
                 },
             */
             // Add custom colors
-            color: ['#ffbc34', '#4fc3f7', '#5e35b1', '#f62d51'],
+            color: ['#ffbc34', '#4fc3f7', '#212121', '#f62d51', '#7e57c2', '#ff9800', '#4caf50', '#5e35b1'],
 
             // Enable drag recalculate
             calculable: true,

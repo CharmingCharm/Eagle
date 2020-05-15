@@ -55,6 +55,7 @@
                                                             {% endfor %}
                                                         {% endif %}
                                                     </div>
+                                                    {% if isFull == 1 %}
                                                     <hr>
                                                     <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">
                                                         Available Operations:</p>
@@ -65,6 +66,7 @@
                                                                 href="/course/{{ course.id }}/invite"><i
                                                                 class="material-icons left">cloud</i> Invite</a></div>
                                                     </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>

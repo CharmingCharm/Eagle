@@ -18,6 +18,7 @@ def max_list(lt):
 
 def vote_leader(request, course_id):
     if request.user.is_authenticated:
+        vote_msg = 'no_msg'
         course = Course.objects.get(id=course_id)
         team = Team.objects.filter(member=request.user.id, course=course_id).first()
         if team:
@@ -26,11 +27,13 @@ def vote_leader(request, course_id):
                 members = User.objects.filter(team=team.id)
                 if request.method == "POST":
                     vote_result = request.POST.get("group")
+                    vote_dup = Vote.objects.filter(team=team.id, member=request.user.id).first()
+                    if vote_dup:
+                        vote_msg = 'You have already vote for your leader!'
+                        return render(request, 'vote_leader.html', locals())
                     vote = Vote.objects.create(team=team.id, member=request.user.id, vote_id=vote_result)
                     vote.save()
-                    messages.add_message(request, messages.SUCCESS, 'Your vote was submitted success!')
-                    msg = 'Your vote was submitted success!'
-
+                    request.session['course_msg'] = 'Your vote was submitted success!'
                     vote_final = Vote.objects.filter(team=team.id)
 
                     if len(vote_final) >= len(members):
@@ -40,12 +43,13 @@ def vote_leader(request, course_id):
                         leader_id = max_list(getmax)
                         team.leader = leader_id
                         team.save()
-
+                    leader = User.objects.get(id=leader_id)
+                    request.session['course_msg'] = leader.truename + ' becomes your leader!'
                     return redirect('/course/' + str(course_id))
                 return render(request, 'vote_leader.html', locals())
-            messages.add_message(request, messages.ERROR, 'Your team has already have a leader!')
+            request.session['course_msg'] = 'Your team has already have a leader!'
             return redirect('/course/' + str(course_id))
-        messages.add_message(request, messages.ERROR, 'You are not in a team yet!')
+        request.session['course_msg'] = 'You are not in a team yet!'
         return redirect('/course/'+str(course_id))
     return render(request, 'login.html', locals())
 
@@ -60,6 +64,8 @@ def manage(request, course_id):
 
     try:
         own_team = Team.objects.get(course=course, member=user)
+        if own_team.size == own_team.member.count():
+            isFull = 1
     except:
         own_team = 0
     invite = list(Invitation.objects.filter(course=course, to_user=request.user.id, isAccept=0))
@@ -193,6 +199,8 @@ def group_size(request, course_id):
                         group2_abnormal = resid
                         random_form([group_size, group2_abnormal],[num_group2 - 1,1],stuNum,course)
 
+                    isSetGroup = 'yes'
+                    request.session['isSetGroup'] = isSetGroup
                     return redirect('/course/' + str(course_id) + '/forming_method')
 
         return render(request, 'group_size.html', locals())

@@ -47,7 +47,7 @@
 
                                             <div style="margin: 15px 30px; padding: 0px 30px;">
                                                 <input name="group" type="radio" value="{{ item.id }}" id="{{ item.id }}"/>
-                                                <label for="{{ item.id }}">{{ item.username }}</label>
+                                                <label for="{{ item.id }}">{{ item.truename }}</label>
                                             </div>
 
                                         {% endfor %}
@@ -79,7 +79,7 @@
 
 {% block extra_js %}
 <script>
-    var toast_msg = "{{ msg }}";
+    var toast_msg = "{{ vote_msg }}";
         if(!(toast_msg == 'no_msg')){
             var $toastContent = $('<span>' + toast_msg +'</span>');
             Materialize.toast($toastContent, 4000);

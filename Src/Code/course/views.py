@@ -4,7 +4,7 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from xlwt import Workbook
-
+from team.models import Vote
 from user.models import User, Student
 from .models import Course, ExportFile
 from submission.models import LeaderAssessment
@@ -35,11 +35,23 @@ def course_page(request, course_id):
     course_stu_form_flag = 0
     teachers = course.member.filter(field='teacher')
     team = Team.objects.filter(course=course, member=request.user.id).first()
+    vote = None
+
+    if team and team.leader != 0:
+        leader = User.objects.get(id=team.leader)
+        vote = Vote.objects.filter(team=team.id, member=request.user.id).first()
     teamNum = Team.objects.filter(course=course).count()
     memNum = course.member.count()
+
+    if vote:
+        isVote = 'yes'
     clean_session(request)
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
     course_msg = ['no_msg']
+
+    if request.session.get('isSetGroup') is not None:
+        isSetGroup = 'yes'
+
     if request.session.get('course_msg') is not None:
         course_msg.append(request.session.get('course_msg'))
         request.session.pop('course_msg')
@@ -226,6 +238,7 @@ def export_contribution(request, course_id):
     students = User.objects.filter(course=course, field='student')
     submissions = SubmissionItem.objects.filter(course=course)
     contribution = 0
+    bonus = 0
     total_bonus_mark = 0
 
     clean_session(request)
@@ -270,6 +283,7 @@ def export_contribution(request, course_id):
                         bonus = total_bonus_mark/(team.member.count()-1)
             export = ExportFile.objects.create(student=one, course=course, contribution=contribution, bonus=bonus)
             contribution = 0
+            bonus = 0
             total_bonus_mark = 0
             IsCalculate = 'true'
             request.session['IsCalculate'+str(course_id)] = IsCalculate
@@ -288,7 +302,9 @@ def export_file(request, course_id):
         w.write(0, 0, 'name')
         w.write(0, 1, 'ID')
         w.write(0, 2, 'contribution')
+        w.col(2).width = 2670
         w.write(0, 3, 'bonus')
+        w.col(2).width = 2670
 
         excel_row = 1
         for item in export_display:
@@ -298,8 +314,21 @@ def export_file(request, course_id):
             data_bonus = item.bonus
             w.write(excel_row, 0, data_name)
             w.write(excel_row, 1, data_ID)
-            w.write(excel_row, 2, data_contribution)
-            w.write(excel_row, 3, data_bonus)
+
+            if data_contribution == -1:
+                w.write(excel_row, 2, "Not finished")
+            elif data_contribution == -2:
+                w.write(excel_row, 2, "Not in a team")
+            else:
+                w.write(excel_row, 2, data_contribution)
+
+            if data_bonus == -1:
+                w.write(excel_row, 3, "Not finished")
+            elif data_bonus == -2:
+                w.write(excel_row, 3, "Not in a team")
+            else:
+                w.write(excel_row, 3, data_bonus)
+
             excel_row += 1
 
         ws.save("course_" + course.name + "_contribution.xls")
