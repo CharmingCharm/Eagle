@@ -22,7 +22,7 @@
                                 <hr>
                                 <h4 class="truncate changefont">Group List</h4>
                                 <div class="row">
-                                    {% for item in team %}
+                                    {% for item in teams %}
                                         <div class="col l3 s12">
                                             <div class="row">
                                                 <div class="card cardpadding z-depth-1">
@@ -62,10 +62,17 @@
 
 
                                 <div style="margin: 20px;">
+                                    {% if course.form_method == 3 and course.team_number_1 == 4 %}
                                     <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
-                                    <a class="btn waves-effect waves-light" href="/course/{{ course.id }}" name="action"
+                                    {% else %}
+                                    <form method="post" action="/course/{{ course.id }}/forming_method">
+                                        {% csrf_token %}
+                                        <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
+                                        <button type="submit" class="btn waves-effect waves-light" href="/course/{{ course.id }}" name="action"
                                             style="float: right;">confirm <i class="material-icons right">send</i>
-                                    </a>
+                                        </button>
+                                    </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

@@ -53,18 +53,40 @@ def vote_leader(request, course_id):
         return redirect('/course/'+str(course_id))
     return render(request, 'login.html', locals())
 
+def check_full(team, course):
+    check = 0
+    if team is None:
+        if num_of_groups >= (course.team_number_1 + course.team_number_2):
+            check = 1
+    else:
+        if team.size < course.team_size_1:
+            groups = Team.objects.filter(course=course)
+            num_of_max_size = 0
+            max_size_group_flag_is_full = 0
+            for group in groups:
+                if group.size >= course.team_size_1:
+                    num_of_max_size = num_of_max_size + 1
+                if num_of_max_size >= course.team_number_1:
+                    max_size_group_flag_is_full = 1
+                    break
+            if (max_size_group_flag_is_full == 1 and team.size >= course.team_size_2):
+                check = 1
+        else:
+            check = 1
+    return check
 
 def manage(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     msg = "no_msg"
+    isFull = 0
 
     if request.session.get("teammate_management_msg") is not None:
         msg = request.session.get("teammate_management_msg")
 
     try:
         own_team = Team.objects.get(course=course, member=user)
-        if own_team.size == own_team.member.count():
+        if check_full(own_team, course):
             isFull = 1
     except:
         own_team = 0
@@ -174,6 +196,7 @@ def group_size(request, course_id):
                     course.team_number_2 = 1
                     course.team_size_1 = 2
                     course.team_size_2 = 1
+                course.form_method = form_method
                 course.save()
                 
             if form_method == 1 or form_method == 3 or form_method == 5:
@@ -206,7 +229,6 @@ def group_size(request, course_id):
         return render(request, 'group_size.html', locals())
     return redirect('/')
 
-
 def invite(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
@@ -227,6 +249,21 @@ def invite(request, course_id):
 
     return render(request, 'invite.html', locals())
 
+def check_finish(course):
+    current_team_num = Team.objects.filter(course=course).count()
+    
+    if course.team_number_2 == 1:
+        if course.team_number_1 == current_team_num:
+
+            all_teams_in_course = Team.objects.filter(course=course)
+            student_in_group_id = []
+            for team in all_teams_in_course.values("member"):
+                student_in_group_id.append(team.get('member'))
+            
+            last_student = User.objects.filter(course=course).exclude(id__in=student_in_group_id).exclude(field="teacher").first()
+            solo_small_team = Team.objects.create(course=course, name="small_group " + str(current_team_num), size=1)
+            solo_small_team.member.add(last_student)
+            solo_small_team.save()
 
 def processInvite(request, course_id, invite_id, isAccept):
     course = Course.objects.get(id=course_id)
@@ -234,6 +271,10 @@ def processInvite(request, course_id, invite_id, isAccept):
     process_invite = Invitation.objects.get(id=invite_id)
     num_of_groups = Team.objects.filter(course=course).count()
     msg = "no_msg"
+    group_title = "group "
+    
+    if course.form_method == 3 or course.form_method == 5:
+        group_title = "small_group "
 
     invite_from_user = User.objects.get(id=process_invite.from_user)
     if len(Team.objects.filter(course=course, member=invite_from_user)) == 0:
@@ -247,10 +288,12 @@ def processInvite(request, course_id, invite_id, isAccept):
 
         if team_from_user is None:
             if num_of_groups < (course.team_number_1 + course.team_number_2):
-                team_from_user = Team.objects.create(course=course, name="group " + str(num_of_groups), size=2)
+                team_from_user = Team.objects.create(course=course, name=group_title + str(num_of_groups), size=2)
                 team_from_user.member.add(invite_from_user)
                 team_from_user.member.add(user)
                 team_from_user.save()
+                process_invite.isAccept = 1
+                process_invite.save()
             else:
                 process_invite.isAccept = 2
                 process_invite.save()
@@ -293,6 +336,9 @@ def processInvite(request, course_id, invite_id, isAccept):
                 process_invite.save()
                 request.session['teammate_management_msg'] = "The group is full now! Please change a group!"
 
+        if course.form_method == 3 or course.form_method == 5:
+            check_finish(course)
+
     elif isAccept == 2:
         process_invite.isAccept = 2
         process_invite.save()
@@ -303,8 +349,102 @@ def processInvite(request, course_id, invite_id, isAccept):
     return redirect('/course/' + str(course.id) + '/teammate_management')
 
 
+def random_form_groups(course, group_list):
+    # pass
+    rand_group_list = []
+    randlist = random.sample(range(0, len(group_list)), len(group_list))
+    for index in range(0, len(group_list)):
+        rand_group_list.append(group_list[randlist[index]])
+
+    count_group = 0
+    combination_groups = []
+    while len(rand_group_list) > 0:
+        combination_groups.append(rand_group_list.pop())
+
+        if len(combination_groups) == 1 and len(rand_group_list) == 0:
+            formal_team = Team.objects.create(course=course, name="group " + str(count_group))
+            count_group = count_group + 1
+            small_team = Team.objects.get(id=combination_groups[0])
+            for member in small_team.member.all():
+                formal_team.member.add(member)
+            formal_team.size = small_team.size
+            formal_team.save()
+            small_team.member.clear()
+            Team.objects.filter(id=small_team.id).delete()
+            break
+
+        if len(combination_groups) == 1:
+            continue
+        
+        if len(combination_groups) == 2:
+            formal_team = Team.objects.create(course=course, name="group " + str(count_group))
+            count_group = count_group + 1
+            small_teams = Team.objects.filter(id__in=combination_groups)
+            for team in small_teams:
+                for member in team.member.all():
+                    formal_team.member.add(member)
+                team.member.clear()
+            small_teams.delete()
+            formal_team.save()
+            combination_groups = []
+    return count_group
+
 def forming_method(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
-    team = Team.objects.filter(course=course)
+    teams = Team.objects.filter(course=course)
+
+    if request.method == 'POST':
+        pass
+        if course.form_method == 3 or course.form_method == 5:
+            if (course.team_number_1 + course.team_number_2) % 2:
+                if course.team_number_2 == 1:
+                    group_list = []
+                    for team in teams:
+                        group_list.append(team.id)
+
+                    solo_small_team_id = group_list.pop()
+
+                    normal_group_list_size = len(group_list)
+                    form_with_solo = group_list.pop(random.randint(0, normal_group_list_size - 1))
+                    
+                    group_num = random_form_groups(course, group_list)
+
+                    formal_team = Team.objects.create(course=course, name="group " + str(group_num))
+                    group_num = group_num + 1
+                    small_teams = Team.objects.filter(id__in=[solo_small_team_id, form_with_solo])
+                    for team in small_teams:
+                        for member in team.member.all():
+                            formal_team.member.add(member)
+                        team.member.clear()
+                    small_teams.delete()
+                    formal_team.save()
+                    course.team_size_1 = 4
+                    course.team_size_2 = 0
+                    course.team_number_1 = group_num
+                    course.team_number_2 = 0
+                    course.save()
+                    return redirect("/course/" + str(course.id) + "/forming_method")
+                else:
+                    group_list = []
+                    for team in teams:
+                        group_list.append(team.id)
+                    group_num = random_form_groups(course, group_list)
+                    course.team_size_1 = 4
+                    course.team_size_2 = 0
+                    course.team_number_1 = group_num
+                    course.team_number_2 = 0
+                    course.save()
+                    return redirect("/course/" + str(course.id) + "/forming_method")
+            else:
+                group_list = []
+                for team in teams:
+                    group_list.append(team.id)
+                group_num = random_form_groups(course, group_list)
+                course.team_size_1 = 4
+                course.team_size_2 = 0
+                course.team_number_1 = group_num
+                course.team_number_2 = 0
+                course.save()
+                return redirect("/course/" + str(course.id) + "/forming_method")
     return render(request, 'forming_method_1.html', locals())

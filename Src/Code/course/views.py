@@ -58,7 +58,7 @@ def course_page(request, course_id):
         request.session.pop('course_msg')
 
     # Check if team forming.
-    if course.form_method == (1 or 3 or 5):
+    if course.form_method == 1 or course.form_method == 3 or course.form_method == 5:
         course_stu_form_flag = 1
 
     for message in messages.get_messages(request):
@@ -197,12 +197,10 @@ def import_student_excel(request, course_id):
 
                     for row in range(1, rows):
                         row_values = table.row_values(row)
-                        split_email = row_values[2].split("@")
-                        user_name = split_email[0]
                         if type(row_values[1]) == float:
-                            temp_curr_stu = {'user_name': user_name, 'true_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
+                            temp_curr_stu = {'user_name': row_values[2], 'true_name': row_values[0], 'stu_id': str(int(row_values[1])), 'email': row_values[2], 'GPA': row_values[3]}
                         else:
-                            temp_curr_stu = {'user_name': user_name, 'true_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
+                            temp_curr_stu = {'user_name': row_values[2], 'true_name': row_values[0], 'stu_id': str(row_values[1]), 'email': row_values[2], 'GPA': row_values[3]}
                         temp_stu.append(temp_curr_stu)
                 request.session['temp_stu_excel'] = temp_stu
                 msg = 'success'
@@ -223,8 +221,7 @@ def import_student_individual(request, course_id):
             temp_user['stu_id'] = inidividual_form.cleaned_data['stu_id']
             temp_user['email'] = inidividual_form.cleaned_data['email']
             temp_user['GPA'] = inidividual_form.cleaned_data['GPA']
-            split_email = temp_user['email'].split("@")
-            temp_user['user_name'] = split_email[0]
+            temp_user['user_name'] = inidividual_form.cleaned_data['email']
 
             if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
                 request.session['temp_user'] = temp_user
