@@ -43,8 +43,8 @@ def vote_leader(request, course_id):
                         leader_id = max_list(getmax)
                         team.leader = leader_id
                         team.save()
-                    leader = User.objects.get(id=leader_id)
-                    request.session['course_msg'] = leader.truename + ' becomes your leader!'
+                        leader = User.objects.get(id=leader_id)
+                        request.session['course_msg'] = leader.truename + ' becomes your leader!'
                     return redirect('/course/' + str(course_id))
                 return render(request, 'vote_leader.html', locals())
             request.session['course_msg'] = 'Your team has already have a leader!'
