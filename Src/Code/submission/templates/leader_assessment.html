@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Leader assessment{% endblock %}
 {% block content %}
@@ -26,7 +27,7 @@
                                             <div class="card-content">
                                                 <div class="row" style="margin-bottom: 0px;">
                                                     <div class="col s2 m2"></div>
-                                                    <div class="col s8 m8"><img src="{% static 'img/head1.jpg' %}"
+                                                    <div class="col s8 m8"><img src="{% static "img/team.jpg" %}"
                                                                                 alt=""
                                                                                 class="circle responsive-img">
                                                         <div class="center-align"><span
@@ -40,7 +41,7 @@
                                                             <div class="lighten-5" style="padding: 12px;">
                                                                 <div class="valign-wrapper">
                                                                     <div class="col s4"><img
-                                                                            src="{% static 'img/icon.jpg' %}" alt=""
+                                                                            src="{% static 'img/'|addstr:team.leader|addstr:".jpg" %}" alt=""
                                                                             class="circle responsive-img"
                                                                             style="height: 80%; width:80%">
                                                                         <!-- notice the "circle" class -->
@@ -62,7 +63,7 @@
                                                                     <div class="lighten-5" style="padding: 12px;">
                                                                         <div class="valign-wrapper">
                                                                             <div class="col s4"><img
-                                                                                    src="{% static 'img/icon.jpg' %}"
+                                                                                    src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"
                                                                                     alt=""
                                                                                     class="circle responsive-img"
                                                                                     style="height: 80%; width:80%">

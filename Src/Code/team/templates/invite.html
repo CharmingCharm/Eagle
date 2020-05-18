@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Invite others{% endblock %}
 {% block content %}
@@ -37,7 +38,7 @@
                                                             <div class="card-content">
                                                                 <div class="row" style="margin-bottom: 0px;">
                                                                     <div class="col s4"><img
-                                                                            src="{% static 'img/head1.jpg' %}" alt=""
+                                                                            src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}" alt=""
                                                                             class="circle responsive-img">
                                                                         <!-- notice the "circle" class -->
                                                                     </div>

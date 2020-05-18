@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Forming method{% endblock %}
+{% load addstr %}
 {% block content %}
     <div class="container">
         <div class="section">
@@ -38,7 +39,7 @@
                                                                          style="padding: 12px; margin: 5px 0px;">
                                                                         <div class="valign-wrapper">
                                                                             <div class="col s4"><img
-                                                                                    src="{% static "img/icon.jpg" %}"
+                                                                                    src="{% static 'img/'|addstr:item.id|addstr:".jpg" %}"
                                                                                     alt=""
                                                                                     class="circle responsive-img"
                                                                                     style="height: 80%; width:80%">

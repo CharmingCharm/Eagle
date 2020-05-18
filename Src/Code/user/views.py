@@ -85,6 +85,7 @@ def student_home(request):
     clean_session(request)
     
     user = User.objects.get(id=request.user.id)
+    icon = "img/" + str(user.id) + ".jpg"
     course = Course.objects.filter(member=request.user.id).order_by('id')
     for item in course:
         item.participation = Course.objects.get(id=item.id).member.count()

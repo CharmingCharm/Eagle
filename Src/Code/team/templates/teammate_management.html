@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Teammate management{% endblock %}
 {% block content %}
@@ -40,7 +41,7 @@
                                                                     <div class="lighten-5" style="padding: 12px;">
                                                                         <div class="valign-wrapper">
                                                                             <div class="col s4"><img
-                                                                                    src="{% static 'img/icon.jpg' %}"
+                                                                                    src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"
                                                                                     alt=""
                                                                                     class="circle responsive-img"
                                                                                     style="height: 80%; width:80%">

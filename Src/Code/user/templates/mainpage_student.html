@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}student main page{% endblock %}
 {% block content %}
@@ -14,9 +15,8 @@
                             <div class="card-content">
                                 <p class="center-align" style="font-size: 28px; font-weight: 300;">
                                     Hi, {{ request.user.truename }}!</p>
-
                                 <div align="center"><img class="responsive-img circle circle_img head_img center-align"
-                                                         src="{% static 'media/head1.jpg' %}"></div>
+                                                         src="{% static 'img/'|addstr:user.id|addstr:".jpg" %}"></div>
                                 <p class="center-align" style="font-size: 20px; font-weight: 300;">UIC student</p>
                                 <hr>
                                 <p style="font-size: 18px; font-weight: 300; margin-bottom: 10px;">Available
@@ -28,12 +28,12 @@
                                             style="width:100%;" href="/change_password/"><i class="material-icons left">cloud</i>
                                         Change password </a></div>
                                 </div>
-                                <div class="row">
-                                    <div class="col l12 s12"><a
-                                            class="waves-effect waves-light btn changefont purple darken-3"
-                                            style="width:100%;"><i class="material-icons left">cloud</i> Change icon
-                                    </a></div>
-                                </div>
+{#                                <div class="row">#}
+{#                                    <div class="col l12 s12"><a#}
+{#                                            class="waves-effect waves-light btn changefont purple darken-3"#}
+{#                                            style="width:100%;"><i class="material-icons left">cloud</i> Change icon#}
+{#                                    </a></div>#}
+{#                                </div>#}
                             </div>
                         </div>
                     </div>
