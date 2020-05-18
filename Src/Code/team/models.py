@@ -17,7 +17,8 @@ class Team(models.Model):
     member = models.ManyToManyField(User)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     size = models.IntegerField(default=0)
-
+    avg_GPA = models.FloatField(default=0)
+    isInGPA = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
 
