@@ -28,8 +28,8 @@
                                                 <div class="row" style="margin-bottom: 0px;">
                                                     <div class="col s2 m2"></div>
                                                     <div class="col s8 m8"><img src="{% static "img/team.jpg" %}"
-                                                                                alt=""
-                                                                                class="circle responsive-img">
+                                                                                alt="" style="width:140px; height: 140px;"
+                                                                                class="circle center-block">
                                                         <div class="center-align"><span
                                                                 class="card-title">{{ team.name }}</span></div>
                                                     </div>
@@ -102,17 +102,17 @@
 
                                                         <td>{{ item.percentage }}%</td>
 
-                                                        {% if item.id not in submission_contribution.submission.id.all %}
+                                                        {% if item.id in finish_list %}
+                                                            <td><a class="btn green waves-effect waves-light disabled"
+                                                                   style="margin-left: 20px;"><i
+                                                                    class="material-icons left">done</i>finished</a>
+                                                            </td>
+                                                        {% else %}
                                                             <td>
                                                                 <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
                                                                    class="btn green waves-effect waves-light"
                                                                    style="margin-left: 20px;"><i
                                                                         class="material-icons left">fast_forward</i>assess</a>
-                                                            </td>
-                                                        {% else %}
-                                                            <td><a class="btn green waves-effect waves-light disabled"
-                                                                   style="margin-left: 20px;"><i
-                                                                    class="material-icons left">done</i>finished</a>
                                                             </td>
                                                         {% endif %}
                                                     </tr>

@@ -32,8 +32,9 @@
                                                            style="font-size: 26px; font-weight: 300;">
                                                             {{ item.name }}</p>
                                                         <hr>
+                                                        <div class="row" style="margin-bottom: 0px;">
                                                         {% for one in item.member.all %}
-                                                            <div class="row" style="margin-bottom: 0px;">
+
                                                                 <div class="col s6 l12">
                                                                     <div class="lighten-5 z-depth-1"
                                                                          style="padding: 12px; margin: 5px 0px;">
@@ -52,8 +53,9 @@
                                                                     </div>
                                                                 </div>
 
-                                                            </div>
+
                                                         {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

@@ -170,8 +170,10 @@ def leader_assessment(request, course_id, team_id):
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
     submission = SubmissionItem.objects.filter(course=course)
-
+    finish_list = []
     submission_contribution = SubmissionContribution.objects.filter(team=team)
+    for item in submission_contribution:
+        finish_list.append(item.submission.id)
 
     clean_session(request)
     leader_msg = 'no_msg'

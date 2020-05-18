@@ -394,9 +394,9 @@ def forming_method(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     teams = Team.objects.filter(course=course)
-    form_method_msg = ['no_msg']
+    form_method_msg = 'no_msg'
     if request.session.get('form_method_msg') is not None:
-        form_method_msg.append(request.session.get('form_method_msg'))
+        form_method_msg = request.session.get('form_method_msg')
         request.session.pop('form_method_msg')
 
     if request.method == 'POST':

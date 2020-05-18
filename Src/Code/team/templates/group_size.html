@@ -177,6 +177,10 @@
                     form_method = i + 1;
                 }
             }
+            if(group_size <= 0){
+                alert("Please input a positive integer!");
+                window.location.reload();
+            }
             var text1, text2;
             if(form_method != 3){
                 if(total_num % group_size == 0){
