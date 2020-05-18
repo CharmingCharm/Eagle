@@ -102,7 +102,7 @@
 
                                                         <td>{{ item.percentage }}%</td>
 
-                                                        {% if item %}
+                                                        {% if item.id not in submission_contribution.submission.id.all %}
                                                             <td>
                                                                 <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
                                                                    class="btn green waves-effect waves-light"

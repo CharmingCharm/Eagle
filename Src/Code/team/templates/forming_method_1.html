@@ -39,10 +39,10 @@
                                                                          style="padding: 12px; margin: 5px 0px;">
                                                                         <div class="valign-wrapper">
                                                                             <div class="col s4"><img
-                                                                                    src="{% static 'img/'|addstr:item.id|addstr:".jpg" %}"
+                                                                                    src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"
                                                                                     alt=""
                                                                                     class="circle responsive-img"
-                                                                                    style="height: 80%; width:80%">
+                                                                                    style="height: 100%; width:100%">
                                                                                 <!-- notice the "circle" class -->
                                                                             </div>
                                                                             <div class="col s8"><span
@@ -65,7 +65,7 @@
                                 <div style="margin: 20px;">
                                     {% if course.form_method == 3 and course.team_number_1 == 4 %}
                                     <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
-                                    {% else %}
+                                    {% elif course.form_method != 2 %}
                                     <form method="post" action="/course/{{ course.id }}/forming_method">
                                         {% csrf_token %}
                                         <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
@@ -73,7 +73,11 @@
                                             style="float: right;">confirm <i class="material-icons right">send</i>
                                         </button>
                                     </form>
+                                    {% else %}
+                                         <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
+
                                     {% endif %}
+
                                 </div>
                             </div>
                         </div>
@@ -86,4 +90,14 @@
     <br>
     <div class="section"></div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        var toast_msg = "{{ form_method_msg }}";
+        if (!(toast_msg == 'no_msg')) {
+            var $toastContent = $('<span>' + toast_msg + '</span>');
+            Materialize.toast($toastContent, 4000);
+        }
+    </script>
 {% endblock %}

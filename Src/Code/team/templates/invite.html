@@ -16,13 +16,13 @@
                                 <div class="card-content">
                                     <h3 class="truncate changefont">invite others to your team</h3>
                                     <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                        class="head_text"> <a href="/student_home"
-                                                              style="color: grey"> Main page </a><b>&gt;</b> <a
-                                        href="/course/{{ course.id }}"
-                                        style="color: grey"> {{ course.name }} </a> <a
-                                        href="/course/{{ course.id }}/teammate_management"
-                                        style="color: grey"> Teammate management </a><b>&gt;</b> <span
-                                        style="color: dodgerblue">Invite others </span> </span></p>
+                                            class="head_text"> <a href="/student_home"
+                                                                  style="color: grey"> Main page </a><b>&gt;</b> <a
+                                            href="/course/{{ course.id }}"
+                                            style="color: grey"> {{ course.name }} </a> <a
+                                            href="/course/{{ course.id }}/teammate_management"
+                                            style="color: grey"> Teammate management </a><b>&gt;</b> <span
+                                            style="color: dodgerblue">Invite others </span> </span></p>
                                     <div class="row" style="margin-bottom: 0px;">
                                         <div class="card-content">
                                             <hr>
@@ -38,7 +38,8 @@
                                                             <div class="card-content">
                                                                 <div class="row" style="margin-bottom: 0px;">
                                                                     <div class="col s4"><img
-                                                                            src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}" alt=""
+                                                                            src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"
+                                                                            alt=""
                                                                             class="circle responsive-img">
                                                                         <!-- notice the "circle" class -->
                                                                     </div>
@@ -51,7 +52,8 @@
                                                                        href="#modal{{ one.id }}"><i
                                                                             class="material-icons left">send</i>Invite</a>
                                                                     <div id="modal{{ one.id }}" class="modal">
-                                                                        <div class="modal-content">
+                                                                        <div class="modal-content"
+                                                                             style="padding:40px;">
                                                                             <form method="post"
                                                                                   href="/course/{{ course_id }}/invite">
                                                                                 {% csrf_token %}
@@ -62,20 +64,22 @@
                                                                                 <br>
                                                                                 <h5 class="grey-text">What are you going
                                                                                     to say?</h5>
-                                                                                <input type="text" name="to_user" value="{{ one.id }}"
+                                                                                <input type="text" name="to_user"
+                                                                                       value="{{ one.id }}"
                                                                                        style="display: none;"/>
                                                                                 <input type="text" name="description"/>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button class="btn waves-effect waves-light"
                                                                                     type="submit" name="action"
-                                                                                    style="float: right;">submit <i
+                                                                                    style="float: right; margin-right: 40px; margin-bottom: 40px;">
+                                                                                submit <i
                                                                                     class="material-icons right">send</i>
                                                                             </button>
                                                                         </div>
-
                                                                         </form>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>

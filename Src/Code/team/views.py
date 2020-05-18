@@ -200,7 +200,7 @@ def group_size(request, course_id):
                 course.save()
                 
             if form_method == 1 or form_method == 3 or form_method == 5:
-                # messages.add_message(request, messages.success, 'You have successfully set the team forming, wait for entering!')
+                request.session['course_msg'] = 'You have successfully set the team forming, wait for entering!'
                 return redirect('/course/' + str(course_id))
             
             if form_method == 2:
@@ -224,6 +224,7 @@ def group_size(request, course_id):
 
                     isSetGroup = 'yes'
                     request.session['isSetGroup'] = isSetGroup
+                    request.session['form_method_msg'] = 'Random group students succeed!'
                     return redirect('/course/' + str(course_id) + '/forming_method')
 
         return render(request, 'group_size.html', locals())
@@ -393,6 +394,10 @@ def forming_method(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     teams = Team.objects.filter(course=course)
+    form_method_msg = ['no_msg']
+    if request.session.get('form_method_msg') is not None:
+        form_method_msg.append(request.session.get('form_method_msg'))
+        request.session.pop('form_method_msg')
 
     if request.method == 'POST':
         pass

@@ -33,7 +33,7 @@
                                                     <div class="row" style="margin-bottom: 0px;">
                                                         {% if own_team == 0 %}
                                                             <div class="col s6 l12">
-                                                                <h5>Currently you have no teammates.</h5>
+                                                                <h5 style="margin:20px; opacity: 0.8;">Currently you have no teammates.</h5>
                                                             </div>
                                                         {% else %}
                                                             {% for one in own_team.member.all %}
@@ -118,7 +118,7 @@
                                                                 </div>
                                                             {% endfor %}
                                                         {% else %}
-                                                            <h5>There is no invitation for you right now.</h5>
+                                                            <h5 style="margin:40px; opacity: 0.8;">There is no invitation for you right now.</h5>
                                                         {% endif %}
                                                     </div>
 

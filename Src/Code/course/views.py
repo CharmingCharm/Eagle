@@ -63,6 +63,7 @@ def course_page(request, course_id):
 
     for message in messages.get_messages(request):
         course_msg.append(message)
+
     p = Paginator(submissionItem, 5)
     if p.num_pages <= 1:
         submissionItem_list = submissionItem
@@ -213,6 +214,7 @@ def import_student_excel(request, course_id):
 
 def import_student_individual(request, course_id):
     course = Course.objects.get(id=course_id)
+    individual_msg = 'no_msg'
     if request.method == 'POST':
         inidividual_form = ImportIndividualForm(request.POST)
         if inidividual_form.is_valid():
@@ -230,6 +232,7 @@ def import_student_individual(request, course_id):
     return render(request, 'import_student_individual.html', locals())
 
 
+@csrf_exempt
 def export_contribution(request, course_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
@@ -241,6 +244,9 @@ def export_contribution(request, course_id):
 
     clean_session(request)
 
+    if not students:
+        request.session['course_msg']="No student yet!"
+        redirect('/course/'+ str(course.id))
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
 
     export_msg = 'no_msg'
@@ -283,10 +289,99 @@ def export_contribution(request, course_id):
             contribution = 0
             bonus = 0
             total_bonus_mark = 0
-            IsCalculate = 'true'
-            request.session['IsCalculate'+str(course_id)] = IsCalculate
             export.save()
+        IsCalculate = 'true'
+        request.session['IsCalculate' + str(course_id)] = IsCalculate
+    # update data
+    else:
+        for one in students:
+            for one_submission in submissions:
+                one_submission_contribution = SubmissionContribution.objects.filter(submission=one_submission, member=one).first()
+                if one_submission_contribution is None:
+                    contribution = -1
+                    break
+                else:
+                    contribution += one_submission_contribution.value * one_submission.percentage * 0.01
+
+            team = Team.objects.filter(course=course, member=one).first()
+            if team is None:
+                print('Someone still not in a team!')
+                contribution = -2
+                bonus = -2
+            else:
+                if team.leader == one.id:
+                    for each_member in team.member.all():
+                        if team.leader == each_member.id:
+                            continue
+                        else:
+                            leaderBonus = LeaderAssessment.objects.filter(leader=team.leader, member=each_member.id, team=team).first()
+                            if leaderBonus is None:
+                                bonus = -1
+                                break
+                            else:
+                                total_bonus_mark += leaderBonus.mark
+                    if bonus != -1:
+                        bonus = total_bonus_mark/(team.member.count()-1)
+            this_person = ExportFile.objects.filter(student=one, course=course).first()
+            if this_person:
+                this_person.contribution = contribution
+                this_person.bonus = bonus
+            contribution = 0
+            bonus = 0
+            total_bonus_mark = 0
+            this_person.save()
+
     export_display = ExportFile.objects.filter(course=course)
+
+    p = Paginator(export_display, 7)
+    if p.num_pages <= 1:
+        export_display_list = export_display
+        data = ''
+    else:
+        page = int(request.GET.get('page', 1))
+        export_display_list = p.page(page)
+        left = []
+        right = []
+        left_has_more = False
+        right_has_more = False
+        first = False
+        last = False
+        total_pages = p.num_pages
+        page_range = p.page_range
+        if page == 1:
+            right = page_range[page:page + 2]
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        elif page == total_pages:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+        else:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            right = page_range[page:page + 2]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        data = {
+            'left': left,
+            'right': right,
+            'left_has_more': left_has_more,
+            'right_has_more': right_has_more,
+            'first': first,
+            'last': last,
+            'total_pages': total_pages,
+            'page': page
+        }
+
     return render(request, 'export_contribution.html', locals())
 
 

@@ -81,7 +81,7 @@
 
 {% block extra_js %}
 <script>
-    var toast_msg = "{{ msg }}";
+    var toast_msg = "{{ individual_msg }}";
         if(!(toast_msg == 'no_msg')){
             var $toastContent = $('<span>' + toast_msg +'</span>');
             Materialize.toast($toastContent, 4000);

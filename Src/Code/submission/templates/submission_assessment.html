@@ -34,7 +34,7 @@
                                                 <div class="card-content">
                                                     <div class="row" style="margin-bottom: 0px; margin-top: 20px;">
                                                         <div class="col s2 m2"></div>
-                                                        <div class="col s8 m8"><img src="{% static 'img/head1.jpg' %}"
+                                                        <div class="col s8 m8"><img src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"
                                                                                     alt=""
                                                                                     class="z-depth-3 responsive-img">
                                                             <div class="center-align"><span

@@ -79,14 +79,7 @@
                                 <p class="course_txt">operations:</p>
                                 <br>
                                 {% if request.user.field == "teacher" %}
-                                    <div class="row">
-                                        <div class="col l12 s12"><a
-                                                class="waves-effect waves-light btn changefont orange darken-2"
-                                                style="width:100%;"
-                                                href="/course/{{ course_id }}/export_contribution"><i
-                                                class="material-icons left">mode_edit</i> Export
-                                            contribution </a></div>
-                                    </div>
+
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
@@ -118,6 +111,14 @@
                                             </a></div>
                                         </div>
                                     {% endif %}
+                                    <div class="row">
+                                        <div class="col l12 s12"><a
+                                                class="waves-effect waves-light btn changefont orange darken-2"
+                                                style="width:100%;"
+                                                href="/course/{{ course_id }}/export_contribution"><i
+                                                class="material-icons left">mode_edit</i> Export
+                                            contribution </a></div>
+                                    </div>
                                 {% else %}
                                     {% if team %}
                                         {% if team.leader != 0 and team.leader != request.user.id %}
@@ -186,7 +187,7 @@
 
                                 </table>
                             {% else %}
-                                <h2>Currently there is no submission item.</h2>
+                                <h5 class="center-align" style="margin:50px 30px; opacity: 0.8;">Currently there is no submission item.</h5>
                             {% endif %}
 
                             <div class="center-align">

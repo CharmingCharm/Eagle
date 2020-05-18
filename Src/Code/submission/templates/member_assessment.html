@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load addstr %}
 {% block username %}{{ request.user }}{% endblock %}
 {% block title %}Member assessment{% endblock %}
 {% block content %}
@@ -32,7 +33,7 @@
                                                         <div class="row" style="margin-bottom: 0px;"><br>
                                                             <div class="col s2 m2"></div>
                                                             <div class="col s8 m8"><img
-                                                                    src="{% static 'img/head1.jpg' %}" alt=""
+                                                                    src="{% static 'img/'|addstr:team.leader|addstr:".jpg" %}" alt=""
                                                                     class="circle responsive-img">
                                                                 <div class="center-align"><span
                                                                         class="card-title">Your leader: {{ leader.truename }}</span>
