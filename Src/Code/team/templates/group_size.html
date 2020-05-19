@@ -90,7 +90,7 @@
                                                         <div class="switch" style="margin-left: 30px; ">
                                                             <label>
                                                                 NO
-                                                                <input type="checkbox" id="consider_GPA" value="1">
+                                                                <input type="checkbox" id="consider_GPA" name="consider_GPA" value="1">
                                                                 <span class="lever"></span>
                                                                 YES
                                                             </label>
@@ -98,9 +98,11 @@
                                                     </div>
 
                                                     <div class="row" id="setUpperBound">
+                                                        <br>
+                                                        <p style="margin-left: 20px; color:grey; font-size: 16px; float:left;">Notice that the average GPA in the course is <span class="purple-text">{{ course_avg_GPA }}</span></p>
                                                         <div class="input-field col s12"><i
                                                                 class="material-icons prefix">call_made</i>
-                                                            <input type="number" class="validate"
+                                                            <input type="text" class="validate"
                                                                    name="setUpperBound">
                                                             <label for="icon_per">Please set upper bound of the GPA in
                                                                 each team.</label>
@@ -110,7 +112,7 @@
                                                     <div class="row" id="setLowerBound">
                                                         <div class="input-field col s12"><i
                                                                 class="material-icons prefix">call_received</i>
-                                                            <input type="number" class="validate"
+                                                            <input type="text" class="validate"
                                                                    name="setLowerBound">
                                                             <label for="icon_per">Please set lower bound of the GPA in
                                                                 each team.</label>
@@ -170,6 +172,13 @@
 {% block extra_js %}
     <script>
         $(function () {
+
+            var toast_msg = "{{ group_size_msg }}";
+                if(!(toast_msg == 'no_msg')){
+                    var $toastContent = $('<span>' + toast_msg +'</span>');
+                    Materialize.toast($toastContent, 4000);
+                }
+
             $(".showGPA").hide();
 
             $(".GPA").click(function () {
