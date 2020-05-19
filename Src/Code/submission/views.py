@@ -153,11 +153,9 @@ def member_assessment(request, course_id, team_id):
     if team.leader != request.user.id:
         if request.method == 'POST':
             leader_mark = request.POST.get("leader_mark")
-            leader_dup = LeaderAssessment.objects.filter(leader=team.leader, member=request.user.id, team=team).first()
-            if leader_dup:
-                member_assessment_msg = 'You have already assessed your leader, do not do it again!'
-                return render(request, 'member_assessment.html', locals())
-            leader_assessment = LeaderAssessment.objects.create(leader=team.leader, member=request.user.id, mark=leader_mark, team=team)
+
+            leader_assessment = LeaderAssessment.objects.get(leader=team.leader, member=request.user.id, team=team)
+            leader_assessment.mark = leader_mark
             leader_assessment.save()
             request.session['course_msg'] = "Assess your leader success!"
             return redirect("/course/" + str(course.id))
@@ -169,11 +167,8 @@ def leader_assessment(request, course_id, team_id):
     course = Course.objects.get(id=course_id)
     user = User.objects.get(id=request.user.id)
     team = Team.objects.get(id=team_id)
-    submission = SubmissionItem.objects.filter(course=course)
-    finish_list = []
+    submission = SubmissionItem.objects.filter(course=course, is_finished=1)
     submission_contribution = SubmissionContribution.objects.filter(team=team)
-    for item in submission_contribution:
-        finish_list.append(item.submission.id)
 
     clean_session(request)
     leader_msg = 'no_msg'
@@ -201,7 +196,8 @@ def submission_assessment(request, course_id, team_id, submissionitem_id):
 
             to_member_id = int(request.POST.get("member_id"+str(item)))
             to_member = User.objects.get(id=to_member_id)
-            submission_assessment = SubmissionContribution.objects.create(value=mark, member=to_member, submission=submission, team=team, isFinishAssess=True)
+            submission_assessment = SubmissionContribution.objects.get(member=to_member, submission=submission, team=team)
+            submission_assessment.value = mark
             submission_assessment.save()
         request.session['leader_msg'] = "Assess " + submission.title + " success!"
         return redirect("/course/" + str(course.id) + "/team/" + str(team.id) + "/leader_assessment")

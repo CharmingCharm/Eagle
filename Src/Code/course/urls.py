@@ -25,4 +25,5 @@ urlpatterns = [
     path('course/<int:course_id>/import_student_excel', views.import_student_excel),
     path('course/<int:course_id>/import_student_individual', views.import_student_individual),
     path('course/<int:course_id>/export_file', views.export_file),
+    path('course/<int:course_id>/member_list', views.member_list),
 ]

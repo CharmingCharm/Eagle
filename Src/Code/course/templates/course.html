@@ -78,6 +78,12 @@
                                 <hr>
                                 <p class="course_txt">operations:</p>
                                 <br>
+                                <div class="row">
+                                    <div class="col l12 s12"><a
+                                            class="waves-effect waves-light btn changefont pink darken-2"
+                                            style="width:100%;" href="/course/{{ course_id }}/member_list"><i
+                                            class="material-icons left">cloud</i> Member list</a></div>
+                                </div>
                                 {% if request.user.field == "teacher" %}
 
                                     <div class="row">
@@ -121,7 +127,19 @@
                                     </div>
                                 {% else %}
                                     {% if team %}
-                                        {% if team.leader != 0 and team.leader != request.user.id %}
+                                        {% if team.leader != 0 and team.leader != request.user.id and check_finish == 1 %}
+                                            {% if course.form_method == 3 or course.form_method == 5 %}
+                                                {% if course.team_size_1 == 4 %}
+                                                <div class="row">
+                                                    <div class="col l12 s12"><a
+                                                            class="waves-effect waves-light btn changefont orange darken-2"
+                                                            style="width:100%;"
+                                                            href="/course/{{ course_id }}/team/{{ team.id }}/member_assessment"><i
+                                                            class="material-icons left">mode_edit</i> Assess leader </a>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% else %}
                                             <div class="row">
                                                 <div class="col l12 s12"><a
                                                         class="waves-effect waves-light btn changefont orange darken-2"
@@ -130,7 +148,20 @@
                                                         class="material-icons left">mode_edit</i> Assess leader </a>
                                                 </div>
                                             </div>
+                                            {% endif %}
                                         {% elif team.leader != 0 and team.leader == request.user.id %}
+                                            {% if course.form_method == 3 or course.form_method == 5 %}
+                                                {% if course.team_size_1 == 4 %}
+                                                <div class="row">
+                                                    <div class="col l12 s12"><a
+                                                            class="waves-effect waves-light btn changefont orange darken-2"
+                                                            style="width:100%;"
+                                                            href="/course/{{ course_id }}/team/{{ team.id }}/leader_assessment"><i
+                                                            class="material-icons left">mode_edit</i> Assess members </a>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            {% else %}
                                             <div class="row">
                                                 <div class="col l12 s12"><a
                                                         class="waves-effect waves-light btn changefont orange darken-2"
@@ -139,6 +170,7 @@
                                                         class="material-icons left">mode_edit</i> Assess members </a>
                                                 </div>
                                             </div>
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}
                                     {% if course_stu_form_flag == 1 %}
@@ -151,12 +183,23 @@
                                         </div>
                                     {% endif %}
                                     {% if team.leader == 0 and not isVote %}
+                                        {% if course.form_method == 3 or course.form_method == 5 %}
+                                            {% if course.team_size_1 == 4 %}
+                                            <div class="row">
+                                                <div class="col l12 s12"><a
+                                                        class="waves-effect waves-light btn changefont light-blue darken-2"
+                                                        style="width:100%;" href="/course/{{ course_id }}/vote_leader"><i
+                                                        class="material-icons left">cloud</i> Vote for leader </a></div>
+                                            </div>
+                                            {% endif %}
+                                        {% else %}
                                         <div class="row">
                                             <div class="col l12 s12"><a
                                                     class="waves-effect waves-light btn changefont light-blue darken-2"
                                                     style="width:100%;" href="/course/{{ course_id }}/vote_leader"><i
                                                     class="material-icons left">cloud</i> Vote for leader </a></div>
                                         </div>
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                             </div>
@@ -174,6 +217,9 @@
                                     <tr class="home_table">
                                         <th>Title</th>
                                         <th>Percentage</th>
+                                        {% if request.user.field == "teacher" %}
+                                        <th>IsFinished</th>
+                                        {% endif %}
                                     </tr>
 
                                     {% for item in submissionItem_list %}
@@ -181,6 +227,20 @@
                                         <tr class="home_table">
                                             <td>{{ item.title }}</td>
                                             <td>{{ item.percentage }} %</td>
+                                            {% if request.user.field == "teacher" %}
+                                            <td>
+                                                {% if item.is_finished == 0 %}
+                                                <form method="POST" action="/course/{{ course.id }}">
+                                                    {% csrf_token %}
+                                                    <input name="finish_sub" value="{{ item.id }}" style="display: none;">
+                                                    <button type="submit" class="waves-effect waves-light btn green"><i class="material-icons">done</i></button>
+                                                </form>
+                                                {% else %}
+                                                    <button type="submit" class="disabled waves-effect waves-light btn green"><i class="material-icons">done</i></button>
+                                                {% endif %}
+                                            </td>
+                                            {% endif %}
+                                            
                                         </tr>
 
                                     {% endfor %}

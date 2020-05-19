@@ -16,7 +16,7 @@
                             <h3 class="truncate changefont">Submission {{ submission.title }} Assessment </h3>
 
                             <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                    class="head_text"> <a href="/student_home"
+                                    class="head_text"> <a href="/{{ request.user.field }}_home"
                                                           style="color: grey"> Main page </a><b>&gt;</b> <a
                                     href="/course/{{ course.id }}"
                                     style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <a

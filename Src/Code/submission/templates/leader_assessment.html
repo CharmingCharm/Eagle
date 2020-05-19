@@ -14,7 +14,7 @@
                             <div class="card-content">
                                 <h3 class="truncate changefont">Evaluate your team member</h3>
                                 <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                        class="head_text"> <a href="/student_home"
+                                        class="head_text"> <a href="/{{ request.user.field }}_home"
                                                               style="color: grey"> Main page </a><b>&gt;</b> <a
                                         href="/course/{{ course.id }}"
                                         style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
@@ -101,20 +101,12 @@
                                                         <td>{{ item.title }}</td>
 
                                                         <td>{{ item.percentage }}%</td>
-
-                                                        {% if item.id in finish_list %}
-                                                            <td><a class="btn green waves-effect waves-light disabled"
-                                                                   style="margin-left: 20px;"><i
-                                                                    class="material-icons left">done</i>finished</a>
-                                                            </td>
-                                                        {% else %}
-                                                            <td>
-                                                                <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
-                                                                   class="btn green waves-effect waves-light"
-                                                                   style="margin-left: 20px;"><i
-                                                                        class="material-icons left">fast_forward</i>assess</a>
-                                                            </td>
-                                                        {% endif %}
+                                                        <td>
+                                                            <a href="/course/{{ course.id }}/team/{{ team.id }}/member_assessment/{{ item.id }}"
+                                                                class="btn green waves-effect waves-light"
+                                                                style="margin-left: 20px;"><i
+                                                                    class="material-icons left">fast_forward</i>assess</a>
+                                                        </td>
                                                     </tr>
                                                 {% endfor %}
                                             {% else %}
