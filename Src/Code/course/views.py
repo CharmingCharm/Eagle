@@ -436,3 +436,9 @@ def export_file(request, course_id):
         export_msg = 'Success!'
         request.session['export_msg'] = export_msg
         return response
+
+def member_list(request, course_id):
+    course = Course.objects.get(id=course_id)
+    members = course.member.all()
+    memNum = len(members)
+    return render(request, 'member_list.html', locals())

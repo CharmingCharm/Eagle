@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load addstr %}
+{% block username %}{{ request.user }}{% endblock %}
+{% block title %}student list in {{ course.name }}{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="section"> 
+        
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col l12 s12">
+                <div class="card cardpadding z-depth-1">
+                    <div class="card-content">
+                       <h3 class="changefont">Member list</h3>
+                        <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
+                                class="head_text"> <a href="/{{ request.user.field }}_home"
+                                                      style="color: grey"> Main page </a><b>&gt;</b> <a
+                                href="/course/{{ course.id }}"
+                                style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
+                                style="color: dodgerblue">Member list</span> </span></p>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col l4 s12">
+                                <h5>Member's Information:</h5>
+                                <p class="course_txt">Participants: {{ memNum }}</p>
+                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
+                                <p class="course_txt">Groups: 0</p>
+                                <hr>
+                                <br>
+                            </div>
+                            <div class="col l8 s12" style="padding: 20px;">
+                                {% if members %}
+                                <p class="course_txt"><b>Members:</b></p>
+
+                                <table>
+                                    <tr class="home_table">
+                                        <th>Avatar</th>
+                                        <th>Member's name</th>
+                                        <th>Email</th>
+                                        <th>Position</th>
+                                    </tr>
+                                    {% for temp_user in members %}
+                                    <tr class="home_table">
+                                        {% if temp_user.field == "teacher" %}
+                                        <td><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
+                                            src="{% static 'img/'|addstr:'teacher1'|addstr:".jpg" %}"></td>
+                                        {% else %}
+                                        <td><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
+                                            src="{% static 'img/'|addstr:temp_user.id|addstr:".jpg" %}"></td>
+                                        {% endif %}
+                                        <td>{{ temp_user.truename }}</td>
+                                        <td>{{ temp_user.email }}</td>
+                                        <td>{{ temp_user.field }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                                {% else %}
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <h4>Wait for importing..</h4>
+                                    <h5>Please import students on the left.</h5>
+                                    {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="section"> </div>
+</div>
+
+{% endblock %}

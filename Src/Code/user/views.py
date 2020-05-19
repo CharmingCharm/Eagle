@@ -18,7 +18,12 @@ def clean_session(request):
         request.session.pop('user_list')
 
 def index(request):
-    return redirect('/student_home/')
+    if request.user.is_authenticated:
+        if request.user.field == "teacher":
+            return redirect('/teacher_home/')
+        else:
+            return redirect('/student_home/')
+    return redirect('/login/')
 
 def login_self(request):
     clean_session(request)
