@@ -224,7 +224,7 @@ def group_size(request, course_id):
 
                     if form_method == 4:
                         ##################################
-                        
+
                         ##################################
                         # team = Team.objects.filter(course=course)
                         # team_to_be_changed = team
