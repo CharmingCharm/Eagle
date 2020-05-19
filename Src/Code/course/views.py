@@ -145,9 +145,22 @@ def course_page(request, course_id):
         }
     return render(request, 'course.html', locals())
 
+
 def edit_title(request, course_id):
     course = Course.objects.get(id=course_id)
-    return redirect('/course/' + str(course.id))
+    edit_course_msg = 'no_msg'
+    if request.method == 'POST':
+        new_name = request.POST.get('new_name')
+        if new_name == course.name:
+            edit_course_msg = 'Course name not change!'
+            return render(request, 'edit_title.html', locals())
+        else:
+            course.name = new_name
+            course.save()
+            request.session['course_msg'] = 'Edit course title success!'
+            return redirect('/course/' + str(course.id))
+    return render(request, 'edit_title.html', locals())
+
 
 def generate_student(request, course_id):
     course = Course.objects.get(id=course_id)

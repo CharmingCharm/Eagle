@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="" />
+    <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/course/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/course/views.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/course/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="149" column="48" lean-forward="true" selection-start-line="149" selection-start-column="48" selection-end-line="149" selection-end-column="48" />
+            <state relative-caret-position="133">
+              <caret line="151" column="32" lean-forward="true" selection-start-line="151" selection-start-column="32" selection-end-line="151" selection-end-column="32" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -28,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/team/templates/group_size.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="173" column="33" lean-forward="true" selection-start-line="173" selection-start-column="33" selection-end-line="173" selection-end-column="33" />
+            <state relative-caret-position="202">
+              <caret line="182" column="47" lean-forward="true" selection-start-line="182" selection-start-column="47" selection-end-line="182" selection-end-column="47" />
               <folding>
                 <element signature="e#5552#5619#0#HTML" expanded="true" />
                 <element signature="e#5974#6001#0#HTML" expanded="true" />
@@ -83,8 +85,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/templates/course.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
+            <state relative-caret-position="483">
               <caret line="92" column="97" selection-start-line="92" selection-start-column="97" selection-end-line="92" selection-end-column="97" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/course/templates/edit_title.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="34" column="77" selection-start-line="34" selection-start-column="77" selection-end-line="34" selection-end-column="85" />
             </state>
           </provider>
         </entry>
@@ -110,18 +121,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/submission/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="176" selection-start-line="176" selection-end-line="176" />
-              <folding>
-                <element signature="e#0#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -138,6 +137,8 @@
       <find>redirect</find>
       <find>session</find>
       <find>bac</find>
+      <find>showGPA</find>
+      <find>post</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,7 +147,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/user/templates/add_submission_item.html" />
         <option value="$PROJECT_DIR$/templates/js.html" />
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/course/templates/student_list.html" />
@@ -193,9 +193,10 @@
         <option value="$PROJECT_DIR$/submission/templates/modify_submission.html" />
         <option value="$PROJECT_DIR$/team/models.py" />
         <option value="$PROJECT_DIR$/team/views.py" />
-        <option value="$PROJECT_DIR$/team/templates/group_size.html" />
         <option value="$PROJECT_DIR$/course/templates/course.html" />
         <option value="$PROJECT_DIR$/course/urls.py" />
+        <option value="$PROJECT_DIR$/team/templates/group_size.html" />
+        <option value="$PROJECT_DIR$/course/templates/edit_title.html" />
         <option value="$PROJECT_DIR$/course/views.py" />
       </list>
     </option>
@@ -258,18 +259,18 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\course\templates" />
+      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\team\templates" />
+      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\user\templates" />
+      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\submission\templates" />
+      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\templates" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\course\templates" />
       <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\user\templates" />
       <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\team\templates" />
       <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\submission\templates" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\team\templates" />
-      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\course\templates" />
-      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\user\templates" />
-      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\submission\templates" />
-      <recent name="D:\大三下\Eagle_teamwork_entire\Src\Code\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -344,12 +345,12 @@
       <workItem from="1589447309318" duration="5715000" />
       <workItem from="1589454508226" duration="17154000" />
       <workItem from="1589794411468" duration="24647000" />
-      <workItem from="1589850697818" duration="10519000" />
+      <workItem from="1589850697818" duration="11456000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183335000" />
+    <option name="totallyTimeSpent" value="184272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -416,16 +417,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Eagle/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
-          <folding>
-            <element signature="e#629#661#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/phrase.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -744,33 +735,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/course/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
-          <folding>
-            <element signature="e#643#675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/course/templates/course.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="92" column="97" selection-start-line="92" selection-start-column="97" selection-end-line="92" selection-end-column="97" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/course/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="149" column="48" lean-forward="true" selection-start-line="149" selection-start-column="48" selection-end-line="149" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/team/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
@@ -783,11 +747,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/team/templates/group_size.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="173" column="33" lean-forward="true" selection-start-line="173" selection-start-column="33" selection-end-line="173" selection-end-column="33" />
+        <state relative-caret-position="202">
+          <caret line="182" column="47" lean-forward="true" selection-start-line="182" selection-start-column="47" selection-end-line="182" selection-end-column="47" />
           <folding>
             <element signature="e#5552#5619#0#HTML" expanded="true" />
             <element signature="e#5974#6001#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/templates/course.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="92" column="97" selection-start-line="92" selection-start-column="97" selection-end-line="92" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+          <folding>
+            <element signature="e#643#675#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/templates/edit_title.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="34" column="77" selection-start-line="34" selection-start-column="77" selection-end-line="34" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="151" column="32" lean-forward="true" selection-start-line="151" selection-start-column="32" selection-end-line="151" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
