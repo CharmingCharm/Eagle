@@ -127,7 +127,7 @@
                                     </div>
                                 {% else %}
                                     {% if team %}
-                                        {% if team.leader != 0 and team.leader != request.user.id %}
+                                        {% if team.leader != 0 and team.leader != request.user.id and check_finish == 1 %}
                                             <div class="row">
                                                 <div class="col l12 s12"><a
                                                         class="waves-effect waves-light btn changefont orange darken-2"

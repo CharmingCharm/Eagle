@@ -53,12 +53,33 @@ def course_page(request, course_id):
         finish_sub = SubmissionItem.objects.get(id=int(request.POST.get('finish_sub')))
         finish_sub.is_finished = 1
         finish_sub.save()
+        all_teams = Team.objects.filter(course=course)
+        if all_teams is not None:
+            submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
+            check_finish = 1
+            for item in submissionItem:
+                if item.is_finished == 0:
+                    check_finish = 0
+            
+            for curr_team in all_teams:
+                curr_team_members = curr_team.member.all()
+                for curr_team_member in curr_team_members:
+                    submission_assessment = SubmissionContribution.objects.create(value=1.0, member=curr_team_member, submission=finish_sub, team=curr_team, isFinishAssess=True)
+                    submission_assessment.save()
+                    if check_finish == 1 and curr_team.leader != curr_team_member.id:
+                        leader_assessment = LeaderAssessment.objects.create(leader=curr_team.leader, member=curr_team_member.id, mark=0, team=curr_team)
+                        leader_assessment.save()
 
     if vote:
         isVote = 'yes'
     clean_session(request)
     submissionItem = SubmissionItem.objects.filter(course=course_id).order_by('id')
     course_msg = ['no_msg']
+
+    check_finish = 1
+    for item in submissionItem:
+        if item.is_finished == 0:
+            check_finish = 0
 
     if course.form_method != 0:
         isSetGroup = 1
@@ -251,7 +272,6 @@ def export_contribution(request, course_id):
     contribution = 0
     bonus = 0
     total_bonus_mark = 0
-
     clean_session(request)
 
     if not students:
@@ -264,9 +284,7 @@ def export_contribution(request, course_id):
         export_msg = request.session.get('export_msg')
         request.session.pop('export_msg')
 
-    IsCalculate = request.session.get('IsCalculate'+str(course_id))
-    # IsCalculate = None
-    if IsCalculate is None:
+    if course.is_calculate == 0:
         for one in students:
             for one_submission in submissions:
                 one_submission_contribution = SubmissionContribution.objects.filter(submission=one_submission, member=one).first()
@@ -300,8 +318,8 @@ def export_contribution(request, course_id):
             bonus = 0
             total_bonus_mark = 0
             export.save()
-        IsCalculate = 'true'
-        request.session['IsCalculate' + str(course_id)] = IsCalculate
+            course.is_calculate = 1
+            course.save()
     # update data
     else:
         for one in students:

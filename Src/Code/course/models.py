@@ -15,6 +15,7 @@ class Course(models.Model):
     team_number_1 = models.IntegerField(default=0)
     team_size_2 = models.IntegerField(default=0)
     team_number_2 = models.IntegerField(default=0)
+    is_calculate = models.IntegerField(default=0)
 
     member = models.ManyToManyField(User)
 

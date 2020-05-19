@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 10:29 AM
+-- Generation Time: May 19, 2020 at 03:41 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -148,21 +148,22 @@ CREATE TABLE `course_course` (
   `team_size_1` int(11) NOT NULL,
   `team_number_1` int(11) NOT NULL,
   `team_size_2` int(11) NOT NULL,
-  `team_number_2` int(11) NOT NULL
+  `team_number_2` int(11) NOT NULL,
+  `is_calculate` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `course_course`
 --
 
-INSERT INTO `course_course` (`id`, `name`, `begin_time`, `end_time`, `form_method`, `participation`, `team_size_1`, `team_number_1`, `team_size_2`, `team_number_2`) VALUES
-(1, 'Software Development III', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(2, 'Discrete Structure', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(3, 'Math III', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(4, 'Chinese culture', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(5, 'English I', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(6, 'American culture', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0),
-(7, 'Existentialism', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 0, 0, 0, 0, 0);
+INSERT INTO `course_course` (`id`, `name`, `begin_time`, `end_time`, `form_method`, `participation`, `team_size_1`, `team_number_1`, `team_size_2`, `team_number_2`, `is_calculate`) VALUES
+(1, 'Software Development III', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(2, 'Discrete Structure', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(3, 'Math III', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(4, 'Chinese culture', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(5, 'English I', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(6, 'American culture', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 1, 0, 0, 0, 0, 0),
+(7, 'Existentialism', '2020-04-01 00:00:00.000000', '2020-04-03 00:00:00.000000', 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -299,7 +300,13 @@ INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
 (25, 'course', '0003_auto_20200515_0220', '2020-05-14 18:20:49.521863'),
 (26, 'submission', '0003_auto_20200515_0248', '2020-05-14 18:48:45.553943'),
 (27, 'team', '0003_team_avg_gpa', '2020-05-19 02:14:33.600089'),
-(28, 'team', '0004_team_isingpa', '2020-05-19 02:14:33.636300');
+(28, 'team', '0004_team_isingpa', '2020-05-19 02:14:33.636300'),
+(29, 'course', '0004_course_is_calculate', '2020-05-19 13:41:19.037030'),
+(30, 'submission', '0004_submissionitem_isfinished', '2020-05-19 13:41:19.066010'),
+(31, 'submission', '0005_auto_20200519_1803', '2020-05-19 13:41:19.168601'),
+(32, 'submission', '0006_auto_20200519_1808', '2020-05-19 13:41:19.255987'),
+(33, 'submission', '0007_auto_20200519_1822', '2020-05-19 13:41:19.333919'),
+(34, 'submission', '0008_auto_20200519_1832', '2020-05-19 13:41:19.357990');
 
 -- --------------------------------------------------------
 
@@ -320,7 +327,8 @@ CREATE TABLE `django_session` (
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('aqbd7w75cenxb79o64mt1fpd1midxhj5', 'NmM3NDZjNjE2ZGIzYjNiOTUzMTBiMDBkNjU4MjI1MDZkOWUxYjQ2ZDqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUdS4=', '2020-06-02 02:23:58.649770'),
 ('g4k8uucrhgdolyt3qnt3p9muif60hfd1', 'ZjA5NjUwZjFhYTAwNTQ5NmIyZDliNTFhMGZiYjY4NGFmZjMyODYxYTqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDU0MmQyZjQyMTJkYzRkMmYzOWYzZjA4MTg1NmJhN2M5MzI3MmQ5MDSUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-05-28 20:47:28.316533'),
-('smxhclw5000n9bdiiv58qak2zahfa2ig', 'YjhjMDY2NTY0YTIwYTc4NmNjMjdkMjJmNTIwNjg4NjZkNGI0ZTg2NzqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-06-02 08:27:17.004664');
+('smxhclw5000n9bdiiv58qak2zahfa2ig', 'YjhjMDY2NTY0YTIwYTc4NmNjMjdkMjJmNTIwNjg4NjZkNGI0ZTg2NzqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-06-02 08:27:17.004664'),
+('wwwav5043re6j0ah5cmvlxwh7fe6g9go', 'NmM3NDZjNjE2ZGIzYjNiOTUzMTBiMDBkNjU4MjI1MDZkOWUxYjQ2ZDqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUdS4=', '2020-06-02 13:40:23.330404');
 
 -- --------------------------------------------------------
 
@@ -361,25 +369,26 @@ CREATE TABLE `submission_submissionitem` (
   `id` int(11) NOT NULL,
   `title` varchar(64) NOT NULL,
   `percentage` double NOT NULL,
-  `course_id` int(11) NOT NULL
+  `course_id` int(11) NOT NULL,
+  `is_finished` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `submission_submissionitem`
 --
 
-INSERT INTO `submission_submissionitem` (`id`, `title`, `percentage`, `course_id`) VALUES
-(1, 'Software Requirement Specification', 10, 1),
-(2, 'Software Detail Specification', 15, 1),
-(3, 'Architecture design', 15, 1),
-(4, 'Group discussion', 5, 1),
-(5, 'Meeting Minutes', 15, 1),
-(6, 'Group project code', 30, 1),
-(7, 'Question List', 10, 1),
-(8, 'Group writing', 25, 2),
-(9, 'Discussion', 15, 2),
-(10, 'Presentation', 30, 2),
-(11, 'Final report', 30, 2);
+INSERT INTO `submission_submissionitem` (`id`, `title`, `percentage`, `course_id`, `is_finished`) VALUES
+(1, 'Software Requirement Specification', 10, 1, 0),
+(2, 'Software Detail Specification', 15, 1, 0),
+(3, 'Architecture design', 15, 1, 0),
+(4, 'Group discussion', 5, 1, 0),
+(5, 'Meeting Minutes', 15, 1, 0),
+(6, 'Group project code', 30, 1, 0),
+(7, 'Question List', 10, 1, 0),
+(8, 'Group writing', 25, 2, 0),
+(9, 'Discussion', 15, 2, 0),
+(10, 'Presentation', 30, 2, 0),
+(11, 'Final report', 30, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -508,7 +517,7 @@ CREATE TABLE `user_user` (
 --
 
 INSERT INTO `user_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `field`, `truename`) VALUES
-(1, 'pbkdf2_sha256$150000$faiUQryjSxXj$gok3w48eAd9uu8I56WMJNAcbngozVbKY1kw+wOfKnM0=', '2020-05-19 08:17:05.405007', 1, 'judy', '', '', 'judy@qq.com', 1, 1, '2020-05-14 17:01:50.612746', 'teacher', 'Judy');
+(1, 'pbkdf2_sha256$150000$faiUQryjSxXj$gok3w48eAd9uu8I56WMJNAcbngozVbKY1kw+wOfKnM0=', '2020-05-19 13:40:23.320506', 1, 'judy', '', '', 'judy@qq.com', 1, 1, '2020-05-14 17:01:50.612746', 'teacher', 'Judy');
 
 -- --------------------------------------------------------
 
@@ -761,7 +770,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT for table `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `submission_leaderassessment`
