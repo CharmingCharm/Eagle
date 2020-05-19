@@ -88,23 +88,30 @@
 
                                     <div class="row">
                                         <div class="col l12 s12"><a
+                                                class="waves-effect waves-light btn changefont teal"
+                                                style="width:100%;" href="/course/{{ course_id }}/edit_title"><i
+                                                class="material-icons left">info</i> Edit course title</a></div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
                                                 style="width:100%;" href="/course/{{ course_id }}/generate_student"><i
-                                                class="material-icons left">cloud</i> Generate
+                                                class="material-icons left">star</i> Generate
                                             students</a></div>
                                     </div>
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont light-blue darken-2"
                                                 style="width:100%;" href="/course/{{ course_id }}/modify_submission"><i
-                                                class="material-icons left">cloud</i> Modify submission </a></div>
+                                                class="material-icons left">turned_in_not</i> Modify submission </a></div>
                                     </div>
                                     {% if isSetGroup == 0 %}
                                         <div class="row">
                                             <div class="col l12 s12"><a
                                                     class="waves-effect waves-light btn changefont purple darken-2"
                                                     style="width:100%;" href="/course/{{ course_id }}/group_size"><i
-                                                    class="material-icons left">cloud</i> Set team
+                                                    class="material-icons left">group_work</i> Set team
                                                 forming </a></div>
                                         </div>
                                     {% else %}

@@ -145,6 +145,9 @@ def course_page(request, course_id):
         }
     return render(request, 'course.html', locals())
 
+def edit_title(request, course_id):
+    course = Course.objects.get(id=course_id)
+    return redirect('/course/' + str(course.id))
 
 def generate_student(request, course_id):
     course = Course.objects.get(id=course_id)

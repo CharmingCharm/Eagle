@@ -100,7 +100,7 @@
 
                                                     <div class="row">
                                                         <div class="input-field col s12"><i
-                                                                class="material-icons prefix">assignment_ind</i>
+                                                                class="material-icons prefix">call_made</i>
                                                             <input type="number" class="validate" id="setUpperBound"
                                                                    name="setUpperBound">
                                                             <label for="icon_per">Please set upper bound of the GPA in
@@ -110,7 +110,7 @@
 
                                                     <div class="row">
                                                         <div class="input-field col s12"><i
-                                                                class="material-icons prefix">assignment_ind</i>
+                                                                class="material-icons prefix">call_received</i>
                                                             <input type="number" class="validate" id="setLowerBound"
                                                                    name="setLowerBound">
                                                             <label for="icon_per">Please set lower bound of the GPA in
@@ -179,23 +179,20 @@
                 $(".showGPA").show();
             });
 
-            $(".showGPA").click(function () {
-                if ($(".showGPA").val() == 1){
-                    $(".setUpperBound").show();
-                    $(".setLowerBound").show();
-                }
-                else{
-                    $(".setUpperBound").hide();
-                    $(".setLowerBound").hide();
-                }
-            });
+            if ($('#consider_GPA').prop('checked')){
+                $(".setUpperBound").show();
+                $(".setLowerBound").show();
+            }
+            else{
+                $(".setUpperBound").hide();
+                $(".setLowerBound").hide();
+            }
 
             $(".notGPA").click(function () {
                 $(".showGPA").hide();
                 $(".setUpperBound").hide();
                 $(".setLowerBound").hide();
             });
-
         });
 
         $(document).ready(function () {
