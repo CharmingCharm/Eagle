@@ -92,7 +92,7 @@
                                                 style="width:100%;" href="/course/{{ course_id }}/edit_title"><i
                                                 class="material-icons left">info</i> Edit course title</a></div>
                                     </div>
-
+                                    {% if course.form_method == 0 %}
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont green darken-2"
@@ -100,6 +100,7 @@
                                                 class="material-icons left">star</i> Generate
                                             students</a></div>
                                     </div>
+                                    {% endif %}
                                     <div class="row">
                                         <div class="col l12 s12"><a
                                                 class="waves-effect waves-light btn changefont light-blue darken-2"
