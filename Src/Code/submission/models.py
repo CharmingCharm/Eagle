@@ -7,6 +7,7 @@ class SubmissionItem(models.Model):
     title = models.CharField(max_length=64, unique=False)
     percentage = models.FloatField(default=0)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    is_finished = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)

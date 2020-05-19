@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 04:24 AM
+-- Generation Time: May 19, 2020 at 10:29 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -319,7 +319,8 @@ CREATE TABLE `django_session` (
 
 INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
 ('aqbd7w75cenxb79o64mt1fpd1midxhj5', 'NmM3NDZjNjE2ZGIzYjNiOTUzMTBiMDBkNjU4MjI1MDZkOWUxYjQ2ZDqABJWXAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUdS4=', '2020-06-02 02:23:58.649770'),
-('g4k8uucrhgdolyt3qnt3p9muif60hfd1', 'ZjA5NjUwZjFhYTAwNTQ5NmIyZDliNTFhMGZiYjY4NGFmZjMyODYxYTqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDU0MmQyZjQyMTJkYzRkMmYzOWYzZjA4MTg1NmJhN2M5MzI3MmQ5MDSUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-05-28 20:47:28.316533');
+('g4k8uucrhgdolyt3qnt3p9muif60hfd1', 'ZjA5NjUwZjFhYTAwNTQ5NmIyZDliNTFhMGZiYjY4NGFmZjMyODYxYTqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKDU0MmQyZjQyMTJkYzRkMmYzOWYzZjA4MTg1NmJhN2M5MzI3MmQ5MDSUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-05-28 20:47:28.316533'),
+('smxhclw5000n9bdiiv58qak2zahfa2ig', 'YjhjMDY2NTY0YTIwYTc4NmNjMjdkMjJmNTIwNjg4NjZkNGI0ZTg2NzqABJWtAAAAAAAAAH2UKIwNX2F1dGhfdXNlcl9pZJSMATGUjBJfYXV0aF91c2VyX2JhY2tlbmSUjClkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZJSMD19hdXRoX3VzZXJfaGFzaJSMKGY3ZjUxNjZjMDhiMDM5YzJmMDQyNjM4YTVkMTI2M2M5OGU5YWE0NjCUjAxJc0NhbGN1bGF0ZTGUjAR0cnVllHUu', '2020-06-02 08:27:17.004664');
 
 -- --------------------------------------------------------
 
@@ -507,7 +508,7 @@ CREATE TABLE `user_user` (
 --
 
 INSERT INTO `user_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `field`, `truename`) VALUES
-(1, 'pbkdf2_sha256$150000$faiUQryjSxXj$gok3w48eAd9uu8I56WMJNAcbngozVbKY1kw+wOfKnM0=', '2020-05-19 02:23:58.642573', 1, 'judy', '', '', '', 1, 1, '2020-05-14 17:01:50.612746', 'teacher', 'Judy');
+(1, 'pbkdf2_sha256$150000$faiUQryjSxXj$gok3w48eAd9uu8I56WMJNAcbngozVbKY1kw+wOfKnM0=', '2020-05-19 08:17:05.405007', 1, 'judy', '', '', 'judy@qq.com', 1, 1, '2020-05-14 17:01:50.612746', 'teacher', 'Judy');
 
 -- --------------------------------------------------------
 

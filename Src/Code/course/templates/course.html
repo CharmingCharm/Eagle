@@ -180,6 +180,9 @@
                                     <tr class="home_table">
                                         <th>Title</th>
                                         <th>Percentage</th>
+                                        {% if request.user.field == "teacher" %}
+                                        <th>IsFinished</th>
+                                        {% endif %}
                                     </tr>
 
                                     {% for item in submissionItem_list %}
@@ -187,6 +190,20 @@
                                         <tr class="home_table">
                                             <td>{{ item.title }}</td>
                                             <td>{{ item.percentage }} %</td>
+                                            {% if request.user.field == "teacher" %}
+                                            <td>
+                                                {% if item.is_finished == 0 %}
+                                                <form method="POST" action="/course/{{ course.id }}">
+                                                    {% csrf_token %}
+                                                    <input name="finish_sub" value="{{ item.id }}" style="display: none;">
+                                                    <button type="submit" class="waves-effect waves-light btn green"><i class="material-icons">done</i></button>
+                                                </form>
+                                                {% else %}
+                                                    <button type="submit" class="disabled waves-effect waves-light btn green"><i class="material-icons">done</i></button>
+                                                {% endif %}
+                                            </td>
+                                            {% endif %}
+                                            
                                         </tr>
 
                                     {% endfor %}

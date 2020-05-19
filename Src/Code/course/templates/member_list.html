@@ -23,47 +23,104 @@
 
                         <hr>
                         <div class="row">
-                            <div class="col l4 s12">
-                                <h5>Member's Information:</h5>
-                                <p class="course_txt">Participants: {{ memNum }}</p>
-                                <p class="course_txt">Group forming method: {{ course.form_method }}</p>
-                                <p class="course_txt">Groups: 0</p>
-                                <hr>
-                                <br>
-                            </div>
-                            <div class="col l8 s12" style="padding: 20px;">
-                                {% if members %}
-                                <p class="course_txt"><b>Members:</b></p>
+                            <div class="col l1 s12"></div>
+                            <div class="col l10 s12">
+                                <h5>Member list:</h5>
+                                <div class="row">
+                                    <div style="margin: 20px 0px; padding: 30px;" class="z-depth-5">
+                                        {#                                            <img class="materialboxed" width="100%" src="img/background1.jpg">#}
 
-                                <table>
-                                    <tr class="home_table">
-                                        <th>Avatar</th>
-                                        <th>Member's name</th>
-                                        <th>Email</th>
-                                        <th>Position</th>
-                                    </tr>
-                                    {% for temp_user in members %}
-                                    <tr class="home_table">
-                                        {% if temp_user.field == "teacher" %}
-                                        <td><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
-                                            src="{% static 'img/'|addstr:'teacher1'|addstr:".jpg" %}"></td>
-                                        {% else %}
-                                        <td><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
-                                            src="{% static 'img/'|addstr:temp_user.id|addstr:".jpg" %}"></td>
-                                        {% endif %}
-                                        <td>{{ temp_user.truename }}</td>
-                                        <td>{{ temp_user.email }}</td>
-                                        <td>{{ temp_user.field }}</td>
-                                    </tr>
-                                    {% endfor %}
-                                </table>
-                                {% else %}
+                                        <table>
+                                            <tr class="home_table">
+                                                <th>Avatar</th>
+                                                <th>Member's name</th>
+                                                <th>Email</th>
+                                                <th>Position</th>
+                                            </tr>
+                                            <!-- <tr class="home_table">
+                                                <td>Charm</td>
+                                                <td>1730026111</td>
+                                                <td>1730026111@uic.edu.hk</td>
+                                                <td>4.0</td>
+                                            </tr> -->
+                                            {% for one in memberList %}
+                                                <tr class="home_table">
+                                                    {% if one.field == "teacher" %}
+                                                    <td style="padding: 0px;"><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
+                                                         src="{% static 'img/teacher1.jpg' %}"></td>
+                                                    {% else %}
+                                                    <td style="padding: 0px;"><img class="responsive-img circle circle_img head_img center-align" style="height: 40px; width: 40px;"
+                                                        src="{% static 'img/'|addstr:one.id|addstr:".jpg" %}"></td>
+                                                    {% endif %}
+                                                    <td>{{ one.truename }}</td>
+                                                    <td>{{ one.email }}</td>
+                                                    <td>{{ one.field }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                        <div class="center-align">
+                                            {% if data %}
+                                                <ul id="pages" class="pagination">
+                                                    {% if data.page <= 1 %}
+                                                        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="waves-effect"><a
+                                                                href="?page={{ data.page|add:'-1' }}"><i
+                                                                class="material-icons">chevron_left</i></a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% if data.first %}
+                                                        <li class="waves-effect"><a href="?page=1">1</a></li>
+                                                    {% endif %}
+                                                    {% if data.left %}
+                                                        {% if data.left_has_more %}
+                                                            <li><span>...</span></li>
+                                                        {% endif %}
+                                                        {% for i in data.left %}
+                                                            <li class="waves-effect"><a
+                                                                    href="?page={{ i }}">{{ i }}</a></li>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    <li class="active grey darken-3 waves-effect"><a
+                                                            href="?page={{ data.page }}">{{ data.page }}</a></li>
+
+                                                    {% if data.right %}
+                                                        {% for i in data.right %}
+                                                            <li class="waves-effect"><a
+                                                                    href="?page={{ i }}">{{ i }}</a></li>
+                                                        {% endfor %}
+                                                        {% if data.right_has_more %}
+                                                            <li><span>...</span></li>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if data.last %}
+                                                        <li class="waves-effect"><a
+                                                                href="?page={{ data.total_pages }}">{{ data.total_pages }}</a>
+                                                        </li>
+                                                    {% endif %}
+
+                                                    {% if data.page >= total_pages %}
+                                                        <li class="disabled"><a href="#!"><i
+                                                                class="material-icons">chevron_right</i></a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li class="waves-effect"><a
+                                                                href="?page={{ data.page|add:'1' }}"><i
+                                                                class="material-icons">chevron_right</i></a></li>
+                                                    {% endif %}
+
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                     <br>
                                     <br>
-                                    <br>
-                                    <h4>Wait for importing..</h4>
-                                    <h5>Please import students on the left.</h5>
-                                    {% endif %}
+                                    <a class="btn waves-effect waves-light red darken-3" type="btn"
+                                       name="action" style="float: left;" href="/course/{{ course.id }}">back
+                                        <i class="material-icons left">fast_rewind</i></a>
+                                </div>
                             </div>
                         </div>
                     </div>

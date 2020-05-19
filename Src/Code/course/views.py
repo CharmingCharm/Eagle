@@ -35,14 +35,24 @@ def course_page(request, course_id):
     course_stu_form_flag = 0
     teachers = course.member.filter(field='teacher')
     team = Team.objects.filter(course=course, member=request.user.id).first()
+    # submission_check = SubmissionContribution.objects.filter(team=team)
+    # check_finish = []
     vote = None
     isSetGroup = 0
+
+    # for item in submission_check:
+    #     check_finish.append(item.submission.id)
 
     if team and team.leader != 0:
         leader = User.objects.get(id=team.leader)
         vote = Vote.objects.filter(team=team.id, member=request.user.id).first()
     teamNum = Team.objects.filter(course=course).count()
     memNum = course.member.count()
+
+    if request.method == 'POST':
+        finish_sub = SubmissionItem.objects.get(id=int(request.POST.get('finish_sub')))
+        finish_sub.is_finished = 1
+        finish_sub.save()
 
     if vote:
         isVote = 'yes'
@@ -441,4 +451,54 @@ def member_list(request, course_id):
     course = Course.objects.get(id=course_id)
     members = course.member.all()
     memNum = len(members)
+
+    p = Paginator(members, 5)
+    if p.num_pages <= 1:
+        memberList = members
+        data = ''
+    else:
+        page = int(request.GET.get('page', 1))
+        memberList = p.page(page)
+        left = []
+        right = []
+        left_has_more = False
+        right_has_more = False
+        first = False
+        last = False
+        total_pages = p.num_pages
+        page_range = p.page_range
+        if page == 1:
+            right = page_range[page:page + 2]
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        elif page == total_pages:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+        else:
+            left = page_range[(page - 3) if (page - 3) > 0 else 0:page - 1]
+            right = page_range[page:page + 2]
+            if left[0] > 2:
+                left_has_more = True
+            if left[0] > 1:
+                first = True
+            if right[-1] < total_pages - 1:
+                right_has_more = True
+            if right[-1] < total_pages:
+                last = True
+        data = {
+            'left': left,
+            'right': right,
+            'left_has_more': left_has_more,
+            'right_has_more': right_has_more,
+            'first': first,
+            'last': last,
+            'total_pages': total_pages,
+            'page': page
+        }
+
     return render(request, 'member_list.html', locals())
