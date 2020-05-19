@@ -239,6 +239,7 @@ def group_size(request, course_id):
             group_size = int(request.POST.get("group_size"))
             form_method = int(request.POST.get("form_method"))
             consider_GPA = request.POST.get("consider_GPA")
+            print(consider_GPA)
             team_num = int(stuNum/group_size)
 
             if request.POST.get("group") is not None:
@@ -323,6 +324,7 @@ def group_size(request, course_id):
                     elif size_type == 2:
                         group2_abnormal = resid
                         random_form([group_size, group2_abnormal],[num_group2 - 1,1],stuNum,course)
+
                     else:
                         pass
                     # if form_method == 4:
