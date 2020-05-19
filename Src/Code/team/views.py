@@ -223,16 +223,19 @@ def group_size(request, course_id):
                         random_form([group_size, group2_abnormal],[num_group2 - 1,1],stuNum,course)
 
                     if form_method == 4:
-                        team = Team.objects.filter(course=course)
-                        team_to_be_changed = team
-                        upper_bound = 3.2
-                        lower_bound = 2.7
-                        for origin_team in team_to_be_changed:
-                            total_gpa = 0
-                            for team_member in origin_team.member:
-                                total_gpa += team_member.student.GPA
-                            avg_gpa = total_gpa/origin_team.member.count()
-                            print(avg_gpa)
+                        ##################################
+                        
+                        ##################################
+                        # team = Team.objects.filter(course=course)
+                        # team_to_be_changed = team
+                        # upper_bound = 3.2
+                        # lower_bound = 2.7
+                        # for origin_team in team_to_be_changed:
+                        #     total_gpa = 0
+                        #     for team_member in origin_team.member:
+                        #         total_gpa += team_member.student.GPA
+                        #     avg_gpa = total_gpa/origin_team.member.count()
+                        #     print(avg_gpa)
                         return redirect('/course/' + str(course_id) + '/forming_method')
 
 
@@ -425,8 +428,8 @@ def forming_method(request, course_id):
     # 每一个组的平均GPA计算
     teams = Team.objects.filter(course=course)
     team_to_be_changed = teams
-    upper_bound = 3.5
-    lower_bound = 3.3
+    upper_bound = 3.6
+    lower_bound = 2.8
     for origin_team in teams:
         total_gpa = 0.0
         for team_member in origin_team.member.all():
@@ -436,8 +439,6 @@ def forming_method(request, course_id):
         print("origin:"+str(avg_gpa))
         origin_team.save()
 
-    max_notInGPA = 0.0
-    min_notInGPA = teams.first().avg_GPA
     for origin_team in teams:
         if origin_team.avg_GPA <= upper_bound and origin_team.avg_GPA >= lower_bound:
             origin_team.isInGPA = True
@@ -446,13 +447,15 @@ def forming_method(request, course_id):
             origin_team.isInGPA = False
             origin_team.save()
     # 不在范围里最小的组
-    min_notInGPA_team = teams.filter(isInGPA=False).order_by("avg_GPA").first()
+    notInGPA_team = teams.filter(isInGPA=False).order_by("avg_GPA")
+    min_notInGPA_team = notInGPA_team.first()
     if min_notInGPA_team:
         print("min out of bound" + str(min_notInGPA_team.avg_GPA))
     else:
         print("no Min team out of bound!")
     # 不在范围里最大的组
-    max_notInGPA_team = teams.filter(isInGPA=False).order_by("-avg_GPA").first()
+    max_notInGPA_team = notInGPA_team.last()
+
     if max_notInGPA_team:
         print("max out of bound" + str(max_notInGPA_team.avg_GPA))
     else:
@@ -482,9 +485,9 @@ def forming_method(request, course_id):
                 team2.save()
 
         if choice == 2:
-            if max_notInGPA_team.avg_GPA <= upper_bound:
+            if max_notInGPA_team.avg_GPA <= lower_bound:
                 min_notInGPA_team = max_notInGPA_team
-            if min_notInGPA_team.avg_GPA <= upper_bound:
+            if min_notInGPA_team.avg_GPA <= lower_bound:
                 # 不在范围里最小的组的最小的GPA的人
                 min_person_notIn = Student.objects.filter(user__team=min_notInGPA_team).order_by("GPA").first()
                 print(min_person_notIn.user)

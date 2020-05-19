@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="49d64f95-7224-4600-a851-b2f5f7be4fc9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/24.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/29.【1】妹尾武 - 夏祭り、夢花火。.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/team/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/img/1.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/team/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/team/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,7 +23,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
+            <state relative-caret-position="2226">
               <caret line="124" column="22" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="22" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -37,7 +35,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
+            <state relative-caret-position="2163">
               <caret line="103" selection-start-line="103" selection-end-line="103" />
               <folding>
                 <element signature="e#1814#1843#0#HTML" expanded="true" />
@@ -49,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/team/templates/group_size.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="3759">
               <caret line="179" column="12" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="12" />
             </state>
           </provider>
@@ -58,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
+            <state relative-caret-position="147">
               <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
@@ -70,7 +68,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/submission/templates/modify_submission.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
+            <state relative-caret-position="399">
               <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
               <folding>
                 <element signature="e#1384#1418#0#HTML" expanded="true" />
@@ -92,8 +90,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/team/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="482" selection-start-line="482" selection-end-line="482" />
+            <state relative-caret-position="126">
+              <caret line="418" column="4" selection-start-line="418" selection-start-column="4" selection-end-line="512" selection-end-column="26" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -104,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-180">
+            <state relative-caret-position="105">
               <caret line="6" column="59" selection-start-line="6" selection-start-column="59" selection-end-line="6" selection-end-column="59" />
             </state>
           </provider>
@@ -113,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/team/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+            <state relative-caret-position="294">
+              <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -125,7 +123,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/course/templates/generate_student.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-42">
+            <state relative-caret-position="336">
               <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
               <folding>
                 <element signature="e#758#777#0#HTML" expanded="true" />
@@ -212,10 +210,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="610" />
     <option name="y" value="-15" />
-    <option name="width" value="979" />
+    <option name="width" value="980" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -233,11 +231,6 @@
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
               <item name="Code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Code" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Code" type="462c0819:PsiDirectoryNode" />
-              <item name="course" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Code" type="b2602c69:ProjectViewProjectNode" />
@@ -348,12 +341,13 @@
       <workItem from="1589271757313" duration="14468000" />
       <workItem from="1589447309318" duration="5715000" />
       <workItem from="1589454508226" duration="17154000" />
-      <workItem from="1589794411468" duration="24526000" />
+      <workItem from="1589794411468" duration="24647000" />
+      <workItem from="1589850697818" duration="1734000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172695000" />
+    <option name="totallyTimeSpent" value="174550000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -366,13 +360,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.503055" side_tool="true" weight="0.18791947" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49694502" visible="true" weight="0.1883378" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.49694502" visible="true" weight="0.19101876" />
       <window_info id="Structure" order="2" sideWeight="0.503055" side_tool="true" weight="0.18791947" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.48458445" visible="true" weight="0.43909347" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.51541555" side_tool="true" visible="true" weight="0.43909347" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" sideWeight="0.4839142" visible="true" weight="0.29461756" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5160858" side_tool="true" visible="true" weight="0.29461756" />
       <window_info anchor="bottom" id="Database Changes" order="3" />
       <window_info anchor="bottom" id="Version Control" order="4" sideWeight="0.49798927" weight="0.3286119" />
       <window_info anchor="bottom" id="Python Console" order="5" sideWeight="0.4986577" weight="0.32840237" />
@@ -702,29 +697,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
+    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-1055577769/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-          <folding>
-            <element signature="e#1814#1843#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/course/templates/generate_student.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-42">
-          <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
-          <folding>
-            <element signature="e#758#777#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="289" column="4" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/course/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
+        <state relative-caret-position="2226">
           <caret line="124" column="22" selection-start-line="124" selection-start-column="15" selection-end-line="124" selection-end-column="22" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -732,10 +714,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/submission/templates/leader_assessment.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2163">
+          <caret line="103" selection-start-line="103" selection-end-line="103" />
+          <folding>
+            <element signature="e#1814#1843#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/team/templates/group_size.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="3759">
           <caret line="179" column="12" selection-start-line="179" selection-start-column="12" selection-end-line="179" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/submission/templates/modify_submission.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
+          <folding>
+            <element signature="e#1384#1418#0#HTML" expanded="true" />
+            <element signature="e#1524#1551#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -746,45 +759,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/submission/templates/modify_submission.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="19" column="66" selection-start-line="19" selection-start-column="66" selection-end-line="19" selection-end-column="66" />
-          <folding>
-            <element signature="e#1384#1418#0#HTML" expanded="true" />
-            <element signature="e#1524#1551#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.3/system/python_stubs/-1055577769/builtins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="289" column="4" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/course/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
+        <state relative-caret-position="105">
           <caret line="6" column="59" selection-start-line="6" selection-start-column="59" selection-end-line="6" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/course/templates/generate_student.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="82" selection-start-line="16" selection-start-column="82" selection-end-line="16" selection-end-column="82" />
+          <folding>
+            <element signature="e#758#777#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/team/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+        <state relative-caret-position="294">
+          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -793,8 +788,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/team/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="482" selection-start-line="482" selection-end-line="482" />
+        <state relative-caret-position="126">
+          <caret line="418" column="4" selection-start-line="418" selection-start-column="4" selection-end-line="512" selection-end-column="26" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
