@@ -415,6 +415,13 @@ def processInvite(request, course_id, invite_id, isAccept):
                 team_from_user.save()
                 process_invite.isAccept = 1
                 process_invite.save()
+
+                reject_invitation = Invitation.objects.filter(course=course, to_user=user.id).exclude(id=process_invite.id)
+                for invtation in reject_invitation:
+                    invtation.isAccept = 2
+                    invtation.save()
+                
+                request.session['teammate_management_msg'] = "You are added into the group successfully!"
             else:
                 process_invite.isAccept = 2
                 process_invite.save()
@@ -501,9 +508,11 @@ def random_form_groups(course, group_list):
             formal_team = Team.objects.create(course=course, name="group " + str(count_group))
             count_group = count_group + 1
             small_teams = Team.objects.filter(id__in=combination_groups)
+            formal_team.size = 0
             for team in small_teams:
                 for member in team.member.all():
                     formal_team.member.add(member)
+                    formal_team.size = formal_team.size + 1
                 team.member.clear()
             small_teams.delete()
             formal_team.save()

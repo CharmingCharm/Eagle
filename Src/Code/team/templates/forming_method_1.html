@@ -70,9 +70,7 @@
 
 
                                 <div style="margin: 20px;">
-                                    {% if course.form_method == 3 and course.team_number_1 == 4 %}
-                                    <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
-                                    {% elif course.form_method != 2 %}
+                                    {% if course.form_method == 3 and course.team_size_1 != 4 %}
                                     <form method="post" action="/course/{{ course.id }}/forming_method">
                                         {% csrf_token %}
                                         <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
@@ -82,7 +80,6 @@
                                     </form>
                                     {% else %}
                                          <a href="/course/{{ course.id }}" class="btn red waves-effect waves-light"><i class="material-icons left">fast_rewind</i>back</a>
-
                                     {% endif %}
 
                                 </div>
