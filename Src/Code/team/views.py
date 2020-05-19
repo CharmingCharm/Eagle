@@ -239,6 +239,7 @@ def group_size(request, course_id):
             group_size = int(request.POST.get("group_size"))
             form_method = int(request.POST.get("form_method"))
             consider_GPA = request.POST.get("consider_GPA")
+            print(consider_GPA)
             team_num = int(stuNum/group_size)
 
             if request.POST.get("group") is not None:

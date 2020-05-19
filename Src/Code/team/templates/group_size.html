@@ -14,11 +14,11 @@
                         <div class="card-content">
                             <h3 class="truncate changefont">Group setting</h3>
                             <p class="truncate" style="color:grey; margin-top:-10px; font-size: 16px;"><span
-                                        class="head_text"> <a href="/{{ request.user.field }}_home"
-                                                              style="color: grey"> Main page </a><b>&gt;</b> <a
-                                        href="/course/{{ course.id }}"
-                                        style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
-                                        style="color: dodgerblue">Group setting</span> </span></p>
+                                    class="head_text"> <a href="/{{ request.user.field }}_home"
+                                                          style="color: grey"> Main page </a><b>&gt;</b> <a
+                                    href="/course/{{ course.id }}"
+                                    style="color: grey"> {{ course.name }} </a> <b>&gt;</b> <span
+                                    style="color: dodgerblue">Group setting</span> </span></p>
                             <hr>
                             <br>
                             <br>
@@ -38,7 +38,8 @@
                                             <div>
                                                 <div class="row">
                                                     <div class="input-field col s12"><i class="material-icons prefix">assignment_ind</i>
-                                                        <input type="number" class="validate" id="group_size" name="group_size"
+                                                        <input type="number" class="validate" id="group_size"
+                                                               name="group_size"
                                                                required>
                                                         <label for="icon_per">Please set the group size</label>
                                                     </div>
@@ -70,10 +71,12 @@
                                                             <label for="3">Forming method 3: A student can choose one
                                                                 friend
                                                                 and
-                                                                others are given by the system randomly. 
-                                                                (You still need to input the useless group size for submission)
+                                                                others are given by the system randomly.
+                                                                (You still need to input the useless group size for
+                                                                submission)
                                                             </label>
                                                         </div>
+
                                                     </div>
                                                 </div>
 
@@ -94,6 +97,27 @@
                                                         </div>
 
                                                     </div>
+
+                                                    <div class="row">
+                                                        <div class="input-field col s12"><i
+                                                                class="material-icons prefix">assignment_ind</i>
+                                                            <input type="number" class="validate" id="setUpperBound"
+                                                                   name="setUpperBound">
+                                                            <label for="icon_per">Please set upper bound of the GPA in
+                                                                each team.</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="input-field col s12"><i
+                                                                class="material-icons prefix">assignment_ind</i>
+                                                            <input type="number" class="validate" id="setLowerBound"
+                                                                   name="setLowerBound">
+                                                            <label for="icon_per">Please set lower bound of the GPA in
+                                                                each team.</label>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -105,26 +129,28 @@
                                            style="float: right;"
                                            href="#modal1"><i
                                                 class="material-icons left">send</i>Confirm</a>
-                                        
+
 
                                         <div id="modal1" class="modal">
-                                                <div class="modal-content" style="padding:40px;">
-                                                    <h4> Suggestions for you:</h4>
+                                            <div class="modal-content" style="padding:40px;">
+                                                <h4> Suggestions for you:</h4>
 
-                                                    <div id="p_re-check"></div>
-                                                    </p>
-                                                    <hr>
-                                                    <br>
-                                                    <p style="font-weight: 500; font-size:20px;">Options:</p>
-                                                    <div id="re-check"></div>
-                                                    
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="waves-effect waves-light btn green modal-trigger"
-                                                       style="float: right; margin-right: 40px; margin-bottom: 40px;"
-                                                       href="#modal1"><i
-                                                            class="material-icons left">send</i>Confirm</button>
-                                                </div>
+                                                <div id="p_re-check"></div>
+                                                </p>
+                                                <hr>
+                                                <br>
+                                                <p style="font-weight: 500; font-size:20px;">Options:</p>
+                                                <div id="re-check"></div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit"
+                                                        class="waves-effect waves-light btn green modal-trigger"
+                                                        style="float: right; margin-right: 40px; margin-bottom: 40px;"
+                                                        href="#modal1"><i
+                                                        class="material-icons left">send</i>Confirm
+                                                </button>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>
@@ -146,11 +172,28 @@
     <script>
         $(function () {
             $(".showGPA").hide();
+            $(".setUpperBound").hide();
+            $(".setLowerBound").hide();
+
             $(".GPA").click(function () {
                 $(".showGPA").show();
             });
+
+            $(".showGPA").click(function () {
+                if ($(".showGPA").val() == 1){
+                    $(".setUpperBound").show();
+                    $(".setLowerBound").show();
+                }
+                else{
+                    $(".setUpperBound").hide();
+                    $(".setLowerBound").hide();
+                }
+            });
+
             $(".notGPA").click(function () {
                 $(".showGPA").hide();
+                $(".setUpperBound").hide();
+                $(".setLowerBound").hide();
             });
 
         });
@@ -167,23 +210,23 @@
             });
         });
 
-        $("#first_confirm").click(function (){
+        $("#first_confirm").click(function () {
             var total_num = {{ stuNum }};
             var group_size = parseInt($("#group_size").val());
             var forming_method_groups = document.getElementsByName("form_method");
             var form_method = 0;
-            for(var i=0;i<forming_method_groups.length;i++){
-                if(forming_method_groups[i].checked){
+            for (var i = 0; i < forming_method_groups.length; i++) {
+                if (forming_method_groups[i].checked) {
                     form_method = i + 1;
                 }
             }
-            if(group_size <= 0){
+            if (group_size <= 0) {
                 alert("Please input a positive integer!");
                 window.location.reload();
             }
             var text1, text2;
-            if(form_method != 3){
-                if(total_num % group_size == 0){
+            if (form_method != 3) {
+                if (total_num % group_size == 0) {
                     text1 = "<p style=\"font-size: 20px;\"> The total number is the multiple of the group size!";
                     text2 = "<h5>You may directly set the group right now!</h5>";
                 } else {
@@ -197,7 +240,7 @@
                     var average_more = parseInt(resid / num_group1);
                     var group1_normal = group_size + average_more;
                     var group1_abnormal = group1_normal + 1;
-                    
+
                     // suggestion 2.
                     var group2_abnormal = resid;
 
@@ -207,10 +250,10 @@
                     text2 = text2 + "<input name=\"group\" checked type=\"radio\" value=\"1\" id=\"suggestion1\"/>";
                     text2 = text2 + "<label for=\"suggestion1\">";
                     text2 = text2 + String(num_group1) + " groups, ";
-                    if (more1_num != 0){
+                    if (more1_num != 0) {
                         text2 = text2 + String(more1_num) + " groups have(has) size " + String(group1_abnormal) + ", ";
                     }
-                    if (normal_num != 0){
+                    if (normal_num != 0) {
                         text2 = text2 + String(normal_num) + " groups have(has) size " + String(group1_normal) + ".";
                     }
                     text2 = text2 + "</label>";
@@ -226,7 +269,7 @@
                 }
             } else {
                 var group_num_2_people = 0;
-                if(total_num % 2){
+                if (total_num % 2) {
                     group_num_2_people = parseInt((total_num - 1) / 2);
                     text1 = "<p style=\"font-size: 20px;\"> The total number is the an <span class=\"purple-text\">odd</span> number!";
                     text2 = "<div style=\"margin-left: 40px; margin-top: 30px;\">";
