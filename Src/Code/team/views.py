@@ -125,6 +125,108 @@ def random_form(group_size, num_group_in_size, total_group_size, course):
                 new_team.member.add(new_member)
                 count_stu = count_stu + 1
             new_team.save()
+    
+    #########################################################
+    if course.form_method == 4:
+        students = User.objects.filter(course=course)
+        teams = Team.objects.filter(course=course)
+        # 全班平均GPA
+        entire_GPA = 0
+        for item in teams:
+            for team_member in item.member.all():
+                entire_GPA += team_member.student.GPA
+        course_avg_GPA = entire_GPA/students.count()
+        print("course average GPA: " + str(course_avg_GPA))
+        # 每一个组的平均GPA计算
+        teams = Team.objects.filter(course=course)
+        team_to_be_changed = teams
+        upper_bound = 3.6
+        lower_bound = 2.8
+        for origin_team in teams:
+            total_gpa = 0.0
+            for team_member in origin_team.member.all():
+                total_gpa += team_member.student.GPA
+            avg_gpa = total_gpa / origin_team.member.count()
+            origin_team.avg_GPA = avg_gpa
+            print("origin:"+str(avg_gpa))
+            origin_team.save()
+
+        for origin_team in teams:
+            if origin_team.avg_GPA <= upper_bound and origin_team.avg_GPA >= lower_bound:
+                origin_team.isInGPA = True
+                origin_team.save()
+            else:
+                origin_team.isInGPA = False
+                origin_team.save()
+        # 不在范围里最小的组
+        notInGPA_team = teams.filter(isInGPA=False).order_by("avg_GPA")
+        min_notInGPA_team = notInGPA_team.first()
+        if min_notInGPA_team:
+            print("min out of bound" + str(min_notInGPA_team.avg_GPA))
+        else:
+            print("no Min team out of bound!")
+        # 不在范围里最大的组
+        max_notInGPA_team = notInGPA_team.last()
+
+        if max_notInGPA_team:
+            print("max out of bound" + str(max_notInGPA_team.avg_GPA))
+        else:
+            print("no MAX team out of bound!")
+
+        choice = random.randint(1, 2)
+        if max_notInGPA_team or min_notInGPA_team:
+            if choice == 1:
+                if min_notInGPA_team.avg_GPA >= upper_bound:
+                    max_notInGPA_team = min_notInGPA_team
+                if max_notInGPA_team.avg_GPA >= upper_bound:
+                    # 不在范围里最大的组的最大的GPA的人
+                    max_person_notIn = Student.objects.filter(user__team=max_notInGPA_team).order_by("-GPA").first()
+                    # 整个班级组里倒数第二小的GPA的人
+                    min_person_total = Student.objects.filter(user__course=course).order_by("GPA")[1]
+                    # 映射到组
+                    team1 = Team.objects.filter(course=course, member=max_person_notIn.user).first()
+                    team2 = Team.objects.filter(course=course, member=min_person_total.user).first()
+
+                    # 置换组员
+                    team1.member.add(min_person_total.user)
+                    team1.member.remove(max_person_notIn.user)
+                    team2.member.add(max_person_notIn.user)
+                    team2.member.remove(min_person_total.user)
+
+                    team1.save()
+                    team2.save()
+
+            if choice == 2:
+                if max_notInGPA_team.avg_GPA <= lower_bound:
+                    min_notInGPA_team = max_notInGPA_team
+                if min_notInGPA_team.avg_GPA <= lower_bound:
+                    # 不在范围里最小的组的最小的GPA的人
+                    min_person_notIn = Student.objects.filter(user__team=min_notInGPA_team).order_by("GPA").first()
+                    print(min_person_notIn.user)
+                    # 整个班级组里第二大的GPA的人
+                    max_person_total = Student.objects.filter(user__course=course).order_by("-GPA")[1]
+                    print(max_person_total.user.student.GPA)
+                    # 映射到组
+                    team1 = Team.objects.filter(course=course, member=min_person_notIn.user).first()
+                    team2 = Team.objects.filter(course=course, member=max_person_total.user).first()
+                    # 置换组员
+                    team1.member.add(max_person_total.user)
+                    team1.member.remove(min_person_notIn.user)
+                    team2.member.add(min_person_notIn.user)
+                    team2.member.remove(max_person_total.user)
+
+                    team1.save()
+                    team2.save()
+        #更新并保存数据库
+        for origin_team in teams:
+            total_gpa = 0.0
+            for team_member in origin_team.member.all():
+                total_gpa += team_member.student.GPA
+            avg_gpa = total_gpa / origin_team.member.count()
+            origin_team.avg_GPA = avg_gpa
+            print("after:" + str(avg_gpa))
+            origin_team.save()
+
     return "Success!"
 
 def group_size(request, course_id):
@@ -221,22 +323,23 @@ def group_size(request, course_id):
                     elif size_type == 2:
                         group2_abnormal = resid
                         random_form([group_size, group2_abnormal],[num_group2 - 1,1],stuNum,course)
-
-                    if form_method == 4:
-                        ##################################
+                    else:
+                        pass
+                    # if form_method == 4:
+                    #     ##################################
                         
-                        ##################################
-                        # team = Team.objects.filter(course=course)
-                        # team_to_be_changed = team
-                        # upper_bound = 3.2
-                        # lower_bound = 2.7
-                        # for origin_team in team_to_be_changed:
-                        #     total_gpa = 0
-                        #     for team_member in origin_team.member:
-                        #         total_gpa += team_member.student.GPA
-                        #     avg_gpa = total_gpa/origin_team.member.count()
-                        #     print(avg_gpa)
-                        return redirect('/course/' + str(course_id) + '/forming_method')
+                    #     ##################################
+                    #     # team = Team.objects.filter(course=course)
+                    #     # team_to_be_changed = team
+                    #     # upper_bound = 3.2
+                    #     # lower_bound = 2.7
+                    #     # for origin_team in team_to_be_changed:
+                    #     #     total_gpa = 0
+                    #     #     for team_member in origin_team.member:
+                    #     #         total_gpa += team_member.student.GPA
+                    #     #     avg_gpa = total_gpa/origin_team.member.count()
+                    #     #     print(avg_gpa)
+                    #     return redirect('/course/' + str(course_id) + '/forming_method')
 
 
                     isSetGroup = 'yes'
@@ -416,105 +519,105 @@ def forming_method(request, course_id):
         form_method_msg = request.session.get('form_method_msg')
         request.session.pop('form_method_msg')
 
-    #########################################################################################################
-    students = User.objects.filter(course=course)
-    # 全班平均GPA
-    entire_GPA = 0
-    for item in teams:
-        for team_member in item.member.all():
-            entire_GPA += team_member.student.GPA
-    course_avg_GPA = entire_GPA/students.count()
-    print("course average GPA: " + str(course_avg_GPA))
-    # 每一个组的平均GPA计算
-    teams = Team.objects.filter(course=course)
-    team_to_be_changed = teams
-    upper_bound = 3.6
-    lower_bound = 2.8
-    for origin_team in teams:
-        total_gpa = 0.0
-        for team_member in origin_team.member.all():
-            total_gpa += team_member.student.GPA
-        avg_gpa = total_gpa / origin_team.member.count()
-        origin_team.avg_GPA = avg_gpa
-        print("origin:"+str(avg_gpa))
-        origin_team.save()
+#     #########################################################################################################
+#     students = User.objects.filter(course=course)
+#     # 全班平均GPA
+#     entire_GPA = 0
+#     for item in teams:
+#         for team_member in item.member.all():
+#             entire_GPA += team_member.student.GPA
+#     course_avg_GPA = entire_GPA/students.count()
+#     print("course average GPA: " + str(course_avg_GPA))
+#     # 每一个组的平均GPA计算
+#     teams = Team.objects.filter(course=course)
+#     team_to_be_changed = teams
+#     upper_bound = 3.6
+#     lower_bound = 2.8
+#     for origin_team in teams:
+#         total_gpa = 0.0
+#         for team_member in origin_team.member.all():
+#             total_gpa += team_member.student.GPA
+#         avg_gpa = total_gpa / origin_team.member.count()
+#         origin_team.avg_GPA = avg_gpa
+#         print("origin:"+str(avg_gpa))
+#         origin_team.save()
 
-    for origin_team in teams:
-        if origin_team.avg_GPA <= upper_bound and origin_team.avg_GPA >= lower_bound:
-            origin_team.isInGPA = True
-            origin_team.save()
-        else:
-            origin_team.isInGPA = False
-            origin_team.save()
-    # 不在范围里最小的组
-    notInGPA_team = teams.filter(isInGPA=False).order_by("avg_GPA")
-    min_notInGPA_team = notInGPA_team.first()
-    if min_notInGPA_team:
-        print("min out of bound" + str(min_notInGPA_team.avg_GPA))
-    else:
-        print("no Min team out of bound!")
-    # 不在范围里最大的组
-    max_notInGPA_team = notInGPA_team.last()
+#     for origin_team in teams:
+#         if origin_team.avg_GPA <= upper_bound and origin_team.avg_GPA >= lower_bound:
+#             origin_team.isInGPA = True
+#             origin_team.save()
+#         else:
+#             origin_team.isInGPA = False
+#             origin_team.save()
+#     # 不在范围里最小的组
+#     notInGPA_team = teams.filter(isInGPA=False).order_by("avg_GPA")
+#     min_notInGPA_team = notInGPA_team.first()
+#     if min_notInGPA_team:
+#         print("min out of bound" + str(min_notInGPA_team.avg_GPA))
+#     else:
+#         print("no Min team out of bound!")
+#     # 不在范围里最大的组
+#     max_notInGPA_team = notInGPA_team.last()
 
-    if max_notInGPA_team:
-        print("max out of bound" + str(max_notInGPA_team.avg_GPA))
-    else:
-        print("no MAX team out of bound!")
+#     if max_notInGPA_team:
+#         print("max out of bound" + str(max_notInGPA_team.avg_GPA))
+#     else:
+#         print("no MAX team out of bound!")
 
-    choice = random.randint(1, 2)
-    if max_notInGPA_team or min_notInGPA_team:
-        if choice == 1:
-            if min_notInGPA_team.avg_GPA >= upper_bound:
-                max_notInGPA_team = min_notInGPA_team
-            if max_notInGPA_team.avg_GPA >= upper_bound:
-                # 不在范围里最大的组的最大的GPA的人
-                max_person_notIn = Student.objects.filter(user__team=max_notInGPA_team).order_by("-GPA").first()
-                # 整个班级组里倒数第二小的GPA的人
-                min_person_total = Student.objects.filter(user__course=course).order_by("GPA")[1]
-                # 映射到组
-                team1 = Team.objects.filter(course=course, member=max_person_notIn.user).first()
-                team2 = Team.objects.filter(course=course, member=min_person_total.user).first()
+#     choice = random.randint(1, 2)
+#     if max_notInGPA_team or min_notInGPA_team:
+#         if choice == 1:
+#             if min_notInGPA_team.avg_GPA >= upper_bound:
+#                 max_notInGPA_team = min_notInGPA_team
+#             if max_notInGPA_team.avg_GPA >= upper_bound:
+#                 # 不在范围里最大的组的最大的GPA的人
+#                 max_person_notIn = Student.objects.filter(user__team=max_notInGPA_team).order_by("-GPA").first()
+#                 # 整个班级组里倒数第二小的GPA的人
+#                 min_person_total = Student.objects.filter(user__course=course).order_by("GPA")[1]
+#                 # 映射到组
+#                 team1 = Team.objects.filter(course=course, member=max_person_notIn.user).first()
+#                 team2 = Team.objects.filter(course=course, member=min_person_total.user).first()
 
-                # 置换组员
-                team1.member.add(min_person_total.user)
-                team1.member.remove(max_person_notIn.user)
-                team2.member.add(max_person_notIn.user)
-                team2.member.remove(min_person_total.user)
+#                 # 置换组员
+#                 team1.member.add(min_person_total.user)
+#                 team1.member.remove(max_person_notIn.user)
+#                 team2.member.add(max_person_notIn.user)
+#                 team2.member.remove(min_person_total.user)
 
-                team1.save()
-                team2.save()
+#                 team1.save()
+#                 team2.save()
 
-        if choice == 2:
-            if max_notInGPA_team.avg_GPA <= lower_bound:
-                min_notInGPA_team = max_notInGPA_team
-            if min_notInGPA_team.avg_GPA <= lower_bound:
-                # 不在范围里最小的组的最小的GPA的人
-                min_person_notIn = Student.objects.filter(user__team=min_notInGPA_team).order_by("GPA").first()
-                print(min_person_notIn.user)
-                # 整个班级组里第二大的GPA的人
-                max_person_total = Student.objects.filter(user__course=course).order_by("-GPA")[1]
-                print(max_person_total.user.student.GPA)
-                # 映射到组
-                team1 = Team.objects.filter(course=course, member=min_person_notIn.user).first()
-                team2 = Team.objects.filter(course=course, member=max_person_total.user).first()
-                # 置换组员
-                team1.member.add(max_person_total.user)
-                team1.member.remove(min_person_notIn.user)
-                team2.member.add(min_person_notIn.user)
-                team2.member.remove(max_person_total.user)
+#         if choice == 2:
+#             if max_notInGPA_team.avg_GPA <= lower_bound:
+#                 min_notInGPA_team = max_notInGPA_team
+#             if min_notInGPA_team.avg_GPA <= lower_bound:
+#                 # 不在范围里最小的组的最小的GPA的人
+#                 min_person_notIn = Student.objects.filter(user__team=min_notInGPA_team).order_by("GPA").first()
+#                 print(min_person_notIn.user)
+#                 # 整个班级组里第二大的GPA的人
+#                 max_person_total = Student.objects.filter(user__course=course).order_by("-GPA")[1]
+#                 print(max_person_total.user.student.GPA)
+#                 # 映射到组
+#                 team1 = Team.objects.filter(course=course, member=min_person_notIn.user).first()
+#                 team2 = Team.objects.filter(course=course, member=max_person_total.user).first()
+#                 # 置换组员
+#                 team1.member.add(max_person_total.user)
+#                 team1.member.remove(min_person_notIn.user)
+#                 team2.member.add(min_person_notIn.user)
+#                 team2.member.remove(max_person_total.user)
 
-                team1.save()
-                team2.save()
-    #更新并保存数据库
-    for origin_team in teams:
-        total_gpa = 0.0
-        for team_member in origin_team.member.all():
-            total_gpa += team_member.student.GPA
-        avg_gpa = total_gpa / origin_team.member.count()
-        origin_team.avg_GPA = avg_gpa
-        print("after:" + str(avg_gpa))
-        origin_team.save()
-####################################################################################################################
+#                 team1.save()
+#                 team2.save()
+#     #更新并保存数据库
+#     for origin_team in teams:
+#         total_gpa = 0.0
+#         for team_member in origin_team.member.all():
+#             total_gpa += team_member.student.GPA
+#         avg_gpa = total_gpa / origin_team.member.count()
+#         origin_team.avg_GPA = avg_gpa
+#         print("after:" + str(avg_gpa))
+#         origin_team.save()
+# ####################################################################################################################
 
 
     if request.method == 'POST':

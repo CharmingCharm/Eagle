@@ -56,6 +56,11 @@
 
                                                         {% endfor %}
                                                         </div>
+                                                        {% if course.form_method == 4 or course.form_method == 5 %}
+                                                        <p class="center-align"
+                                                           style="font-size: 20px; font-weight: 300;">
+                                                            Average GPA: {{ item.avg_GPA }}</p>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
