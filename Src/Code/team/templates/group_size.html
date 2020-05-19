@@ -172,26 +172,24 @@
     <script>
         $(function () {
             $(".showGPA").hide();
-            $(".setUpperBound").hide();
-            $(".setLowerBound").hide();
 
             $(".GPA").click(function () {
                 $(".showGPA").show();
             });
 
-            if ($('#consider_GPA').prop('checked')){
-                $(".setUpperBound").show();
-                $(".setLowerBound").show();
-            }
-            else{
-                $(".setUpperBound").hide();
-                $(".setLowerBound").hide();
-            }
+            $('#consider_GPA').click(function () {
+                if ($('#consider_GPA').prop('checked')) {
+                    $(".setUpperBound").show();
+                    $(".setLowerBound").show();
+                }
+                else{
+                    $(".setUpperBound").hide();
+                    $(".setLowerBound").hide();
+                }
+            });
 
             $(".notGPA").click(function () {
                 $(".showGPA").hide();
-                $(".setUpperBound").hide();
-                $(".setLowerBound").hide();
             });
         });
 
