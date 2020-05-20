@@ -59,6 +59,7 @@ def modify_submission(request, course_id):
         course = Course.objects.get(id=course_id)
         teachers = course.member.filter(field='teacher')
         memNum = course.member.count()
+        teamNum = Team.objects.filter(course=course).count()
 
         msg = "no_msg"
         deleteId = set()

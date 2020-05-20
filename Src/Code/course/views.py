@@ -271,10 +271,9 @@ def import_student_individual(request, course_id):
             temp_user['email'] = inidividual_form.cleaned_data['email']
             temp_user['GPA'] = inidividual_form.cleaned_data['GPA']
             temp_user['user_name'] = inidividual_form.cleaned_data['email']
-
-            if Student.objects.filter(studentID=temp_user['stu_id']).first() is None:
-                request.session['temp_user'] = temp_user
-                return redirect('/course/'+ str(course.id) + '/generate_student')
+            
+            request.session['temp_user'] = temp_user
+            return redirect('/course/'+ str(course.id) + '/generate_student')
     inidividual_form = ImportIndividualForm()
     return render(request, 'import_student_individual.html', locals())
 

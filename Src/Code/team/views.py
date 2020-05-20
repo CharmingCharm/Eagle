@@ -164,8 +164,6 @@ def group_size(request, course_id):
 
             if consider_GPA and form_method == 2:
                 form_method = 4
-            if consider_GPA and form_method == 3:
-                form_method = 5
 
                 # messages.add_message(request, messages.success, 'You have successfully set the team forming!')
 
