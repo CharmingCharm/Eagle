@@ -147,8 +147,8 @@ def group_size(request, course_id):
             group_size = int(request.POST.get("group_size"))
             form_method = int(request.POST.get("form_method"))
             consider_GPA = request.POST.get("consider_GPA")
-            setUpperBound_orogin = float(request.POST.get("setUpperBound"))
-            setLowerBound_origin = float(request.POST.get("setLowerBound"))
+            setUpperBound_orogin = request.POST.get("setUpperBound")
+            setLowerBound_origin = request.POST.get("setLowerBound")
             if setUpperBound_orogin != '':
                 setUpperBound = float(setUpperBound_orogin)
             if setLowerBound_origin != '':
