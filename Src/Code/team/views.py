@@ -248,7 +248,6 @@ def group_size(request, course_id):
             if form_method == 4:
                 if size_type is None:
                     random_form([group_size],[team_num],stuNum,course)
-                    return redirect('/course/' + str(course_id) + '/forming_method')
                 else:
                     resid = stuNum % group_size
                     num_group1 = int(stuNum / group_size)
